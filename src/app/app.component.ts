@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public loginok: boolean = false;
+  public loginok: number = 1;
 
   public appPages = [
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
@@ -20,10 +20,19 @@ export class AppComponent {
   constructor() {}
 
   fazerLogin(){
-    this.loginok = true;
+    this.loginok = 2;
   }
 
   sair(){
-    this.loginok = false;
+    this.loginok = 1;
+  }
+
+  criarUsuario(){
+    this.loginok = 3;
+  }
+
+  criarNovoUsuario(){
+    alert("criou");
+    this.loginok = 1;
   }
 }

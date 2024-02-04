@@ -6,7 +6,8 @@ import { IonicModule } from '@ionic/angular';
 import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     FormsModule,

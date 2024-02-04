@@ -1,6 +1,5 @@
 
-<div *ngIf="loginok == false"> 
-
+<div *ngIf="loginok == 1"> 
   <body>
     <div class="page">
         <form method="POST" class="formLogin">
@@ -14,14 +13,14 @@
             <input type="submit" value="Acessar" (click)="fazerLogin()" class="btn" />
 
             <div class="criaConta">
-              Ainda não tem conta? <a class="" href="/">clique aqui</a>
+              Ainda não tem conta? <a class="" (click)="criarUsuario()">clique aqui</a>
             </div>
         </form>
     </div>
   </body>
 </div>
 
-<div *ngIf="loginok == true">
+<div *ngIf="loginok == 2">
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
@@ -56,4 +55,38 @@
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
+</div>
+
+<div *ngIf="loginok == 3">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Criar Usuário</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content style="height: 2000px;">
+      <div class="container">
+        <div class="divBotaoCadastroUsuario">
+          <H1><b>WhiskyPedia</b></H1>
+          <H5>Seja Bem Vindo!</H5>
+        </div>
+        <form style="margin-top: 20px;">
+          <div class="form-group">
+            <input class="inputCadUsuario" type="text" id="nome" placeholder="Nome Usuario" formControlName="nome" />
+          </div>
+          <div class="form-group">
+            <input class="inputCadUsuario" type="email" id="email" formControlName="email" placeholder="E-mail"/>
+          </div>
+          <div class="form-group">
+            <input class="inputCadUsuario" type="text" id="telefone" formControlName="telefone" placeholder="Telefone"/>
+          </div>
+          <div class="form-group">
+            <input class="inputCadUsuario" type="password" id="senha" formControlName="senha" placeholder="Senha"/>
+          </div>
+          <div class="divBotaoCadastroUsuario" style="margin-top: 30px;">
+            <button class="buttonCadastroUsuario" (click)="criarNovoUsuario()">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+  </ion-content>
 </div>
