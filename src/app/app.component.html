@@ -58,41 +58,5 @@
 </div>
 
 <div *ngIf="loginok == 3">
-  <!-- <ion-header>
-    <ion-toolbar>
-      <ion-title>Criar Usuário</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-
-  <ion-content style="height: 1500px; background-color: rgb(255, 255, 255);">
-      <div class="container" style="background-color: rgb(255, 255, 255); height: 100%;">
-        <div class="divCadastroUsuario">
-          <H1><b>WhiskyPedia</b></H1>
-          <H5 style="color: #df994a;">Seja Bem Vindo!</H5>
-        </div>
-        <div class="divTituloCadastroUsuario">
-          <H2><b>Criar Usuário</b></H2>
-        </div>
-        <form style="margin-top: 30px;">
-          <div class="form-group">
-            <input class="inputCadUsuario" type="text" placeholder="Nome Usuario" [(ngModel)]="usuarios.nome_usuario" name="nome_usuario" />
-          </div>
-          <div class="form-group">
-            <input class="inputCadUsuario" type="email" placeholder="E-mail" [(ngModel)]="usuarios.email_usuario" name="email_usuario"/>
-          </div>
-          <div class="form-group">
-            <input class="inputCadUsuario" type="text" placeholder="Telefone" [(ngModel)]="usuarios.telefone_usuario" name="telefone_usuario"/>
-          </div>
-          <div class="form-group">
-            <input class="inputCadUsuario" type="text" placeholder="Data Nascimento" [(ngModel)]="usuarios.data_nascimento_usuario" name="data_nascimento_usuario"/>
-          </div>
-          <div class="form-group">
-            <input class="inputCadUsuario" type="password" placeholder="Senha" [(ngModel)]="usuarios.senha_usuario" name="senha_usuario"/>
-          </div>
-          <div class="divBotaoCadastroUsuario" style="margin-top: 40px;">
-            <button class="buttonCadastroUsuario" (click)="criarNovoUsuario()">Cadastrar</button>
-          </div>
-        </form>
-      </div>
-  </ion-content>
+  <app-criar-usuario></app-criar-usuario>
 </div>

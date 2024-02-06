@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from './model/usuario.model';
-
 
 @Component({
   selector: 'app-root',
@@ -9,7 +7,6 @@ import { Usuario } from './model/usuario.model';
 })
 export class AppComponent  implements OnInit {
   public loginok: number = 1;
-  public usuarios: Usuario = {};
 
   public appPages = [
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
@@ -21,10 +18,10 @@ export class AppComponent  implements OnInit {
     { title: 'Login', url: '/pages/login', icon: 'mail' }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(){} 
+  constructor(){
+  } 
   
-  ngOnInit() {
-    this.loginok = 1;
+  ngOnInit(): void {
   }
 
   fazerLogin(){
@@ -37,14 +34,5 @@ export class AppComponent  implements OnInit {
 
   criarUsuario(){
     this.loginok = 3;
-  }
-
-  criarNovoUsuario(): void {
-    console.log(this.usuarios);
-
-    this.usuarios = {};
-
-    //alert("criou");
-    this.loginok = 1;
   }
 }

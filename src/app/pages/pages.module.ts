@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 
 import { PagesRoutingModule } from './pages-routing.module';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+import { FormsModule } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [
@@ -11,8 +17,13 @@ import { PagesRoutingModule } from './pages-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    PagesRoutingModule
-  ]
+    PagesRoutingModule,
+    BrowserModule, 
+    FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    ReactiveFormsModule
+  ],
+  providers: [provideNgxMask()],
 })
 export class PagesModule { }

@@ -229,7 +229,6 @@ input {
   box-sizing: border-box;
   border: none;
   border-radius: 5px;
-  margin-bottom: 10px;
   background-color: #ffffff;
   color: #333333;
 }
@@ -254,74 +253,4 @@ input {
   transition: all linear 160ms;
   cursor: pointer;
   margin: 0 !important;
-}
-
-
-
-
-
-//==============================================================
-// tela de cadastro de criente
-.container {
-  //max-width: 400px;
-  margin: auto;
-  //padding: 20px;
-  // border: 1px solid #ccc;
-  // border-radius: 5px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-.divTituloCadastroUsuario{
-  width: 100%;
-  margin-top: 50px;
-  margin-bottom: 30px;
-  color: #df994a;
-}
-
-.divCadastroUsuario{
-  width: 100%;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-}
-
-.divBotaoCadastroUsuario{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-}
-
-.inputCadUsuario{
-  background-color: #d6d6d6;
-}
-
-.buttonCadastroUsuario {
-  background-color: #df994a;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  padding: 12px;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 5px;
-}
-
-.buttonCadastroUsuario:hover {
-  transform: scale(1.05);
-  background-color: #f8f8f8;
-
 }

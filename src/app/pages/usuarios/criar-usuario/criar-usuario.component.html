@@ -1,0 +1,76 @@
+<ion-content style="height: 1500px; background-color: rgb(255, 255, 255);">
+    <div class="container" style="background-color: rgb(255, 255, 255); height: 100%;">
+      <div class="divCadastroUsuario">
+        <H1><b>WhiskyPedia</b></H1>
+        <H5 style="color: #df994a;">Seja Bem Vindo!</H5>
+      </div>
+      <div class="divTituloCadastroUsuario">
+        
+        <H2><b>Criar Usuário</b></H2>
+      </div>
+      <form #meuFormulario="ngForm" style="margin-top: 25px;">
+        <div class="form-group" style="margin-bottom: 15px;">
+          <div>
+            <input class="inputCadUsuario" type="text" placeholder="Nome Usuario" [(ngModel)]="usuarios.nome_usuario" name="nome_usuario" id="nome_usuario" name="nome_usuario" ngModel required/>
+          </div>
+          <div *ngIf="nomeRequired == 1">
+            <div class="obrigatorio" *ngIf="meuFormulario.controls['nome_usuario'].hasError('required')">
+              Este campo é obrigatório.
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+          <div>
+            <input class="inputCadUsuario" type="email" placeholder="E-mail" [(ngModel)]="usuarios.email_usuario" name="email_usuario" id="email_usuario" name="email_usuario" ngModel required/>
+          </div>
+          <div *ngIf="emailRequired == 1">
+            <div class="obrigatorio" *ngIf="meuFormulario.controls['email_usuario'].hasError('required')">
+              Este campo é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+          <div>
+            <input class="inputCadUsuario" type="text" placeholder="Celular" mask="(00) 00000-0000" [(ngModel)]="usuarios.telefone_usuario" name="telefone_usuario" id="telefone_usuario" name="telefone_usuario" ngModel required/>
+          </div>
+          <div *ngIf="telefoneRequired == 1">
+            <div class="obrigatorio" *ngIf="meuFormulario.controls['telefone_usuario'].hasError('required')">
+              Este campo é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+          <div>
+            <input class="inputCadUsuario" type="date" placeholder="Data Nascimento" [(ngModel)]="usuarios.data_nascimento_usuario" name="data_nascimento_usuario" id="data_nascimento_usuario" name="data_nascimento_usuario" ngModel required/>
+          </div>
+          <div *ngIf="datanasRequired == 1">
+            <div class="obrigatorio" *ngIf="meuFormulario.controls['data_nascimento_usuario'].hasError('required')">
+              Este campo é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+          <div>
+            <input class="inputCadUsuario" type="password" placeholder="Senha" [(ngModel)]="usuarios.senha_usuario" name="senha_usuario" id="senha_usuario" name="senha_usuario" ngModel required/>
+          </div>
+          <div *ngIf="senhaRequired == 1">
+            <div class="obrigatorio" *ngIf="meuFormulario.controls['senha_usuario'].hasError('required')">
+              Este campo é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="divBotaoCadastroUsuario" style="margin-top: 30px;">
+            <button class="buttonCadastroUsuario" (click)="criarNovoUsuario()" >Cadastrar</button>
+        </div>
+
+        <div class="divBotaoCadastroUsuario" style="margin-top: 30px;">
+          <button class="buttonCadastroUsuario" (click)="voltar()" >voltar</button>
+      </div>
+      </form>
+    </div>
+  </ion-content>

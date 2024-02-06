@@ -1,0 +1,206 @@
+ion-menu ion-content {
+    --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  }
+  
+  ion-menu.md ion-content {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+  
+  ion-menu.md ion-list {
+    padding: 20px 0;
+  }
+  
+  ion-menu.md ion-note {
+    margin-bottom: 30px;
+  }
+  
+  ion-menu.md ion-list-header,
+  ion-menu.md ion-note {
+    padding-left: 10px;
+  }
+  
+  ion-menu.md ion-list#inbox-list {
+    border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+  }
+  
+  ion-menu.md ion-list#inbox-list ion-list-header {
+    font-size: 22px;
+    font-weight: 600;
+  
+    min-height: 20px;
+  }
+  
+  ion-menu.md ion-list#labels-list ion-list-header {
+    font-size: 16px;
+  
+    margin-bottom: 18px;
+  
+    color: #757575;
+  
+    min-height: 26px;
+  }
+  
+  ion-menu.md ion-item {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    border-radius: 4px;
+  }
+  
+  ion-menu.md ion-item.selected {
+    --background: rgba(var(--ion-color-primary-rgb), 0.14);
+  }
+  
+  ion-menu.md ion-item.selected ion-icon {
+    color: var(--ion-color-primary);
+  }
+  
+  ion-menu.md ion-item ion-icon {
+    color: #616e7e;
+  }
+  
+  ion-menu.md ion-item ion-label {
+    font-weight: 500;
+  }
+  
+  ion-menu.ios ion-content {
+    --padding-bottom: 20px;
+  }
+  
+  ion-menu.ios ion-list {
+    padding: 20px 0 0 0;
+  }
+  
+  ion-menu.ios ion-note {
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+  
+  ion-menu.ios ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 50px;
+  }
+  
+  ion-menu.ios ion-item.selected ion-icon {
+    color: var(--ion-color-primary);
+  }
+  
+  ion-menu.ios ion-item ion-icon {
+    font-size: 24px;
+    color: #73849a;
+  }
+  
+  ion-menu.ios ion-list#labels-list ion-list-header {
+    margin-bottom: 8px;
+  }
+  
+  ion-menu.ios ion-list-header,
+  ion-menu.ios ion-note {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  ion-menu.ios ion-note {
+    margin-bottom: 8px;
+  }
+  
+  ion-note {
+    display: inline-block;
+    font-size: 16px;
+  
+    color: var(--ion-color-medium-shade);
+  }
+  
+  ion-item.selected {
+    --color: var(--ion-color-primary);
+  }
+  
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    //margin-bottom: 10px;
+    background-color: #ffffff;
+    color: #333333;
+  }
+  
+
+  //==============================================================
+  // tela de cadastro de criente
+  .container {
+    //max-width: 400px;
+    margin: auto;
+    //padding: 20px;
+    // border: 1px solid #ccc;
+    // border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .divTituloCadastroUsuario{
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #df994a;
+  }
+  
+  .divCadastroUsuario{
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  .divBotaoCadastroUsuario{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  .inputCadUsuario{
+    background-color: #d6d6d6;
+  }
+  
+  .buttonCadastroUsuario {
+    background-color: #df994a;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: 12px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .buttonCadastroUsuario:hover {
+    transform: scale(1.05);
+    background-color: #838383;
+  
+  }
+  
+  //==============================================================
+  // regra de tela
+  .obrigatorio{
+    color: red;
+    font-size: 12px;
+    margin-left: 5px;
+  }
