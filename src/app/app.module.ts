@@ -11,10 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
-import { CriarUsuarioComponent } from '../app/pages/usuarios/criar-usuario/criar-usuario.component';
-
 @NgModule({
-  declarations: [AppComponent, CriarUsuarioComponent],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule, 
