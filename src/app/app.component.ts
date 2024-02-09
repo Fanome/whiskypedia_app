@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../app/model/usuario.model';
 import { FormControl, Validators } from '@angular/forms';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent  implements OnInit {
     { title: 'Login', url: '/pages/login', icon: 'mail' }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(){
+  constructor(private toastr: ToastrService){
   } 
   
   ngOnInit(): void {
@@ -85,7 +86,7 @@ export class AppComponent  implements OnInit {
       }
 
       if(ok){
-        alert("Usuário cadastrado com sucesso!");
+        this.notificacao("sucesso", "Usuário cadastrado com sucesso!");
         this.usuarios = {};
         this.loginok = 1;
       }else{
@@ -97,11 +98,11 @@ export class AppComponent  implements OnInit {
   validarCelular(){
     if(this.usuarios.telefone_usuario == "" ){
       this.usuarios.telefone_usuario = undefined
-      alert("Favor preencher o celular.");
+      this.notificacao("danger", "Favor preencher o celular.");
       this.telefoneOK = false;
     }else{
       if(this.usuarios.telefone_usuario != undefined && this.usuarios.telefone_usuario.length < 11 ){
-        alert("Telefone deve ter 11 digitos somando com o DDD.");
+        this.notificacao("danger", "Telefone deve ter 11 digitos somando com o DDD.");
         this.telefoneOK = false;
       }else{
         this.telefoneOK = true;
@@ -117,7 +118,7 @@ export class AppComponent  implements OnInit {
       // Expressão regular para validar o formato do email
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if(!regex.test(email)){
-        alert("E-mail invalido.");
+        this.notificacao("danger", "E-mail invalido.");
         this.emailOK = false;
       }else{
         this.emailOK = true;
@@ -128,7 +129,7 @@ export class AppComponent  implements OnInit {
   validarSenha(){
     if(!(this.usuarios.senha_usuario == undefined || this.usuarios.senha_usuario == "")){
       if(this.usuarios.senha_usuario != undefined && this.usuarios.senha_usuario.length < 8 ){
-        alert("Senha deve ter pelo menos 8 caracteres.");
+        this.notificacao("danger", "Senha deve ter pelo menos 8 caracteres.");
         this.senhaOK = false;
       }else{
         this.senhaOK = true;
@@ -172,11 +173,19 @@ export class AppComponent  implements OnInit {
     this.loginok = 1;
   }
 
-
-
-
-
-
-
+  notificacao(tipo: string, msg: string){
+    
+    if(tipo == "sucesso"){
+      this.toastr.success('', msg);
+    }
+  
+    if(tipo == "danger"){
+      this.toastr.error('', msg);
+    }
+  
+    if(tipo == "info"){
+      this.toastr.info('', msg);
+    }
+  }
 
 }

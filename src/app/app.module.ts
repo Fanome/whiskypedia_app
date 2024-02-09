@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,14 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     FormsModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+      }
+    ),
   ],
   providers: [provideNgxMask(),{ 
     provide: RouteReuseStrategy, 
