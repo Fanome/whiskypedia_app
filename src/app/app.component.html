@@ -82,7 +82,7 @@
         
         <div class="form-group" style="margin-bottom: 15px;">
           <div>
-            <input class="inputCadUsuario" type="email" placeholder="E-mail" [(ngModel)]="usuarios.email_usuario" name="email_usuario" id="email_usuario" name="email_usuario" ngModel required/>
+            <input class="inputCadUsuario" type="email" placeholder="E-mail" [(ngModel)]="usuarios.email_usuario" name="email_usuario" id="email_usuario" name="email_usuario" ngModel required />
           </div>
           <div *ngIf="emailRequired == 1">
             <div class="obrigatorio" *ngIf="meuFormulario.controls['email_usuario'].hasError('required')">
@@ -93,7 +93,7 @@
 
         <div class="form-group" style="margin-bottom: 15px;">
           <div>
-            <input class="inputCadUsuario" type="text" placeholder="Celular" mask="(00) 00000-0000" [(ngModel)]="usuarios.telefone_usuario" name="telefone_usuario" id="telefone_usuario" name="telefone_usuario" ngModel required/>
+            <input class="inputCadUsuario" type="text" placeholder="Celular" mask="(00) 00000-0000" [(ngModel)]="usuarios.telefone_usuario" name="telefone_usuario" id="telefone_usuario" name="telefone_usuario" ngModel required />
           </div>
           <div *ngIf="telefoneRequired == 1">
             <div class="obrigatorio" *ngIf="meuFormulario.controls['telefone_usuario'].hasError('required')">
