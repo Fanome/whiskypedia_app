@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../app/model/usuario.model';
 import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr";
+import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +34,11 @@ export class AppComponent  implements OnInit {
     { title: 'Login', url: '/pages/login', icon: 'mail' }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(private toastr: ToastrService){
+
+  constructor(
+    private usuarioService: UsuarioService,
+    private toastr: ToastrService
+    ){
   } 
   
   ngOnInit(): void {
@@ -63,8 +68,6 @@ export class AppComponent  implements OnInit {
   }
 
   criarNovoUsuario(): void {
-    console.log(this.usuarios);
-
     this.validarCampos();
     this.validarCelular();
     this.validarEmail();
@@ -86,9 +89,21 @@ export class AppComponent  implements OnInit {
       }
 
       if(ok){
-        this.notificacao("sucesso", "Usuário cadastrado com sucesso!");
-        this.usuarios = {};
-        this.loginok = 1;
+        this.usuarios.id_tipousuario = 2;
+
+        this.usuarioService.criarUsuarioPost(this.usuarios).subscribe(result => {
+          if(result){
+            this.notificacao("sucesso", "Usuário criado com sucesso");
+            this.usuarios = {};
+            this.loginok = 1;
+          }else{
+            this.notificacao("danger", "Erro ao criar usuário");
+            this.loginok = 3;
+          }
+        }, error => {
+            this.notificacao("danger", "Erro de acesso a API. " + error );
+            this.loginok = 3;
+        });
       }else{
         this.loginok = 3;
       }
