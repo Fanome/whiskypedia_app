@@ -25,6 +25,7 @@ export class CriarfabricanteComponent implements OnInit {
     this.fabricanteService.criarFabricantePost(this.fabricante).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Fabricante criado com sucesso");
+        this.fabricante = {};
         this.router.navigate(["/fabricante"]);
       }else{
         this.notificacao("danger", "Erro ao criar Fabricante");
@@ -33,6 +34,7 @@ export class CriarfabricanteComponent implements OnInit {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
+
   }
   
    //MOTIFICAÇÃO 

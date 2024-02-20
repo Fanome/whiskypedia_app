@@ -26,20 +26,22 @@
 @import "@ionic/angular/css/flex-utils.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-.divTituloGeral{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .divPaginacaoGlobal{
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    align-content: center;
-    justify-content: center;
-    color:  rgb(143, 106, 57);
-  }
+
+.divTituloGeral{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.divPaginacaoGlobal{
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  align-content: center;
+  justify-content: center;
+  color:  rgb(143, 106, 57);
+}

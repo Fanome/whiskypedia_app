@@ -1,48 +1,44 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Tipo Whisky</ion-title>
-    </ion-toolbar>
-  </ion-header> 
+  <ion-toolbar class="divTitulo">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="divTitulo">
+      <div class="divTopBar">
+        <div class="divVoltarLocal">
+          <button type="submit" class="botaoVoltar" [routerLink]="['/tipowhisky']" ><</button> 
+        </div>
+        <div class="divTituloLocal">
+          <b>Tipo Whisky</b>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> 
   
-  <ion-content [fullscreen]="true">
-    <!-- <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Fabricante</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
   
-    <div id="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-user">
-                    <div class="card-header">
-                        <h5 class="card-title">Criar Tipo Whisky</h5>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="col-md-12 px-1">
-                                <div class="form-group">
-                                  <label>Nome Tipo Whisky</label>
-                                  <input type="text" class="form-control" placeholder="Digite o nome do novo barril" [(ngModel)]="tipoWhiskys.nomeTipoWhisky" name="name">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 px-1">
-                                    <button type="submit" style="margin-left: 15px;" class="btn btn-primary btn-round" [routerLink]="['/tipowhisky']" ><</button>
-                                </div>
-                                <div class="col-md-7 px-1">
-                                    <div class="update ml-auto mr-auto">
-                                        <button type="submit" class="btn btn-primary btn-round" style="margin-left: 15px;" (click)="criarTipoWhisky()" >Criar Tipo Whisky</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>    
-    </div> 
-  </ion-content>
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="divHeaderlist">
+      <div class="containerTitulo">
+        <div class="containerTitulo1">
+          <b>Criar Tipo Whisky</b>
+        </div>
+      </div>
+    </div>
+    <div class="blue-box">
+      <div class="nomeCampo">
+      </div>
+    </div>
+    <div class="red-box">
+      <div class="divSubmit">
+        <div class="divSenha">
+          <input type="text" class="divInput" placeholder="Nome do Tipo Whisky" [(ngModel)]="tipoWhiskys.nomeTipoWhisky" name="name">
+        </div>
+        <div class="divBotaoIncluir">
+          <button type="submit" class="botaoIncluir" (click)="criarTipoWhisky()" ><b>Incluir Tipo Whisky</b></button>
+        </div>
+      </div>
+    </div>
+  </div> 
+</ion-content>

@@ -23,6 +23,7 @@ export class ListarTipowhiskyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tipoWhiskys = [];
     this.listarTipoWhiskyALL();
   }
 
