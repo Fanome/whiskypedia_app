@@ -1,47 +1,42 @@
 import { Component, OnInit } from '@angular/core';
+import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
 import { Fabricante } from 'src/app/model/fabricante.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
-import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
 
 @Component({
-  selector: 'app-fabricante',
-  templateUrl: './fabricante.component.html',
-  styleUrls: ['./fabricante.component.scss'],
+  selector: 'app-criarfabricante',
+  templateUrl: './criarfabricante.component.html',
+  styleUrls: ['./criarfabricante.component.scss']
 })
-export class FabricanteComponent  implements OnInit {
+export class CriarfabricanteComponent implements OnInit {
 
-  public fabricantes: Fabricante[] = [];
+  fabricante: Fabricante = {};
 
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,
-    private toastr: ToastrService
-    ) 
-  { 
+    private toastr: ToastrService) { }
+
+  ngOnInit() { 
   }
 
-  ngOnInit(): void {
-    this.fabricantes = [];
-    this.listarFabricantesALL();
-  }
-
-  ionViewDidEnter() { // metodo para atualizar a pagina
-    this.fabricantes = [];
-    this.listarFabricantesALL();
-  }
-
-  listarFabricantesALL(): void{
-    this.fabricanteService.listarALL().subscribe(results => {
-      this.fabricantes = results;
+  criarFabricante(){
+    this.fabricanteService.criarFabricantePost(this.fabricante).subscribe(result => {
+      if(result){
+        this.notificacao("sucesso", "Fabricante criado com sucesso");
+        this.router.navigate(["/fabricante"]);
+      }else{
+        this.notificacao("danger", "Erro ao criar Fabricante");
+      }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
   }
-
-  //MOTIFICAÇÃO 
-  notificacao(tipo: any, msg: any){
+  
+   //MOTIFICAÇÃO 
+   notificacao(tipo: any, msg: any){
     
     if(tipo == "sucesso"){
       this.toastr.success(
@@ -85,4 +80,5 @@ export class FabricanteComponent  implements OnInit {
         );
     }
   }
+
 }

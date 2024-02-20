@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Excluir Fabricante</ion-title>
+    </ion-toolbar>
+  </ion-header> 
+  
+  <ion-content [fullscreen]="true">
+    <div id="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <h5 class="card-title">Excluir Fabricante</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 style="color: red;">Deseja realmente excluir o registro abaixo?</h5>
+                        <form> 
+                            <div class="col-md-12 px-1">
+                                <div class="form-group">
+                                  <label >Código Fabricante</label>
+                                  <input type="text" class="form-control" disabled="" value="{{fabricante.idFabricante}}">
+                                </div>
+                            </div>
+                            <div class="col-md-12 px-1">
+                                <div class="form-group">
+                                  <label>Nome Fabricante</label>
+                                  <input type="text" class="form-control" disabled="" value="{{fabricante.nomeFabricante}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 px-1">
+                                    <button type="submit" style="margin-left: 15px;" class="btn btn-primary btn-round" [routerLink]="['/fabricante/edicarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]"><</button>
+                                </div>
+                                <div class="col-md-7 px-1">
+                                    <div class="update ml-auto mr-auto">
+                                        <button type="submit" class="btn btn-primary btn-round" style="margin-left: 15px;" (click)="excluirFabricante(fabricante)" >Excluir Barril</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+  </ion-content>

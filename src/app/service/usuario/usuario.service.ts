@@ -9,11 +9,11 @@ import { Usuario } from '../../model/usuario.model';
 export class UsuarioService {
   
   //////// Local 
-  public criarUsuarioPostAllURL = 'http://localhost:3001/api/usuario/incluir';
+  //public criarUsuarioPostAllURL = 'http://localhost:3001/api/usuario/incluir';
                         
 
   //////// Nuvem 
-  //public criarUsuarioPostAllURL = 'https://whiskypedia.onrender.com/api/usuario/incluir';
+  public criarUsuarioPostAllURL = 'https://whiskypedia.onrender.com/api/usuario/incluir';
 
   constructor(private http: HttpClient) {}
 

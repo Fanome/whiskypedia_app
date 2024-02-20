@@ -8,6 +8,10 @@ import { FolderPage } from './folder.page';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { FabricanteComponent } from '../pages/fabricante/listarfabricante/fabricante.component';
+import { CriarfabricanteComponent } from '../pages/fabricante/criarfabricante/criarfabricante.component';
+import { EditarfabricanteComponent } from '../pages/fabricante/editarfabricante/editarfabricante.component';
+import { ExcluirfabricanteComponent } from '../pages/fabricante/excluirfabricante/excluirfabricante.component';
+
 
 @NgModule({
   imports: [
@@ -17,6 +21,12 @@ import { FabricanteComponent } from '../pages/fabricante/listarfabricante/fabric
     RouterModule.forChild(FolderPageRoutingModule),
     ScrollingModule
   ],
-  declarations: [FolderPage, FabricanteComponent]
+  declarations: [
+    FolderPage, 
+    FabricanteComponent, 
+    CriarfabricanteComponent,
+    EditarfabricanteComponent,
+    ExcluirfabricanteComponent
+  ]
 })
 export class FolderPageModule {}

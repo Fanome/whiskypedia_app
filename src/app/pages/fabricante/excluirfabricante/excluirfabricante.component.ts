@@ -1,47 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Fabricante } from 'src/app/model/fabricante.model';
-import { Router } from '@angular/router'; 
-import { ToastrService } from "ngx-toastr";
 import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
+import { Fabricante } from 'src/app/model/fabricante.model';
+import { Router, ActivatedRoute } from '@angular/router'; 
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'app-fabricante',
-  templateUrl: './fabricante.component.html',
-  styleUrls: ['./fabricante.component.scss'],
+  selector: 'app-excluirfabricante',
+  templateUrl: './excluirfabricante.component.html',
+  styleUrls: ['./excluirfabricante.component.scss']
 })
-export class FabricanteComponent  implements OnInit {
+export class ExcluirfabricanteComponent implements OnInit {
 
-  public fabricantes: Fabricante[] = [];
+  fabricante: Fabricante = {};
 
   constructor(
     private fabricanteService: FabricanteService, 
-    private router: Router,
-    private toastr: ToastrService
-    ) 
-  { 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private toastr: ToastrService) { }
+
+  ngOnInit() {
+    this.fabricante.idFabricante = this.route.snapshot.params['idFabricante'];
+    this.fabricante.nomeFabricante = this.route.snapshot.params['nomeFabricante'];
   }
 
-  ngOnInit(): void {
-    this.fabricantes = [];
-    this.listarFabricantesALL();
-  }
-
-  ionViewDidEnter() { // metodo para atualizar a pagina
-    this.fabricantes = [];
-    this.listarFabricantesALL();
-  }
-
-  listarFabricantesALL(): void{
-    this.fabricanteService.listarALL().subscribe(results => {
-      this.fabricantes = results;
+  excluirFabricante(fabricanteExcluido: any){
+    this.fabricanteService.excluirFabricantePost(fabricanteExcluido).subscribe(result => {
+      if(result){
+        this.notificacao("sucesso", "Fabricante excluirdo com sucesso");
+        this.router.navigate(["/fabricante"]);
+      }else{
+        this.notificacao("danger", "Erro ao excluir Fabricante");
+      }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
   }
 
-  //MOTIFICAÇÃO 
-  notificacao(tipo: any, msg: any){
+   //MOTIFICAÇÃO 
+   notificacao(tipo: any, msg: any){
     
     if(tipo == "sucesso"){
       this.toastr.success(
@@ -85,4 +83,5 @@ export class FabricanteComponent  implements OnInit {
         );
     }
   }
+
 }
