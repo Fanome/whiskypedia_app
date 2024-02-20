@@ -1,55 +1,56 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Tipo Whisky</ion-title>
-    </ion-toolbar>
-  </ion-header> 
-  
-  <ion-content [fullscreen]="true">
-    <!-- <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Fabricante</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
-  
-    <div id="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-user">
-                    <div class="card-header">
-                        <h5 class="card-title">Excluir Tipo Whisky</h5>
-                    </div>
-                    <div class="card-body">
-                        <h5 style="color: red;">Deseja realmente excluir o registro abaixo?</h5>
-                        <form> 
-                            <div class="col-md-12 px-1">
-                                <div class="form-group">
-                                  <label >Código Tipo Whisky</label>
-                                  <input type="text" class="form-control" disabled="" value="{{tipoWhisky.idTipoWhisky}}">
-                                </div>
-                            </div>
-                            <div class="col-md-12 px-1">
-                                <div class="form-group">
-                                  <label>Nome Tipo Whisky</label>
-                                  <input type="text" class="form-control" disabled="" value="{{tipoWhisky.nomeTipoWhisky}}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 px-1">
-                                    <button type="submit" style="margin-left: 15px;" class="btn btn-primary btn-round" [routerLink]="['/tipowhisky/editartipowhisky', tipoWhisky.idTipoWhisky, tipoWhisky.nomeTipoWhisky]"><</button>
-                                </div>
-                                <div class="col-md-7 px-1">
-                                    <div class="update ml-auto mr-auto">
-                                        <button type="submit" class="btn btn-primary btn-round" style="margin-left: 15px;" (click)="excluirTipoWhisky(tipoWhisky)" >Excluir Tipo Whisky</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+  <ion-toolbar class="divTitulo_GERAL">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="divTitulo_GERAL">
+      <div class="divTopBar_GERAL">
+          <div class="divVoltarLocal_GERAL">
+          <button type="submit" class="botaoVoltar_GERAL" [routerLink]="['/tipowhisky/editartipowhisky', tipoWhisky.idTipoWhisky, tipoWhisky.nomeTipoWhisky]" ><</button> 
+          </div>
+          <div class="divTituloLocal_GERAL">
+          <b>Tipo Whisky</b>
+          </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content [fullscreen]="true"> 
+  <div class="container">
+    <div class="divHeaderlist">
+        <div class="containerTitulo">
+        <div class="containerTitulo1">
+            <b>Excluir Tipo Whisky</b>
+        </div>
+        </div>
+    </div>
+    <div class="blue-box">
+        <div class="nomeCampo">
+        </div>
+    </div>
+    <div class="red-box">
+        <div class="divSubmit">
+            <div class="divMsgExcluir">
+                <h5 style="color: red;">Deseja realmente excluir</h5>
+                <h5 style="color: red;">o registro abaixo?</h5>
+            </div>
+            <div class="divLabel">
+                <label><b>Código Tipo Whisky</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" disabled="" value="{{tipoWhisky.idTipoWhisky}}">
+            </div>
+            <div class="divLabel">
+                <label><b>Nome Tipo Whisky</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" disabled=""  [(ngModel)]="tipoWhisky.nomeTipoWhisky" name="name">
+            </div>
+            <div class="divBotao">
+                <button type="submit" class="botao" (click)="excluirTipoWhisky(tipoWhisky)"><b>Excluir Tipo Whisky</b></button>
             </div>
         </div>
-    </div> 
-  </ion-content>
+    </div>
+  </div> 
+</ion-content>
