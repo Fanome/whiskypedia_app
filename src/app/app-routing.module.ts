@@ -11,16 +11,21 @@ import { CriarTipowhiskyComponent } from './pages/tipowhisky/criar-tipowhisky/cr
 import { EditarTipowhiskyComponent } from './pages/tipowhisky/editar-tipowhisky/editar-tipowhisky.component';
 import { ExcluirTipowhiskyComponent } from './pages/tipowhisky/excluir-tipowhisky/excluir-tipowhisky.component';
 
+import { HomeComponent } from './pages/home/home.component';
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
+
+  /// HOME
+  {path: 'home', component: HomeComponent},
 
   /// FABRICANTE
   { path: 'fabricante', component: FabricanteComponent},

@@ -25,16 +25,19 @@ export class AppComponent  implements OnInit {
   emailControl = new FormControl('', Validators.email);
 
   public appPages = [
+    { title: 'Home', url: '/home', icon: '' },
+    // { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
+    // { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
+    // { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
+    // { title: 'Archived', url: '/folder/archived', icon: 'archive' },
+    // { title: 'Trash', url: '/folder/trash', icon: 'trash' },
+    // { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+  ];
+
+  public appPagesAdmin = [
     { title: 'Fabricante', url: '/fabricante', icon: '' },
     { title: 'Tipo Whisky', url: '/tipowhisky', icon: '' },
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private usuarioService: UsuarioService,

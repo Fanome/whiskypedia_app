@@ -17,6 +17,8 @@ import { CriarTipowhiskyComponent } from '../pages/tipowhisky/criar-tipowhisky/c
 import { EditarTipowhiskyComponent } from '../pages/tipowhisky/editar-tipowhisky/editar-tipowhisky.component';
 import { ExcluirTipowhiskyComponent } from '../pages/tipowhisky/excluir-tipowhisky/excluir-tipowhisky.component';
 
+import { HomeComponent } from '../pages/home/home.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { ExcluirTipowhiskyComponent } from '../pages/tipowhisky/excluir-tipowhis
     ListarTipowhiskyComponent,
     CriarTipowhiskyComponent,
     EditarTipowhiskyComponent,
-    ExcluirTipowhiskyComponent
+    ExcluirTipowhiskyComponent,
+    HomeComponent
   ]
 })
 export class FolderPageModule {}
