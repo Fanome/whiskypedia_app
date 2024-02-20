@@ -13,6 +13,9 @@ export class ListarTipowhiskyComponent implements OnInit {
 
   tipoWhiskys: TipoWhisky[] = [];
 
+  pageSize: number = 5; // Quantidade de itens por página
+  currentPage: number = 1; // Página inicial
+
   constructor(
     private tipowhiskyService: TipowhiskyService, 
     private router: Router,

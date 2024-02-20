@@ -13,6 +13,10 @@ export class FabricanteComponent  implements OnInit {
 
   public fabricantes: Fabricante[] = [];
 
+  //items: any[] = [this.fabricantes];
+  pageSize: number = 5; // Quantidade de itens por página
+  currentPage: number = 1; // Página inicial
+
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,

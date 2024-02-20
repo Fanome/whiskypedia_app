@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FolderPageRoutingModule } from './folder-routing.module';
 import { FolderPage } from './folder.page';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FabricanteComponent } from '../pages/fabricante/listarfabricante/fabricante.component';
 import { CriarfabricanteComponent } from '../pages/fabricante/criarfabricante/criarfabricante.component';
@@ -25,7 +26,8 @@ import { HomeComponent } from '../pages/home/home.component';
     FormsModule,
     IonicModule,
     RouterModule.forChild(FolderPageRoutingModule),
-    ScrollingModule
+    ScrollingModule,
+    NgxPaginationModule
   ],
   declarations: [
     FolderPage, 

@@ -27,11 +27,14 @@
       </div>
     </div>
     <div class="red-box">
-      <tr class="trFabricante" *ngFor="let fabricante of fabricantes" [routerLink]="['/fabricante/editarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" >
+      <tr class="trFabricante" *ngFor="let fabricante of fabricantes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" [routerLink]="['/fabricante/editarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" >
         <td class="tdFabricante">
           <b>{{fabricante.nomeFabricante}}</b>
         </td>
       </tr>
+      <div class="divPaginacaoGlobal">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
     </div>
   </div> 
 </ion-content>
