@@ -1,23 +1,32 @@
 
 <div *ngIf="loginok == 1"> 
-  <body>
-    <div class="page">
-        <form method="POST" class="formLogin">
-            <h1>Bem-Vindo</h1>
-            <p>Digite os seus dados de acesso no campo abaixo.</p>
-            <label for="email">E-mail</label>
-            <input type="email" placeholder="Digite seu e-mail" autofocus="true" />
-            <label for="password">Senha</label>
-            <input type="password" placeholder="Digite seu e-mail" />
-            <a href="/">Esqueci minha senha</a>
-            <input type="submit" value="Acessar" (click)="fazerLogin()" class="btn" />
-
-            <div class="criaConta">
-              Ainda não tem conta? <a class="" (click)="criarUsuario()">clique aqui</a>
-            </div>
-        </form>
+  <ion-content style="height: 1500px; width: 100%; background-color: rgb(243, 14, 14);">
+    <div class="divLogin">
+      <div class="divCriarConta">
+        <b><label for="">Ainda não tem conta?</label></b>
+      </div>
+      <div>
+        <button class="botaoCliqueAqui"  (click)="criarUsuario()">Clique Aqui!</button>
+      </div>
+      <div class="divBemVindo">
+        <b>SEJA BEM VINDO!</b>
+      </div>
     </div>
-  </body>
+    <div class="divLoginAbaixo">
+      <div class="divEmail">
+        <input class="divInput" type="email" placeholder="E-mail" autofocus="true" />
+      </div>
+      <div class="divSenha">
+        <input class="divInput" type="password" placeholder="Senha" />
+      </div>
+      <div class="divBotaoLogin">
+        <button class="botaoLogin" type="submit" value="Acessar" (click)="fazerLogin()">LOGIN</button>
+      </div>
+      <div class="divEsqueceuSenha">
+        <a class="linkEsqueceuSenha" href="/">Esqueci minha senha</a>
+      </div>
+    </div>
+  </ion-content>
 </div>
 
 <div *ngIf="loginok == 2">

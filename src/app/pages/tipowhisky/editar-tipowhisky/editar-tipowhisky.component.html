@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Tipo Whisky</ion-title>
+    </ion-toolbar>
+  </ion-header> 
+  
+  <ion-content [fullscreen]="true">
+    <!-- <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Fabricante</ion-title>
+      </ion-toolbar>
+    </ion-header> -->
+  
+    <div id="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <h5 class="card-title">Editar Tipo Whisky</h5>
+                    </div>
+                    <div class="card-body">
+                        <form> 
+                            <div class="col-md-12 px-1">
+                                <div class="form-group">
+                                  <label >Código Tipo Whisky</label>
+                                  <input type="text" class="form-control" disabled="" value="{{tipoWhiskys.idTipoWhisky}}">
+                                </div>
+                            </div>
+                            <div class="col-md-12 px-1">
+                                <div class="form-group">
+                                  <label>Nome Tipo Whisky</label>
+                                  <input type="text" class="form-control" placeholder=""  [(ngModel)]="tipoWhiskys.nomeTipoWhisky" name="name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 px-1">
+                                    <button type="submit" style="margin-left: 15px;" class="btn btn-primary btn-round" [routerLink]="['/tipowhisky']" ><</button>
+                                </div>
+                                <div class="col-md-5 px-1">
+                                    <div class="update ml-auto mr-auto">
+                                        <button type="submit" class="btn btn-primary btn-round" style="margin-left: 15px;" (click)="editarTipoWhisky(tipoWhiskys)" >
+                                           Salvar Tipo Whisky</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 px-1">
+                                    <div class="update ml-auto mr-auto">
+                                        <button type="submit" class="btn btn-danger btn-round" style="margin-left: 15px;" [routerLink]="['/tipowhisky/excluirtipowhisky', tipoWhiskys.idTipoWhisky, tipoWhiskys.nomeTipoWhisky]" >
+                                            Excluir Tipo Whisky</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+  </ion-content>

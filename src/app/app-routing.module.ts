@@ -6,6 +6,11 @@ import { CriarfabricanteComponent } from './pages/fabricante/criarfabricante/cri
 import { EditarfabricanteComponent } from './pages/fabricante/editarfabricante/editarfabricante.component';
 import { ExcluirfabricanteComponent } from './pages/fabricante/excluirfabricante/excluirfabricante.component';
 
+import { ListarTipowhiskyComponent } from './pages/tipowhisky/listar-tipowhisky/listar-tipowhisky.component';
+import { CriarTipowhiskyComponent } from './pages/tipowhisky/criar-tipowhisky/criar-tipowhisky.component';
+import { EditarTipowhiskyComponent } from './pages/tipowhisky/editar-tipowhisky/editar-tipowhisky.component';
+import { ExcluirTipowhiskyComponent } from './pages/tipowhisky/excluir-tipowhisky/excluir-tipowhisky.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -20,11 +25,14 @@ const routes: Routes = [
   /// FABRICANTE
   { path: 'fabricante', component: FabricanteComponent},
   { path: 'fabricante/criarfabricante', component: CriarfabricanteComponent},
-  { path: 'fabricante/edicarfabricante/:idFabricante/:nomeFabricante', component: EditarfabricanteComponent},
+  { path: 'fabricante/editarfabricante/:idFabricante/:nomeFabricante', component: EditarfabricanteComponent},
   { path: 'fabricante/excluirfabricante/:idFabricante/:nomeFabricante', component: ExcluirfabricanteComponent },
 
-  
-  
+  /// TIPO WHISKY
+  { path: 'tipowhisky', component: ListarTipowhiskyComponent},
+  { path: 'tipowhisky/criartipowhisky', component: CriarTipowhiskyComponent},
+  { path: 'tipowhisky/editartipowhisky/:idTipoWhisky/:nomeTipoWhisky', component: EditarTipowhiskyComponent},
+  { path: 'tipowhisky/excluirtipowhisky/:idTipoWhisky/:nomeTipoWhisky', component: ExcluirTipowhiskyComponent },
 ];
 
 @NgModule({

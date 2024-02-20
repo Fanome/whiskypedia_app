@@ -12,6 +12,10 @@ import { CriarfabricanteComponent } from '../pages/fabricante/criarfabricante/cr
 import { EditarfabricanteComponent } from '../pages/fabricante/editarfabricante/editarfabricante.component';
 import { ExcluirfabricanteComponent } from '../pages/fabricante/excluirfabricante/excluirfabricante.component';
 
+import { ListarTipowhiskyComponent } from '../pages/tipowhisky/listar-tipowhisky/listar-tipowhisky.component';
+import { CriarTipowhiskyComponent } from '../pages/tipowhisky/criar-tipowhisky/criar-tipowhisky.component';
+import { EditarTipowhiskyComponent } from '../pages/tipowhisky/editar-tipowhisky/editar-tipowhisky.component';
+import { ExcluirTipowhiskyComponent } from '../pages/tipowhisky/excluir-tipowhisky/excluir-tipowhisky.component';
 
 @NgModule({
   imports: [
@@ -26,7 +30,11 @@ import { ExcluirfabricanteComponent } from '../pages/fabricante/excluirfabricant
     FabricanteComponent, 
     CriarfabricanteComponent,
     EditarfabricanteComponent,
-    ExcluirfabricanteComponent
+    ExcluirfabricanteComponent,
+    ListarTipowhiskyComponent,
+    CriarTipowhiskyComponent,
+    EditarTipowhiskyComponent,
+    ExcluirTipowhiskyComponent
   ]
 })
 export class FolderPageModule {}

@@ -1,48 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Fabricante } from 'src/app/model/fabricante.model';
+import { TipowhiskyService } from 'src/app/service/tipowhisky/tipowhisky.service';
+import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
-import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
 
 @Component({
-  selector: 'app-fabricante',
-  templateUrl: './fabricante.component.html',
-  styleUrls: ['./fabricante.component.scss'],
+  selector: 'app-listar-tipowhisky',
+  templateUrl: './listar-tipowhisky.component.html',
+  styleUrls: ['./listar-tipowhisky.component.scss']
 })
-export class FabricanteComponent  implements OnInit {
+export class ListarTipowhiskyComponent implements OnInit {
 
-  public fabricantes: Fabricante[] = [];
+  tipoWhiskys: TipoWhisky[] = [];
 
   constructor(
-    private fabricanteService: FabricanteService, 
+    private tipowhiskyService: TipowhiskyService, 
     private router: Router,
-    private toastr: ToastrService
-    ) 
-  { 
+    private toastr: ToastrService) { 
   }
 
-  ngOnInit(): void {
-    this.fabricantes = [];
-    this.listarFabricantesALL();
+  ngOnInit() {
+    this.listarTipoWhiskyALL();
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
-    this.fabricantes = [];
-    this.listarFabricantesALL();
+    this.tipoWhiskys = [];
+    this.listarTipoWhiskyALL();
   }
 
-  listarFabricantesALL(): void{
-    this.fabricanteService.listarALL().subscribe(results => {
-      this.fabricantes = results;
-      console.log(this.fabricantes);
+
+  listarTipoWhiskyALL(){
+    this.tipowhiskyService.listarALL().subscribe(result => {
+      this.tipoWhiskys = result
+      console.log(this.tipoWhiskys);
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
   }
 
-  //MOTIFICAÇÃO 
-  notificacao(tipo: any, msg: any){
+   //MOTIFICAÇÃO 
+   notificacao(tipo: any, msg: any){
     
     if(tipo == "sucesso"){
       this.toastr.success(
@@ -86,4 +84,5 @@ export class FabricanteComponent  implements OnInit {
         );
     }
   }
+
 }

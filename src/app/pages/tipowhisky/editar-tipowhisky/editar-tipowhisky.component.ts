@@ -1,48 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Fabricante } from 'src/app/model/fabricante.model';
-import { Router } from '@angular/router'; 
+import { TipowhiskyService } from 'src/app/service/tipowhisky/tipowhisky.service';
+import { TipoWhisky } from 'src/app/model/tipowhisky.model';
+import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
-import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
 
 @Component({
-  selector: 'app-fabricante',
-  templateUrl: './fabricante.component.html',
-  styleUrls: ['./fabricante.component.scss'],
+  selector: 'app-editar-tipowhisky',
+  templateUrl: './editar-tipowhisky.component.html',
+  styleUrls: ['./editar-tipowhisky.component.scss']
 })
-export class FabricanteComponent  implements OnInit {
+export class EditarTipowhiskyComponent implements OnInit {
 
-  public fabricantes: Fabricante[] = [];
+  tipoWhiskys: TipoWhisky = {};
 
   constructor(
-    private fabricanteService: FabricanteService, 
-    private router: Router,
-    private toastr: ToastrService
-    ) 
-  { 
+    private tipowhiskyService: TipowhiskyService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private toastr: ToastrService) { }
+
+  ngOnInit() {
+    this.tipoWhiskys.idTipoWhisky = this.route.snapshot.params['idTipoWhisky'];
+    this.tipoWhiskys.nomeTipoWhisky = this.route.snapshot.params['nomeTipoWhisky'];
   }
 
-  ngOnInit(): void {
-    this.fabricantes = [];
-    this.listarFabricantesALL();
-  }
-
-  ionViewDidEnter() { // metodo para atualizar a pagina
-    this.fabricantes = [];
-    this.listarFabricantesALL();
-  }
-
-  listarFabricantesALL(): void{
-    this.fabricanteService.listarALL().subscribe(results => {
-      this.fabricantes = results;
-      console.log(this.fabricantes);
+  editarTipoWhisky(tipoWhiskyEditado: any){
+    this.tipowhiskyService.editartipowhiskyPut(tipoWhiskyEditado).subscribe(result => {
+      if(result){
+        this.notificacao("sucesso", "Tipo Whisky alterado com sucesso");
+        this.router.navigate(["/tipowhisky"]);
+      }else{
+        this.notificacao("danger", "Erro ao alterar Tipo Whisky");
+      }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
   }
 
-  //MOTIFICAÇÃO 
-  notificacao(tipo: any, msg: any){
+   //MOTIFICAÇÃO 
+   notificacao(tipo: any, msg: any){
     
     if(tipo == "sucesso"){
       this.toastr.success(
@@ -86,4 +83,5 @@ export class FabricanteComponent  implements OnInit {
         );
     }
   }
+
 }

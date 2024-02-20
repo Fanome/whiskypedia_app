@@ -43,7 +43,7 @@
                     </th>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let fabricante of fabricantes" [routerLink]="['/fabricante/edicarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" >
+                      <tr *ngFor="let fabricante of fabricantes" [routerLink]="['/fabricante/editarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" >
                         <td>
                           <div style="margin-left: 10px;">{{fabricante.idFabricante}}</div>
                         </td>

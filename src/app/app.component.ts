@@ -7,7 +7,7 @@ import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss', 'app2.component.scss'],
+  styleUrls: ['app.component.scss', 'app2.component.scss', 'app-login.component.scss'],
 })
 export class AppComponent  implements OnInit {
   public loginok: number = 1;
@@ -26,6 +26,7 @@ export class AppComponent  implements OnInit {
 
   public appPages = [
     { title: 'Fabricante', url: '/fabricante', icon: '' },
+    { title: 'Tipo Whisky', url: '/tipowhisky', icon: '' },
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
     { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
     { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
