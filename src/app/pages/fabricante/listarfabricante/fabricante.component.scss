@@ -1,3 +1,115 @@
-.cdk-virtual-scroll-viewport{
-    height: 100%;
+ion-toolbar{
+    --background: var(--ion-item-background, var(--ion-background-color, burlywood));
+}
+
+.divTitulo{
+    color: white;
+}
+
+.container {
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+}
+
+.divHeaderlist{
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 0;
+    left: 0;
+    width: 100%; /* Preenche toda a largura do elemento pai */
+    height: 200px; /* Preenche toda a altura do elemento pai */
+    background-color: burlywood;
+    background-image: url('../../../../assets/imagens/madeira2.jpg');
+}
+  
+.blue-box {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 120px; /* Posicionamento vertical ajustado para a segunda div */
+    left: 0;
+    width: 100%; /* Preenche toda a largura do elemento pai */
+    height: 100%; /* Preenche toda a altura do elemento pai */
+    background-color: rgb(197, 156, 94); /* Cor de fundo azul */
+    border-top-left-radius: 20px ;
+    border-top-right-radius: 20px ;
+  }
+  
+  .red-box {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 160px; /* Posicionamento vertical ajustado para a segunda div */
+    left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
+    width: 100%; /* Largura da segunda div */
+    height: 100%; /* Altura da segunda div */
+    background-color: rgb(252, 252, 252); /* Cor de fundo vermelha */
+    border-top-left-radius: 20px ;
+    border-top-right-radius: 20px ;
+    z-index: 1; /* Define a ordem de empilhamento, colocando esta div sobre a outra */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .nomeCampo{
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin-top: 10px;
+  }
+
+  .containerTitulo{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+
+  .containerTitulo1{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    color: white;
+    font-size: 22px;
+  }
+
+  .containerTitulo2{
+    position: absolute;
+    top: 70px;
+    left: 70%;
+
+    width: 100px;
+    border: 2px solid white;
+    border-radius: 8px; 
+    height: 30px;
+    background-color: white; 
+    color:  rgb(197, 156, 94);
+  }
+
+  .trFabricante{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .tdFabricante{
+    border: 2px solid rgb(197, 156, 94);
+    border-radius: 10px; 
+    height: 70px;
+    width: 90%;
+    background-color: white; 
+    color:  rgb(143, 106, 57);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    align-content: center;
+    justify-content: center;
   }
