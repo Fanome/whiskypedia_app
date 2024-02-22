@@ -13,6 +13,8 @@ export class ExcluirTipowhiskyComponent implements OnInit {
 
   tipoWhisky: TipoWhisky = {};
 
+  loaderExcluir = false;
+
   constructor(
     private tipowhiskyService: TipowhiskyService, 
     private router: Router, 
@@ -25,16 +27,20 @@ export class ExcluirTipowhiskyComponent implements OnInit {
   }
 
   excluirTipoWhisky(tipowhiskyExcluido: any){
+    this.loaderExcluir = true;
     this.tipowhiskyService.excluirtipowhiskyPost(tipowhiskyExcluido).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Tipo Whisky excluirdo com sucesso");
+        this.loaderExcluir = false;
         this.router.navigate(["/tipowhisky"]);
       }else{
         this.notificacao("danger", "Erro ao excluir Tipo Whisky");
+        this.loaderExcluir = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderExcluir = false;
     });
   }
 

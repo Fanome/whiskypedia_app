@@ -1,55 +1,59 @@
+<div *ngIf="loaderListar == true" class="overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+
 <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-buttons class="divTitulo" slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title class="divTitulo">
-        <div class="divTituloGeral">
-          <b>Whiskys</b>
-        </div>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header> 
+  <ion-toolbar>
+    <ion-buttons class="divTitulo" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="divTitulo">
+      <div class="divTituloGeral">
+        <b>Whiskys</b>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> 
 
-  <ion-content [fullscreen]="true">
-    <div class="container">
-      <div class="divHeaderlist">
-        <div class="containerTitulo">
-          <div class="containerTitulo1">
-            <b>Lista de Whisky</b>
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="divHeaderlist">
+      <div class="containerTitulo">
+        <div class="containerTitulo1">
+          <b>Lista de Whisky</b>
+        </div>
+        <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/whisky/criarwhisky']"><b>Criar</b></button>
+      </div>
+    </div>
+    <div class="blue-box">
+      <div class="nomeCampo">
+        <b>Nome dos Whiskys</b>
+      </div>
+    </div>
+    <div class="red-box">
+      
+      <tr class="trFabricante" *ngFor="let whisky of whiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" (click)="selecionarWhisky(whisky)" >
+        <td class="tdFabricante">
+          <div class="divControla_1">
+              <div class="divfotoWhisky">
+                  <img [src]="whisky.imagem" style="height: 78px; width: 63px; "> 
+              </div>
+              <div class="divNomeWhisky">
+                  <div class="divNome">
+                      <b>{{whisky.nomeWhisky}}</b>
+                  </div>
+                  <div class="divPais">
+                      {{whisky.nacionalidade}}
+                  </div>
+              </div>
           </div>
-          <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/whisky/criarwhisky']"><b>Criar</b></button>
-        </div>
-      </div>
-      <div class="blue-box">
-        <div class="nomeCampo">
-          <b>Nome dos Whiskys</b>
-        </div>
-      </div>
-      <div class="red-box">
-        
-        <tr class="trFabricante" *ngFor="let whisky of whiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" (click)="selecionarWhisky(whisky)" >
-          <td class="tdFabricante">
-            <div class="divControla_1">
-                <div class="divfotoWhisky">
-                    <img [src]="whisky.imagem" style="height: 78px; width: 63px; "> 
-                </div>
-                <div class="divNomeWhisky">
-                    <div class="divNome">
-                        <b>{{whisky.nomeWhisky}}</b>
-                    </div>
-                    <div class="divPais">
-                        {{whisky.nacionalidade}}
-                    </div>
-                </div>
-            </div>
-          </td>
-        </tr>
+        </td>
+      </tr>
 
-        <div class="divPaginacaoGlobal">
-          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-        </div>
-        
+      <div class="divPaginacaoGlobal">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
       </div>
-    </div> 
-  </ion-content>
+      
+    </div>
+  </div> 
+</ion-content>

@@ -16,6 +16,8 @@ export class ExcluirWhiskyComponent implements OnInit {
   base64String: any;
   imagemUrl: any;
 
+  loaderExcluir = false;
+
   constructor(private whiskyService: WhiskyService,  
     private router: Router, 
     private route: ActivatedRoute,
@@ -38,16 +40,20 @@ export class ExcluirWhiskyComponent implements OnInit {
     }
   
     excluirWhisky(tipowhiskyExcluido: any){
+      this.loaderExcluir = true;
       this.whiskyService.excluirwhiskyPost(tipowhiskyExcluido).subscribe(result => {
         if(result){
           this.notificacao("sucesso", "Whisky excluirdo com sucesso!");
+          this.loaderExcluir = false;
           this.router.navigate(["/whisky"]);
         }else{
           this.notificacao("danger", "Erro ao excluir o Whisky");
+          this.loaderExcluir = false;
         }
       }, error => {
           console.log(error);
           this.notificacao("danger", "Erro de acesso a API");
+          this.loaderExcluir = false;
       });
     }
 

@@ -13,6 +13,8 @@ export class CriarTipowhiskyComponent implements OnInit {
 
   tipoWhiskys: TipoWhisky = {};
 
+  loaderCriar = false;
+
   constructor(
     private tipowhiskyService: TipowhiskyService, 
     private router: Router,
@@ -22,16 +24,20 @@ export class CriarTipowhiskyComponent implements OnInit {
   }
 
   criarTipoWhisky(){
+    this.loaderCriar = true;
     this.tipowhiskyService.criartipowhiskyPost(this.tipoWhiskys).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Tipo Whisky criado com sucesso");
+        this.loaderCriar = false;
         this.router.navigate(["/tipowhisky"]);
       }else{
         this.notificacao("danger", "Erro ao criar Tipo Whisky");
+        this.loaderCriar = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderCriar = false;
     });
   }
 

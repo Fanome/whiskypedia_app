@@ -26,6 +26,9 @@ export class AppComponent  implements OnInit {
 
   public appPages = [
     { title: 'Home', url: '/home', icon: '' },
+    { title: 'Minha Adega', url: '/home', icon: '' },
+    { title: 'Meus Favoritos', url: '/home', icon: '' },
+    { title: 'Meu Perfil', url: '/home', icon: '' },
     // { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
     // { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
     // { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },

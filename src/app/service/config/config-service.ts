@@ -7,7 +7,7 @@ import { Ambientes } from '../../model/app-config';
 export class ConfigService {
 
     buscarAmbiente()  {
-        return "http://localhost:3001";
-        //return "https://whiskypedia.onrender.com";
+        //return "http://localhost:3001";
+        return "https://whiskypedia.onrender.com";
     }
 }

@@ -23,6 +23,8 @@ export class CriarWhiskyComponent implements OnInit {
   base64String: any;
   imagemUrl: any;
 
+  loaderCriar = false;
+
   constructor(private whiskyService: WhiskyService, 
     private fabricanteService: FabricanteService, 
     private tipowhiskyService: TipowhiskyService,
@@ -43,17 +45,20 @@ export class CriarWhiskyComponent implements OnInit {
   }
 
   criarWhisky(){
-    //console.log(this.whiskys)
+    this.loaderCriar = true;
     this.whiskyService.criarwhiskyPost(this.whiskys).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Whisky criado com sucesso!");
+        this.loaderCriar = false;
         this.router.navigate(["/whisky"]);
       }else{
         this.notificacao("danger", "Erro ao criar o Whisky");
+        this.loaderCriar = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderCriar = false;
     });
   }
 

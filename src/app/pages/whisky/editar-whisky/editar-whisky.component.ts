@@ -24,6 +24,8 @@ export class EditarWhiskyComponent implements OnInit {
   base64String: any;
   imagemUrl: any;
 
+  loaderEditar = false;
+
   constructor(private whiskyService: WhiskyService, 
     private fabricanteService: FabricanteService, 
     private tipowhiskyService: TipowhiskyService,
@@ -51,17 +53,20 @@ export class EditarWhiskyComponent implements OnInit {
   }
 
   editarWhisky(whiskyEditado: any){
-
+    this.loaderEditar = true;
     this.whiskyService.editarwhiskyPut(whiskyEditado).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Whisky alterado com sucesso!");
+        this.loaderEditar = false;
         this.router.navigate(["/whisky"]);
       }else{
         this.notificacao("danger", "Erro ao alterar o Whisky");
+        this.loaderEditar = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderEditar = false;
     });
   }
 

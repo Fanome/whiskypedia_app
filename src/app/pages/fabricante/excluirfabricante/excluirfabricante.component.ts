@@ -13,6 +13,8 @@ export class ExcluirfabricanteComponent implements OnInit {
 
   fabricante: Fabricante = {};
 
+  loaderExcluir = false;
+
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router, 
@@ -25,16 +27,20 @@ export class ExcluirfabricanteComponent implements OnInit {
   }
 
   excluirFabricante(fabricanteExcluido: any){
+    this.loaderExcluir = true;
     this.fabricanteService.excluirFabricantePost(fabricanteExcluido).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Fabricante excluirdo com sucesso");
+        this.loaderExcluir = false;
         this.router.navigate(["/fabricante"]);
       }else{
         this.notificacao("danger", "Erro ao excluir Fabricante");
+        this.loaderExcluir = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderExcluir = false;
     });
   }
 

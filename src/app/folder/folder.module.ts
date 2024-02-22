@@ -24,6 +24,7 @@ import { ListarWhiskyComponent } from '../pages/whisky/listar-whisky/listar-whis
 import { CriarWhiskyComponent } from '../pages/whisky/criar-whisky/criar-whisky.component';
 import { EditarWhiskyComponent } from '../pages/whisky/editar-whisky/editar-whisky.component';
 import { ExcluirWhiskyComponent } from '../pages/whisky/excluir-whisky/excluir-whisky.component';
+import { LoadingSpinnerComponent } from '../Utils/loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { ExcluirWhiskyComponent } from '../pages/whisky/excluir-whisky/excluir-w
     IonicModule,
     RouterModule.forChild(FolderPageRoutingModule),
     ScrollingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   declarations: [
     FolderPage, 
@@ -49,7 +50,8 @@ import { ExcluirWhiskyComponent } from '../pages/whisky/excluir-whisky/excluir-w
     ListarWhiskyComponent,
     CriarWhiskyComponent,
     EditarWhiskyComponent,
-    ExcluirWhiskyComponent
+    ExcluirWhiskyComponent,
+    LoadingSpinnerComponent
   ]
 })
 export class FolderPageModule {}

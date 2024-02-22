@@ -13,6 +13,8 @@ export class ListarTipowhiskyComponent implements OnInit {
 
   tipoWhiskys: TipoWhisky[] = [];
 
+  loaderListar = false;
+
   pageSize: number = 5; // Quantidade de itens por página
   currentPage: number = 1; // Página inicial
 
@@ -34,12 +36,15 @@ export class ListarTipowhiskyComponent implements OnInit {
 
 
   listarTipoWhiskyALL(){
+    this.loaderListar = true;
+
     this.tipowhiskyService.listarALL().subscribe(result => {
       this.tipoWhiskys = result
-      console.log(this.tipoWhiskys);
+      this.loaderListar = false;
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderListar = false;
     });
   }
 

@@ -13,6 +13,8 @@ export class EditarfabricanteComponent implements OnInit {
 
   fabricante: Fabricante = {};
 
+  loaderEditar = false;
+
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router, 
@@ -25,16 +27,20 @@ export class EditarfabricanteComponent implements OnInit {
   }
 
   editarFabricante(barrilEditado: any){
+    this.loaderEditar = true;
     this.fabricanteService.editarFabricantePut(barrilEditado).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Fabricante alterado com sucesso");
+        this.loaderEditar = false;
         this.router.navigate(["/fabricante"]);
       }else{
         this.notificacao("danger", "Erro ao alterar Fabricante");
+        this.loaderEditar = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderEditar = false;
     });
   }
   

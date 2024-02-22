@@ -13,6 +13,8 @@ export class CriarfabricanteComponent implements OnInit {
 
   fabricante: Fabricante = {};
 
+  loaderCriar = false;
+
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,
@@ -22,17 +24,21 @@ export class CriarfabricanteComponent implements OnInit {
   }
 
   criarFabricante(){
+    this.loaderCriar = true;
     this.fabricanteService.criarFabricantePost(this.fabricante).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Fabricante criado com sucesso");
         this.fabricante = {};
+        this.loaderCriar = false;
         this.router.navigate(["/fabricante"]);
       }else{
         this.notificacao("danger", "Erro ao criar Fabricante");
+        this.loaderCriar = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderCriar = false;
     });
 
   }

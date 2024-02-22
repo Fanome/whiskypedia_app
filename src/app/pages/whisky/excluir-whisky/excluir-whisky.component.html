@@ -1,3 +1,7 @@
+<div *ngIf="loaderExcluir == true" class="overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div> 
+
 <ion-header [translucent]="true">
     <ion-toolbar class="divTitulo_GERAL">
         <ion-buttons slot="start">
@@ -33,6 +37,10 @@
       <div class="red-box">
         
         <div class="divSubmit">
+            <div class="divMsgExcluir">
+              <h5 style="color: red;">Deseja realmente excluir</h5>
+              <h5 style="color: red;">o registro abaixo?</h5>
+            </div>
             <div class="tamanhoFoto image margim" style="text-align: center;">
                 <img [src]="imagemUrl" style="height: 250px; width: 200px;">
             </div>

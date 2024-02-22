@@ -21,6 +21,8 @@ export class ListarWhiskyComponent implements OnInit {
   pageSize: number = 5; // Quantidade de itens por página
   currentPage: number = 1; // Página inicial
 
+  loaderListar = false;
+
   constructor(private whiskyService: WhiskyService, private router: Router,
     private toastr: ToastrService) { 
   }
@@ -36,11 +38,15 @@ export class ListarWhiskyComponent implements OnInit {
   }
 
   listarWhiskyALL(){
+    this.loaderListar = true;
+
     this.whiskyService.listarALL().subscribe(result => {
       this.whiskys = result
+      this.loaderListar = false;
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderListar = false;
     });
     
     this.converteImagem();

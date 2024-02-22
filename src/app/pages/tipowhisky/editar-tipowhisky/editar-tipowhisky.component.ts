@@ -13,6 +13,8 @@ export class EditarTipowhiskyComponent implements OnInit {
 
   tipoWhiskys: TipoWhisky = {};
 
+  loaderEditar = false;
+
   constructor(
     private tipowhiskyService: TipowhiskyService, 
     private router: Router, 
@@ -25,16 +27,20 @@ export class EditarTipowhiskyComponent implements OnInit {
   }
 
   editarTipoWhisky(tipoWhiskyEditado: any){
+    this.loaderEditar = true;
     this.tipowhiskyService.editartipowhiskyPut(tipoWhiskyEditado).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Tipo Whisky alterado com sucesso");
+        this.loaderEditar = false;
         this.router.navigate(["/tipowhisky"]);
       }else{
         this.notificacao("danger", "Erro ao alterar Tipo Whisky");
+        this.loaderEditar = false;
       }
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderEditar = false;
     });
   }
 

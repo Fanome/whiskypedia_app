@@ -17,6 +17,8 @@ export class FabricanteComponent  implements OnInit {
   pageSize: number = 5; // Quantidade de itens por página
   currentPage: number = 1; // Página inicial
 
+  loaderListar = false;
+
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,
@@ -36,12 +38,14 @@ export class FabricanteComponent  implements OnInit {
   }
 
   listarFabricantesALL(): void{
+    this.loaderListar = true;
     this.fabricanteService.listarALL().subscribe(results => {
       this.fabricantes = results;
-      console.log(this.fabricantes);
+      this.loaderListar = false;
     }, error => {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
+        this.loaderListar = false;
     });
   }
 
