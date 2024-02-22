@@ -22,6 +22,7 @@ import { HomeComponent } from '../pages/home/home.component';
 
 import { ListarWhiskyComponent } from '../pages/whisky/listar-whisky/listar-whisky.component';
 import { CriarWhiskyComponent } from '../pages/whisky/criar-whisky/criar-whisky.component';
+import { EditarWhiskyComponent } from '../pages/whisky/editar-whisky/editar-whisky.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { CriarWhiskyComponent } from '../pages/whisky/criar-whisky/criar-whisky.
     ExcluirTipowhiskyComponent,
     HomeComponent,
     ListarWhiskyComponent,
-    CriarWhiskyComponent
+    CriarWhiskyComponent,
+    EditarWhiskyComponent
   ]
 })
 export class FolderPageModule {}

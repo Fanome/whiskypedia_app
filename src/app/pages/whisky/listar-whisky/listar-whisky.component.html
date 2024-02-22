@@ -28,7 +28,7 @@
       </div>
       <div class="red-box">
         
-        <tr class="trFabricante" *ngFor="let whisky of whiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" [routerLink]="['/whisky/editarwhisky', whisky.idWhisky, whisky.nomeWhisky]" >
+        <tr class="trFabricante" *ngFor="let whisky of whiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" (click)="selecionarWhisky(whisky)" >
           <td class="tdFabricante">
             <div class="divControla_1">
                 <div class="divfotoWhisky">

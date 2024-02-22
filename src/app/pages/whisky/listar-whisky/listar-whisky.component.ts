@@ -49,7 +49,7 @@ export class ListarWhiskyComponent implements OnInit {
   selecionarWhisky(whiskySelecionado:any){
     console.log("foi");
     console.log("whiskySelecionado");
-    this.router.navigate(['/whisky/editar-whisky'], { queryParams: { whiskySelecionado: JSON.stringify(whiskySelecionado) } });
+    this.router.navigate(['/whisky/editarwhisky'], { queryParams: { whiskySelecionado: JSON.stringify(whiskySelecionado) } });
   }
 
   converteImagem(){

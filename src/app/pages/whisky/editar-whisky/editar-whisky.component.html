@@ -16,7 +16,7 @@
     </ion-toolbar>
   </ion-header> 
 
-<ion-content [fullscreen]="true">
+  <ion-content [fullscreen]="true">
     <div class="container">
       <div class="divHeaderlist">
         <div class="containerTitulo">
@@ -130,7 +130,11 @@
             </div>
 
             <div class="divBotao">
-                <button type="submit" class="botao" (click)="criarWhisky()" >Criar Whisky</button>
+                <button type="submit" class="botao" (click)="editarWhisky(whiskys)" >Editar Whisky</button>
+            </div>
+
+            <div class="divBotao">
+                <button type="submit" class="botaoExcluir" (click)="excluirWhisky(whiskys)" >Excluir Whisky</button>
             </div>
         </div>
       </div>
