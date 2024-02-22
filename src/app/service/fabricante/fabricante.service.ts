@@ -2,43 +2,42 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fabricante } from '../../model/fabricante.model';
+import { ConfigService } from '../../service/config/config-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FabricanteService {
 
-  //////// Local 
-  // public fabricanteGetAllURL = 'http://localhost:3001/api/fabricantes';
-  // public criarfabricantePostAllURL = 'http://localhost:3001/api/fabricante/incluir';
-  // public editarfabricantePutAllURL = 'http://localhost:3001/api/fabricante/alterar';
-  // public excluirfabricantePostAllURL = 'http://localhost:3001/api/fabricante';
+  constructor(private http: HttpClient,  private configService: ConfigService) {}
 
-  //////// Nuvem 
-  public fabricanteGetAllURL = 'https://whiskypedia.onrender.com/api/fabricantes';
-  public criarfabricantePostAllURL = 'https://whiskypedia.onrender.com/api/fabricante/incluir';
-  public editarfabricantePutAllURL = 'https://whiskypedia.onrender.com/api/fabricante/alterar';
-  public excluirfabricantePostAllURL = 'https://whiskypedia.onrender.com/api/fabricante';
-
-  constructor(private http: HttpClient) {}
+  public ambiente: string = "";
+  public fabricanteGetAllURL = '/api/fabricantes';
+  public criarfabricantePostAllURL = '/api/fabricante/incluir';
+  public editarfabricantePutAllURL = '/api/fabricante/alterar';
+  public excluirfabricantePostAllURL = '/api/fabricante';
 
   listarALL()  {
-    console.log('ta no servico'); 
-    return this.http.get<Fabricante[]>(`${this.fabricanteGetAllURL}`);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.fabricanteGetAllURL;
+    return this.http.get<Fabricante[]>(`${url}`);
   }
 
   criarFabricantePost(data: any) {
-    console.log(data);
-    return  this.http.post(this.criarfabricantePostAllURL, data);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.criarfabricantePostAllURL;
+    return  this.http.post(url, data);
   }
 
   editarFabricantePut(data: any) {
-    console.log(data);
-    return  this.http.put(this.editarfabricantePutAllURL, data);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.editarfabricantePutAllURL;
+    return  this.http.put(url, data);
   }
 
   excluirFabricantePost(data: any) {
-    console.log(data);
-    return  this.http.delete(this.excluirfabricantePostAllURL + '/' + data.idFabricante);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.excluirfabricantePostAllURL;
+    return  this.http.delete(url + '/' + data.idFabricante);
   }
 }

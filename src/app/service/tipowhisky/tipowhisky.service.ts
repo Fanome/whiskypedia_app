@@ -2,42 +2,42 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TipoWhisky } from '../../model/tipowhisky.model';
+import { ConfigService } from '../../service/config/config-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipowhiskyService {
 
-  //////// Local 
-  // public tipowhiskyGetAllURL = 'http://localhost:3001/api/tipowhiskys';
-  // public criartipowhiskyPostAllURL = 'http://localhost:3001/api/tipowhisky/incluir';
-  // public editartipowhiskyPutAllURL = 'http://localhost:3001/api/tipowhisky/alterar';
-  // public excluirtipowhiskyPostAllURL = 'http://localhost:3001/api/tipowhisky';
+  constructor(private http: HttpClient,  private configService: ConfigService) {}
 
-  //////// Nuvem 
-  public tipowhiskyGetAllURL = 'https://whiskypedia.onrender.com/api/tipowhiskys';
-  public criartipowhiskyPostAllURL = 'https://whiskypedia.onrender.com/api/tipowhisky/incluir';
-  public editartipowhiskyPutAllURL = 'https://whiskypedia.onrender.com/api/tipowhisky/alterar';
-  public excluirtipowhiskyPostAllURL = 'https://whiskypedia.onrender.com/api/tipowhisky';
-
-  constructor(private http: HttpClient) {}
+  public ambiente: string = "";
+  public tipowhiskyGetAllURL = '/api/tipowhiskys';
+  public criartipowhiskyPostAllURL = '/api/tipowhisky/incluir';
+  public editartipowhiskyPutAllURL = '/api/tipowhisky/alterar';
+  public excluirtipowhiskyPostAllURL = '/api/tipowhisky';
 
   listarALL()  { 
-    return this.http.get<TipoWhisky[]>(`${this.tipowhiskyGetAllURL}`);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.tipowhiskyGetAllURL;
+    return this.http.get<TipoWhisky[]>(`${url}`);
   }
 
   criartipowhiskyPost(data: any) {
-    console.log(data);
-    return  this.http.post(this.criartipowhiskyPostAllURL, data);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.criartipowhiskyPostAllURL;
+    return  this.http.post(url, data);
   }
 
   editartipowhiskyPut(data: any) {
-    console.log(data);
-    return  this.http.put(this.editartipowhiskyPutAllURL, data);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.editartipowhiskyPutAllURL;
+    return  this.http.put(url, data);
   }
 
   excluirtipowhiskyPost(data: any) {
-    console.log(data);
-    return  this.http.delete(this.excluirtipowhiskyPostAllURL + '/' + data.idTipoWhisky);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.excluirtipowhiskyPostAllURL;
+    return  this.http.delete(url + '/' + data.idTipoWhisky);
   }
 }

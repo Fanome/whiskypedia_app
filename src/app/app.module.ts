@@ -14,8 +14,6 @@ import { ToastrModule } from "ngx-toastr";
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-
-
 @NgModule({
   declarations: [AppComponent],
   imports: [

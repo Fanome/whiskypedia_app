@@ -2,23 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../model/usuario.model';
+import { ConfigService } from '../../service/config/config-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  
-  //////// Local 
-  //public criarUsuarioPostAllURL = 'http://localhost:3001/api/usuario/incluir';
-                        
 
-  //////// Nuvem 
-  public criarUsuarioPostAllURL = 'https://whiskypedia.onrender.com/api/usuario/incluir';
+  constructor(private http: HttpClient,  private configService: ConfigService) {}
 
-  constructor(private http: HttpClient) {}
+  public ambiente: string = "";
+  public criarUsuarioPostAllURL = '/api/usuario/incluir';
 
   criarUsuarioPost(usuario: Usuario): Observable<any> {
-    console.log(usuario);
-    return  this.http.post<any>(this.criarUsuarioPostAllURL, usuario);
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.criarUsuarioPostAllURL;
+    return  this.http.post<any>(url, usuario);
   }
 }

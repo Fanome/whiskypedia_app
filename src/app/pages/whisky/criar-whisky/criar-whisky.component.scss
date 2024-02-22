@@ -14,13 +14,6 @@ ion-toolbar{
 
 .divHeaderlist{
     position: absolute; /* Posiciona em relação ao elemento pai */
-    // height: 150px;
-    // width: 100%;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // background-size: cover;
-    // background-position: center;
     top: 0;
     left: 0;
     width: 100%; /* Preenche toda a largura do elemento pai */
@@ -47,7 +40,6 @@ ion-toolbar{
     width: 100%; /* Largura da segunda div */
     height: 100%; /* Altura da segunda div */
     background-color: rgb(252, 252, 252); /* Cor de fundo vermelha */
-    //border-radius: 30px; /* Bordas arredondadas */
     border-top-left-radius: 20px ;
     border-top-right-radius: 20px ;
     z-index: 1; /* Define a ordem de empilhamento, colocando esta div sobre a outra */
