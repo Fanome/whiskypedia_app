@@ -38,7 +38,7 @@ export class WhiskyService {
 
   excluirwhiskyPost(data: any) {
     this.ambiente = this.configService.buscarAmbiente()
-    const url = this.ambiente + this.editarwhiskyPutAllURL;
+    const url = this.ambiente + this.excluirwhiskyPostAllURL;
     return  this.http.delete(url + '/' + data.idWhisky);
   }
 }

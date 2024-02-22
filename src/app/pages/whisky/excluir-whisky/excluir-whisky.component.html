@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="divTitulo_GERAL">
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="divTitulo_GERAL">
+        <div class="divTopBar_GERAL">
+            <div class="divVoltarLocal_GERAL">
+                <button type="submit" class="botaoVoltar_GERAL" (click)="selecionarWhisky(whiskys)" ><</button> 
+            </div>
+            <div class="divTituloLocal_GERAL">
+                <b>Whisky</b>
+            </div>
+        </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> 
+
+<ion-content [fullscreen]="true">
+    <div class="container">
+      <div class="divHeaderlist">
+        <div class="containerTitulo">
+          <div class="containerTitulo1">
+            <b>Lista de Whisky</b>
+          </div>
+        </div>
+      </div>
+      <div class="blue-box">
+        <div class="nomeCampo">
+          <b></b>
+        </div>
+      </div>
+      <div class="red-box">
+        
+        <div class="divSubmit">
+            <div class="tamanhoFoto image margim" style="text-align: center;">
+                <img [src]="imagemUrl" style="height: 250px; width: 200px;">
+            </div>
+
+            <div class="divLabel">
+                <label><b>Nome Whisky</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" placeholder="" disabled="" [(ngModel)]="whiskys.nomeWhisky" name="name">
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Histórica</b></label>
+            </div>
+            <div class="divCampos">
+                <textarea class="divTexteArea" placeholder=""  disabled=""  [(ngModel)]="whiskys.descricao_historica" name="name"></textarea>
+            </div>
+
+            <div class="divBotao">
+                <button type="submit" class="botaoExcluir" (click)="excluirWhisky(whiskys)" >Excluir Whisky</button>
+            </div>
+        </div>
+      </div>
+    </div> 
+  </ion-content>
