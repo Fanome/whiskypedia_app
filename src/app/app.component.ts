@@ -37,6 +37,7 @@ export class AppComponent  implements OnInit {
   public appPagesAdmin = [
     { title: 'Fabricante', url: '/fabricante', icon: '' },
     { title: 'Tipo Whisky', url: '/tipowhisky', icon: '' },
+    { title: 'Whisky', url: '/whisky', icon: '' },
   ];
 
   constructor(

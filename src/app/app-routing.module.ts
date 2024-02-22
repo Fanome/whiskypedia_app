@@ -13,6 +13,8 @@ import { ExcluirTipowhiskyComponent } from './pages/tipowhisky/excluir-tipowhisk
 
 import { HomeComponent } from './pages/home/home.component';
 
+import { ListarWhiskyComponent } from './pages/whisky/listar-whisky/listar-whisky.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -38,6 +40,9 @@ const routes: Routes = [
   { path: 'tipowhisky/criartipowhisky', component: CriarTipowhiskyComponent},
   { path: 'tipowhisky/editartipowhisky/:idTipoWhisky/:nomeTipoWhisky', component: EditarTipowhiskyComponent},
   { path: 'tipowhisky/excluirtipowhisky/:idTipoWhisky/:nomeTipoWhisky', component: ExcluirTipowhiskyComponent },
+
+  /// WHISKY
+  { path: 'whisky', component: ListarWhiskyComponent},
 ];
 
 @NgModule({

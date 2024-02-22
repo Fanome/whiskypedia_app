@@ -20,6 +20,8 @@ import { ExcluirTipowhiskyComponent } from '../pages/tipowhisky/excluir-tipowhis
 
 import { HomeComponent } from '../pages/home/home.component';
 
+import { ListarWhiskyComponent } from '../pages/whisky/listar-whisky/listar-whisky.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { HomeComponent } from '../pages/home/home.component';
     CriarTipowhiskyComponent,
     EditarTipowhiskyComponent,
     ExcluirTipowhiskyComponent,
-    HomeComponent
+    HomeComponent,
+    ListarWhiskyComponent
   ]
 })
 export class FolderPageModule {}
