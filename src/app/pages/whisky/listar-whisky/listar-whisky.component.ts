@@ -30,6 +30,11 @@ export class ListarWhiskyComponent implements OnInit {
     this.listarWhiskyALL();
   }
 
+  ionViewDidEnter() { // metodo para atualizar a pagina
+    this.escolheGrid();
+    this.listarWhiskyALL();
+  }
+
   listarWhiskyALL(){
     this.whiskyService.listarALL().subscribe(result => {
       this.whiskys = result

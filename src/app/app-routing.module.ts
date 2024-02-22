@@ -14,6 +14,7 @@ import { ExcluirTipowhiskyComponent } from './pages/tipowhisky/excluir-tipowhisk
 import { HomeComponent } from './pages/home/home.component';
 
 import { ListarWhiskyComponent } from './pages/whisky/listar-whisky/listar-whisky.component';
+import { CriarWhiskyComponent } from './pages/whisky/criar-whisky/criar-whisky.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
 
   /// WHISKY
   { path: 'whisky', component: ListarWhiskyComponent},
+  { path: 'whisky/criarwhisky', component: CriarWhiskyComponent},
 ];
 
 @NgModule({

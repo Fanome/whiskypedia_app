@@ -9,10 +9,10 @@ import { Whisky } from '../../model/whisky.model';
 export class WhiskyService {
 
   //////// Local 
-  // public whiskyGetAllURL = 'http://localhost:3001/api/whiskys';
-  // public criarwhiskyPostAllURL = 'http://localhost:3001/api/whisky/incluir';
-  // public editarwhiskyPutAllURL = 'http://localhost:3001/api/whisky/alterar';
-  // public excluirwhiskyPostAllURL = 'http://localhost:3001/api/whisky';
+//   public whiskyGetAllURL = 'http://localhost:3001/api/whiskys';
+//   public criarwhiskyPostAllURL = 'http://localhost:3001/api/whisky/incluir';
+//   public editarwhiskyPutAllURL = 'http://localhost:3001/api/whisky/alterar';
+//   public excluirwhiskyPostAllURL = 'http://localhost:3001/api/whisky';
 
   //////// Nuvem 
   public whiskyGetAllURL = 'https://whiskypedia.onrender.com/api/whiskys';
