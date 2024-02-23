@@ -3,6 +3,7 @@ import { Usuario } from '../app/model/usuario.model';
 import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr";
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
@@ -26,9 +27,10 @@ export class AppComponent  implements OnInit {
 
   public appPages = [
     { title: 'Home', url: '/home', icon: '' },
-    { title: 'Minha Adega', url: '/home', icon: '' },
-    { title: 'Meus Favoritos', url: '/home', icon: '' },
-    { title: 'Meu Perfil', url: '/home', icon: '' },
+    { title: 'Whiskys', url: '/clientewhisky', icon: '' },
+    { title: 'Minha Adega', url: '/minhaadega', icon: '' },
+    { title: 'Meus Favoritos', url: '/meusfavoritos', icon: '' },
+    { title: 'Meu Perfil', url: '/meuperfil', icon: '' },
     // { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
     // { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
     // { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
@@ -45,7 +47,8 @@ export class AppComponent  implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router, 
     ){
   } 
   
@@ -53,8 +56,10 @@ export class AppComponent  implements OnInit {
     
   }
 
+
   fazerLogin(){
     this.loginok = 2;
+    this.router.navigate(["/home"]);
   }
 
   sair(){

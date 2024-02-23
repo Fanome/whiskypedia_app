@@ -12,6 +12,10 @@ import { EditarTipowhiskyComponent } from './pages/tipowhisky/editar-tipowhisky/
 import { ExcluirTipowhiskyComponent } from './pages/tipowhisky/excluir-tipowhisky/excluir-tipowhisky.component';
 
 import { HomeComponent } from './pages/home/home.component';
+import { ClienteWhiskyComponent } from './pages/clientewhisky/clientewhisky.component';
+import { MinhaAdegaComponent } from './pages/minhaadega/minhaadega.component';
+import { MeusFavoritosComponent } from './pages/meusfavoritos/meusfavoritos.component';
+import { MeuPerfilComponent } from './pages/meuperfil/meuperfil.component';
 
 import { ListarWhiskyComponent } from './pages/whisky/listar-whisky/listar-whisky.component';
 import { CriarWhiskyComponent } from './pages/whisky/criar-whisky/criar-whisky.component';
@@ -29,8 +33,12 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
 
-  /// HOME
+  /// MENU
   {path: 'home', component: HomeComponent},
+  {path: 'clientewhisky', component: ClienteWhiskyComponent},
+  {path: 'minhaadega', component: MinhaAdegaComponent},
+  {path: 'meusfavoritos', component: MeusFavoritosComponent},
+  {path: 'meuperfil', component: MeuPerfilComponent},
 
   /// FABRICANTE
   { path: 'fabricante', component: FabricanteComponent},
