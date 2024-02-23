@@ -37,11 +37,9 @@
 }
 
 .containerTitulo3{
-    //position: absolute;
-    //top: 70px;
     left: 20px;
     color: rgb(197, 156, 94);
-    font-size: 24px;
+    font-size: 20px;
 }
 
 
@@ -61,7 +59,7 @@
     top: 250px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
     width: 100%; /* Largura da segunda div */
-    height: 100%; /* Altura da segunda div */
+    height: 1200px; /* Altura da segunda div */
     background-color: rgb(252, 252, 252); /* Cor de fundo vermelha */
     // border-top-left-radius: 30px ;
     // border-top-right-radius: 30px ;
@@ -170,4 +168,16 @@
     width: 200px; /* Ajuste conforme necessário */
     height: 250px; /* Ajuste conforme necessário */
     margin-right: 30px; /* Espaçamento entre os itens */
+  }
+
+
+  .tituloArea{
+    background-color: burlywood; width: 100%; color: white; height: 70px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    align-content: center;
+    justify-content: center;
   }

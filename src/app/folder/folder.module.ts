@@ -30,6 +30,8 @@ import { EditarWhiskyComponent } from '../pages/whisky/editar-whisky/editar-whis
 import { ExcluirWhiskyComponent } from '../pages/whisky/excluir-whisky/excluir-whisky.component';
 import { LoadingSpinnerComponent } from '../Utils/loading-spinner/loading-spinner.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { LoadingSpinnerComponent } from '../Utils/loading-spinner/loading-spinne
     RouterModule.forChild(FolderPageRoutingModule),
     ScrollingModule,
     NgxPaginationModule,
+    NgChartsModule,
   ],
   declarations: [
     FolderPage, 

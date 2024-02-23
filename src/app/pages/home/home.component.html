@@ -11,7 +11,7 @@
     </ion-toolbar>
   </ion-header> 
   
-  <ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" style="height: 3000px; width: 100%;">
     <div class="container">
       <div class="divHeaderlist">
         <div class="containerTitulo">
@@ -35,7 +35,26 @@
       </div>
       
       <div class="red-box">
-        <div class="containerTitulo3">
+
+        <div class="containerTitulo3 tituloArea" style="font-size: 20px; ">
+          <div style="text-align: center;"><b>Quantidades de Tipo de Whisky</b></div>
+          <div style="text-align: center;"><b>Cadastrados</b></div>
+        </div>
+        <div style="display: block; margin-bottom: 25px; margin-top: 15px;">
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="pieChartDatasets"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+            >
+          </canvas>
+
+        </div>
+
+
+        <div class="containerTitulo3 tituloArea">
           <b>Os Mais Curtidos</b>
         </div>
         <div class="carrossel">
@@ -50,7 +69,7 @@
           </div>
         </div> 
 
-        <div class="containerTitulo3">
+        <div class="containerTitulo3 tituloArea">
           <b>Últimos Incluídos</b>
         </div>
         <div class="carrossel2">
@@ -66,5 +85,8 @@
         </div> 
       </div>
     </div> 
+</ion-content>
 
-  </ion-content>
+
+
+
