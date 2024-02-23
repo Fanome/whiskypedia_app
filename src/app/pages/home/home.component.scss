@@ -181,3 +181,42 @@
     align-content: center;
     justify-content: center;
   }
+
+
+
+  /// INICIO OBJETOS PARTE 3    ///////////////////////////////////
+.parte3_pai{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+}
+
+.parte3_filho1{
+    position: absolute;
+    top: 10px; 
+    right: 20px;
+    color: rgb(179, 145, 102);
+    font-weight: 700
+}
+
+.parte3_filho2{
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+    color: rgb(132, 193, 218);
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700
+}
+
+.parte3_filho2_1{
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+    color: rgb(243, 160, 178);
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700
+}
+
+/// FIM OBJETOS PARTE 3    ///////////////////////////////////
