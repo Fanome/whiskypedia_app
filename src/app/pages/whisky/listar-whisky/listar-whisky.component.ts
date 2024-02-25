@@ -16,12 +16,13 @@ export class ListarWhiskyComponent implements OnInit {
   whiskysPaginado: WhiskyPaginado = {};
   exibeLista: boolean = false;
   exibeGrid: boolean = false;
+  searchTerm: string = '';
+
+  controlePagina: string = '';
+  controlePesquisa: string = '';
 
   base64String: any; 
   imagemUrl: any;
-
-  // pageSize: number = 5; // Quantidade de itens por página
-  // currentPage: number = 1; // Página inicial
 
   currentPage: number = 1;
   pageSize: number = 5;
@@ -37,15 +38,30 @@ export class ListarWhiskyComponent implements OnInit {
   ngOnInit() {
     // this.escolheGrid();
     // this.listarWhiskyALL(this.currentPage);
+    this.currentPage= 1;
+    this.pageSize = 5;
+    this.totalPages = 0;
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
     this.escolheGrid();
-    this.listarWhiskyALL(this.currentPage);
+
+    if(this.searchTerm != ''){
+      this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
+    }else{
+      this.listarWhiskyALL(this.currentPage);
+    }
   }
 
   listarWhiskyALL (pageNumber: number) {
     this.loaderListar = true;
+
+    //this.controlePaginaMetodo('A');
+    if(this.controlePagina != 'A'){
+      this.controlePagina = 'A';
+      this.currentPage= 1;
+      pageNumber = 1;
+    }
 
     this.whiskyService.listarALLPaginado(pageNumber, this.pageSize).subscribe(result => {
 
@@ -54,6 +70,8 @@ export class ListarWhiskyComponent implements OnInit {
       this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
+
+      console.log(this.whiskys.length);
 
       this.loaderListar = false;
     }, error => {
@@ -142,14 +160,75 @@ export class ListarWhiskyComponent implements OnInit {
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
-      this.listarWhiskyALL(this.currentPage + 1);
+      if(this.searchTerm != ''){
+        this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
+      }else{
+        this.listarWhiskyALL(this.currentPage + 1);
+      }
     }
   }
 
   prevPage() {
     if (this.currentPage > 1) {
-      this.listarWhiskyALL(this.currentPage - 1);
+      if(this.searchTerm != ''){
+        this.listarWhiskyPesquisaPaginado(this.currentPage - 1, this.searchTerm);
+      }else{
+        this.listarWhiskyALL(this.currentPage - 1);
+      }
     }
+  }
+
+  search() {
+    // Lógica para lidar com a pesquisa aqui
+    console.log(this.searchTerm);
+
+    if(this.searchTerm != ''){
+      this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
+    }else{
+      this.listarWhiskyALL(this.currentPage);
+    }
+  }
+
+  listarWhiskyPesquisaPaginado (pageNumber: number, pesquisa: string) {
+    this.loaderListar = true;
+
+    //this.controlePaginaMetodo('B');
+    if(this.controlePagina != 'B'){
+      this.controlePagina = 'B';
+      this.currentPage= 1;
+      pageNumber = 1;
+    }
+
+    if(this.controlePesquisa == ''){
+      this.controlePagina = 'B';
+      this.currentPage= 1;
+      this.controlePesquisa = this.searchTerm
+      pageNumber = 1;
+    }else{
+      if(this.controlePesquisa != this.searchTerm)
+      {
+        this.controlePagina = 'B';
+        this.currentPage= 1;
+        this.controlePesquisa = this.searchTerm
+        pageNumber = 1;
+      }
+    }
+
+    this.whiskyService.listarWhiskyPesquisaPaginado(pageNumber, this.pageSize, pesquisa).subscribe(result => {
+
+      this.whiskysPaginado = result;
+      this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
+      this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
+      this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
+
+      this.loaderListar = false;
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+        this.loaderListar = false;
+    });
+    
+    this.converteImagem(); 
   }
 
 }

@@ -50,4 +50,11 @@ export class WhiskyService {
     let data = this.http.get<WhiskyPaginado>(`${url}`);
     return data;
   }
+
+  listarWhiskyPesquisaPaginado(pageNumber: number, pageSize: number, pesquisa: string)  { 
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.whiskyGetAllURLPaginado + '/' + pageNumber + '/' + pageSize + '/' + pesquisa  ;
+    let data = this.http.get<WhiskyPaginado>(`${url}`);
+    return data;
+  }
 }

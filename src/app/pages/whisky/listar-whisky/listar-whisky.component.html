@@ -26,12 +26,16 @@
       </div>
     </div>
     <div class="blue-box">
-      <div class="nomeCampo">
-        <b>Nome dos Whiskys</b>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Pesquisar..." [(ngModel)]="searchTerm" (keyup.enter)="search()">
+        <button class="search-button" (click)="search()">
+          <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
+        </button>
       </div>
     </div>
     <div class="red-box">
-       
+
+      <div *ngIf="whiskys.length < 1" class="caixaNaoEncontrados" > Não foram encontrados whiskys </div>
       <tr class="trFabricante" *ngFor="let whisky of whiskys" (click)="selecionarWhisky(whisky)" >
         <td class="tdFabricante">
           <div class="divControla_1">
@@ -50,7 +54,7 @@
         </td>
       </tr>
 
-      <div class="divPaginacaoGlobal">
+      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0">
         <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
         <div class="paginacaoPai">
           <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
