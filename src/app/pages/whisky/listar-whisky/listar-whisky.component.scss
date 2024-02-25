@@ -166,3 +166,27 @@ ion-toolbar{
     margin-top: 3px;
     font-size: 12px;
   }
+
+  .paginacaoPai{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+
+  .paginacaoFilho1{
+    position: absolute;
+    left:12%;
+    color:  rgb(143, 106, 57);
+  }
+
+  .paginacaoFilho2{
+    position: absolute;
+    left: 45%;
+    color:  rgb(143, 106, 57);
+  }
+
+  .paginacaoFilho3{
+    position: absolute;
+    right: 18%;
+    color:  rgb(143, 106, 57);
+  }

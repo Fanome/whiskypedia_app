@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Whisky } from '../../model/whisky.model';
 import { ConfigService } from '../../service/config/config-service';
+import { WhiskyPaginado } from '../../model/whiskyPaginado.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,14 @@ export class WhiskyService {
   public criarwhiskyPostAllURL = '/api/whisky/incluir';
   public editarwhiskyPutAllURL = '/api/whisky/alterar';
   public excluirwhiskyPostAllURL = '/api/whisky';
+  public whiskyGetAllURLPaginado = '/api/whiskys/paginado';
 
 
   listarALL()  { 
     this.ambiente = this.configService.buscarAmbiente()
     const url = this.ambiente + this.whiskyGetAllURL;
     return this.http.get<Whisky[]>(`${url}`);
-  }
+  } 
 
   criarwhiskyPost(data: any) {
     this.ambiente = this.configService.buscarAmbiente()
@@ -40,5 +42,12 @@ export class WhiskyService {
     this.ambiente = this.configService.buscarAmbiente()
     const url = this.ambiente + this.excluirwhiskyPostAllURL;
     return  this.http.delete(url + '/' + data.idWhisky);
+  }
+
+  listarALLPaginado(pageNumber: number, pageSize: number)  { 
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.whiskyGetAllURLPaginado + '/' + pageNumber + '/' + pageSize;
+    let data = this.http.get<WhiskyPaginado>(`${url}`);
+    return data;
   }
 }

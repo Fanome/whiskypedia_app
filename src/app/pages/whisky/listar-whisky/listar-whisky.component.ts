@@ -3,6 +3,7 @@ import { WhiskyService } from 'src/app/service/whisky/whisky.service';
 import { Whisky } from 'src/app/model/whisky.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { WhiskyPaginado } from 'src/app/model/whiskyPaginado.model';
 
 @Component({
   selector: 'app-listar-whisky',
@@ -12,14 +13,20 @@ import { ToastrService } from "ngx-toastr";
 export class ListarWhiskyComponent implements OnInit {
 
   whiskys: Whisky[] = [];
+  whiskysPaginado: WhiskyPaginado = {};
   exibeLista: boolean = false;
   exibeGrid: boolean = false;
 
-  base64String: any;
+  base64String: any; 
   imagemUrl: any;
 
-  pageSize: number = 5; // Quantidade de itens por página
-  currentPage: number = 1; // Página inicial
+  // pageSize: number = 5; // Quantidade de itens por página
+  // currentPage: number = 1; // Página inicial
+
+  currentPage: number = 1;
+  pageSize: number = 5;
+  totalPages: number = 0;
+  data: any[] = [];
 
   loaderListar = false;
 
@@ -28,28 +35,34 @@ export class ListarWhiskyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.escolheGrid();
-    this.listarWhiskyALL();
+    // this.escolheGrid();
+    // this.listarWhiskyALL(this.currentPage);
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
     this.escolheGrid();
-    this.listarWhiskyALL();
+    this.listarWhiskyALL(this.currentPage);
   }
 
-  listarWhiskyALL(){
+  listarWhiskyALL (pageNumber: number) {
     this.loaderListar = true;
 
-    this.whiskyService.listarALL().subscribe(result => {
-      this.whiskys = result
+    this.whiskyService.listarALLPaginado(pageNumber, this.pageSize).subscribe(result => {
+
+      this.whiskysPaginado = result;
+
+      this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
+      this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
+      this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
+
       this.loaderListar = false;
     }, error => {
-        console.log(error);
+        console.log(error); 
         this.notificacao("danger", "Erro de acesso a API");
         this.loaderListar = false;
     });
     
-    this.converteImagem();
+    this.converteImagem(); 
   }
 
   selecionarWhisky(whiskySelecionado:any){
@@ -81,8 +94,7 @@ export class ListarWhiskyComponent implements OnInit {
     this.exibeGrid = true;
   }
 
-
-   //MOTIFICAÇÃO 
+  //MOTIFICAÇÃO 
    notificacao(tipo:any, msg:any){
     
     if(tipo == "sucesso"){
@@ -125,6 +137,18 @@ export class ListarWhiskyComponent implements OnInit {
             positionClass: "toast-" + "top" + "-" + "center"
           }
         );
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.listarWhiskyALL(this.currentPage + 1);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.listarWhiskyALL(this.currentPage - 1);
     }
   }
 

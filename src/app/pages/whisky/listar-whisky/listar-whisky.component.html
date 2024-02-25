@@ -32,7 +32,7 @@
     </div>
     <div class="red-box">
        
-      <tr class="trFabricante" *ngFor="let whisky of whiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" (click)="selecionarWhisky(whisky)" >
+      <tr class="trFabricante" *ngFor="let whisky of whiskys" (click)="selecionarWhisky(whisky)" >
         <td class="tdFabricante">
           <div class="divControla_1">
               <div class="divfotoWhisky">
@@ -51,7 +51,12 @@
       </tr>
 
       <div class="divPaginacaoGlobal">
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
+        <div class="paginacaoPai">
+          <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
+          <span class="paginacaoFilho2">{{ currentPage }} de {{ totalPages }}</span>
+          <button class="paginacaoFilho3" (click)="nextPage()" [disabled]="currentPage === totalPages">Next >></button>
+        </div>
       </div>
       
     </div>
