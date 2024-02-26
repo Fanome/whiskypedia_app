@@ -58,7 +58,9 @@
         <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
         <div class="paginacaoPai">
           <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
+          <button class="paginacaoFilho4" (click)="nextPagePrimeiro()" [disabled]="totalPages === 1">1...</button>
           <span class="paginacaoFilho2">{{ currentPage }} de {{ totalPages }}</span>
+          <button class="paginacaoFilho5" (click)="nextPageUltimo()" [disabled]="totalPages === 1">...{{totalPages}}</button>
           <button class="paginacaoFilho3" (click)="nextPage()" [disabled]="currentPage === totalPages">Next >></button>
         </div>
       </div>

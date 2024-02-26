@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; 
+import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
 import { ChartOptions } from 'chart.js';
+import { Usuario } from 'src/app/model/usuario.model';
+import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 
 
 @Component({
@@ -10,11 +12,17 @@ import { ChartOptions } from 'chart.js';
   styleUrls: ['./home.component.scss', './home2.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  usuarioLogado: Usuario = {};
+
     constructor(
         private router: Router,
+        private route: ActivatedRoute,
+        private usuarioService: UsuarioService,
         private toastr: ToastrService) { }
     
     ngOnInit() {
+      this.usuarioLogado = this.usuarioService.getGlobalVariable();
     }
 
     title = 'ng2-charts-demo';

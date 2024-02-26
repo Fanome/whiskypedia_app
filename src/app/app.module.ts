@@ -15,8 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgChartsModule } from 'ng2-charts';
 
+import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login/loading-spinner-login.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoadingSpinnerLoginComponent],
   imports: [
     HttpClientModule,
     CommonModule,
@@ -28,6 +30,7 @@ import { NgChartsModule } from 'ng2-charts';
     NgxMaskDirective,
     NgxMaskPipe,
     ReactiveFormsModule,
+    //LoadingSpinnerComponent,
     NgxPaginationModule,
     ToastrModule.forRoot(
       {

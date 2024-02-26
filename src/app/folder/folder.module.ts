@@ -32,6 +32,8 @@ import { LoadingSpinnerComponent } from '../Utils/loading-spinner/loading-spinne
 
 import { NgChartsModule } from 'ng2-charts';
 
+import { AppModule } from '../../../src/app/app.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { NgChartsModule } from 'ng2-charts';
     ScrollingModule,
     NgxPaginationModule,
     NgChartsModule,
+    AppModule
   ],
   declarations: [
     FolderPage, 

@@ -231,4 +231,20 @@ export class ListarWhiskyComponent implements OnInit {
     this.converteImagem(); 
   }
 
+  nextPagePrimeiro(){
+    if(this.searchTerm != ''){
+      this.listarWhiskyPesquisaPaginado(1, this.searchTerm);
+    }else{
+      this.listarWhiskyALL(1);
+    }
+  }
+
+  nextPageUltimo(){
+    if(this.searchTerm != ''){
+      this.listarWhiskyPesquisaPaginado(this.totalPages, this.searchTerm);
+    }else{
+      this.listarWhiskyALL(this.totalPages);
+    }
+  }
+
 }

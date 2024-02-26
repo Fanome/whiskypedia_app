@@ -1,4 +1,8 @@
 
+<div *ngIf="loaderLogin == true" class="overlay">
+  <app-loading-spinner-login></app-loading-spinner-login>
+</div>
+
 <div *ngIf="loginok == 1"> 
   <ion-content style="height: 3000px; width: 100%;">
     <div class="divLogin">
@@ -14,10 +18,10 @@
     </div>
     <div class="divLoginAbaixo">
       <div class="divEmail">
-        <input class="divInput" type="email" placeholder="E-mail" autofocus="true" />
+        <input class="divInput" type="email" placeholder="E-mail" [(ngModel)]="login.email_usuario" autofocus="true" />
       </div>
       <div class="divSenha">
-        <input class="divInput" type="password" placeholder="Senha" />
+        <input class="divInput" type="password" placeholder="Senha" [(ngModel)]="login.senha_usuario"/>
       </div>
       <div class="divBotaoLogin">
         <button class="botaoLogin" type="submit" value="Acessar" (click)="fazerLogin()">LOGIN</button>
@@ -36,8 +40,8 @@
         <ion-content>
           
             <ion-list id="inbox-list">
-              <ion-list-header>Fabio Melo</ion-list-header>
-              <ion-note>Bem Vindo</ion-note>
+              <ion-list-header>{{nomeUsuario}}</ion-list-header>
+              <ion-note>Seja Bem-Vindo!</ion-note>
 
               <ion-list-header>Menu</ion-list-header>
               
@@ -50,19 +54,19 @@
               </ion-menu-toggle>
             </ion-list>
     
-            <ion-list id="labels-list">
-              <ion-list-header>Administração</ion-list-header>
-    
-              <ion-menu-toggle auto-hide="false" *ngFor="let p of appPagesAdmin; let i = index">
-                <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-                  <ion-label>
-                    <div class="divTitulo">{{ p.title }}</div>
-                  </ion-label>
-                </ion-item>
-              </ion-menu-toggle>
-
-
-            </ion-list>
+            <div *ngIf="tipoUsuario == 1">
+              <ion-list id="labels-list">
+                <ion-list-header>Administração</ion-list-header>
+      
+                <ion-menu-toggle auto-hide="false" *ngFor="let p of appPagesAdmin; let i = index">
+                  <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+                    <ion-label>
+                      <div class="divTitulo">{{ p.title }}</div>
+                    </ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+              </ion-list>
+            </div>
 
             <div class="divBotaoSair">
               <button class="botaoSair" (click)="sair()">sair</button>

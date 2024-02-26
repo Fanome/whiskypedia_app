@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr";
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { Router } from '@angular/router'; 
+import { Login } from '../../src/app/model/login.model';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
 export class AppComponent  implements OnInit {
   public loginok: number = 1;
   public usuarios: Usuario = {};
+  public usuarioLogado: Usuario[] = [] ;
+  public login: Login = {};
   public telefoneOK: boolean = true;
   public emailOK: boolean = true;
   public senhaOK: boolean = true;
@@ -22,6 +25,11 @@ export class AppComponent  implements OnInit {
   public telefoneRequired: number = 0;
   public datanasRequired: number = 0;
   public senhaRequired: number = 0;
+
+  public nomeUsuario: any;
+  public tipoUsuario: any;
+
+  loaderLogin = false;
 
   emailControl = new FormControl('', Validators.email);
 
@@ -53,16 +61,58 @@ export class AppComponent  implements OnInit {
   } 
   
   ngOnInit(): void {
-    
+    this.login.email_usuario = '';
+    this.login.senha_usuario = ''
+    this.nomeUsuario = '';
+    this.tipoUsuario = 0;
   }
 
 
   fazerLogin(){
-    this.loginok = 2;
-    this.router.navigate(["/home"]);
+    if(this.login.email_usuario == ''){
+      this.notificacao("danger", "Digite o e-mail de usuário.");
+    }
+    if(this.login.senha_usuario == ''){
+      this.notificacao("danger", "Digite a senha de usuário.");
+    }
+
+    if(this.login.email_usuario != '' && this.login.senha_usuario != ''){
+      this.loaderLogin = true;
+      this.usuarioService.login(this.login).subscribe(result => {
+        if(result.length == 1){
+          this.loginok = 2;
+          this.usuarios = {};
+          this.usuarioLogado = result;
+          this.usuarioService.setGlobalVariable(this.usuarioLogado[0]);// passa o usuario logado para um objeto global
+
+          this.nomeUsuario = this.usuarioLogado[0].nome_usuario;
+          this.tipoUsuario = this.usuarioLogado[0].id_tipousuario;
+
+          this.loaderLogin = false;
+
+          this.router.navigate(["/home"]);
+        }else{
+          this.notificacao("danger", "E-mail ou senha inválida");
+          this.nomeUsuario = '';
+          this.tipoUsuario = 0;
+          this.usuarioService.setGlobalVariable({});
+          this.loaderLogin = false;
+          this.loginok = 1;
+        }
+      }, error => {
+          this.notificacao("danger", "Erro de acesso a API. " + error );
+          this.nomeUsuario = '';
+          this.tipoUsuario = 0;
+          this.usuarioService.setGlobalVariable({});
+          this.loaderLogin = false;
+          this.loginok = 1;
+      });   
+    }
   }
 
   sair(){
+    this.nomeUsuario = '';
+    this.usuarioService.setGlobalVariable({});
     this.loginok = 1;
   }
 
