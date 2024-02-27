@@ -10,7 +10,7 @@ import { Login } from '../../model/login.model';
 })
 export class UsuarioService {
 
-  usuario_global: Usuario = {};
+  usuario_global: Usuario = {}; 
 
   constructor(private http: HttpClient,  private configService: ConfigService) {}
 

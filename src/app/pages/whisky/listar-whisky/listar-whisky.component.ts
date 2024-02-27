@@ -12,7 +12,7 @@ import { WhiskyPaginado } from 'src/app/model/whiskyPaginado.model';
 })
 export class ListarWhiskyComponent implements OnInit {
 
-  whiskys: Whisky[] = [];
+  whiskys: Whisky[] = []; 
   whiskysPaginado: WhiskyPaginado = {};
   exibeLista: boolean = false;
   exibeGrid: boolean = false;
@@ -84,8 +84,6 @@ export class ListarWhiskyComponent implements OnInit {
   }
 
   selecionarWhisky(whiskySelecionado:any){
-    console.log("foi");
-    console.log("whiskySelecionado");
     this.router.navigate(['/whisky/editarwhisky'], { queryParams: { whiskySelecionado: JSON.stringify(whiskySelecionado) } });
   }
 
