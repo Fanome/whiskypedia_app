@@ -23,6 +23,7 @@ export class ClienteWhiskyComponent implements OnInit {
   totalPages: number = 0;
   data: any[] = [];
   usuarioLogado: Usuario = {};
+  id_usuarios: number = 0;
 
   loaderListar = false;
 
@@ -37,11 +38,13 @@ export class ClienteWhiskyComponent implements OnInit {
     this.pageSize = 5;
     this.totalPages = 0;
     this.usuarioLogado = this.usuarioService.getGlobalVariable();
+    this.id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
     this.listarWhiskyALL(this.currentPage);
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
     this.usuarioLogado = this.usuarioService.getGlobalVariable();
+    this.id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
     //this.escolheGrid();
 
     //if(this.searchTerm != ''){
@@ -61,7 +64,7 @@ export class ClienteWhiskyComponent implements OnInit {
     //   pageNumber = 1;
     // }
 
-    this.listaWhiskyService.listarALLPaginado(1, pageNumber, this.pageSize).subscribe(result => {
+    this.listaWhiskyService.listarALLPaginado(this.id_usuarios, pageNumber, this.pageSize).subscribe(result => {
 
       this.whiskysPaginado = result;
 
@@ -183,12 +186,10 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   favoritar(idwhisky: number){  
-    let id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
-
-    if(id_usuarios == 0 || idwhisky == 0){
+    if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao curtit Whiskiy");
     }else{
-      this.listaWhiskyService.favoritar(id_usuarios ,idwhisky).subscribe(result => {
+      this.listaWhiskyService.favoritar(this.id_usuarios ,idwhisky).subscribe(result => {
 
         let ok = result;
   
@@ -209,12 +210,10 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   desFavoritar(idwhisky: number){
-    let id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
-
-    if(id_usuarios == 0 || idwhisky == 0){
+    if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao descurtit Whiskiy");
     }else{
-      this.listaWhiskyService.desFavoritar(id_usuarios ,idwhisky).subscribe(result => {
+      this.listaWhiskyService.desFavoritar(this.id_usuarios ,idwhisky).subscribe(result => {
 
         let ok = result;
   
@@ -235,12 +234,10 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   colocarNaMinhaAdega(idwhisky: number){
-    let id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
-
-    if(id_usuarios == 0 || idwhisky == 0){
+    if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
     }else{
-      this.listaWhiskyService.colocarNaMinhaAdega(id_usuarios ,idwhisky).subscribe(result => {
+      this.listaWhiskyService.colocarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
 
         let ok = result;
   
@@ -261,12 +258,10 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   tirarNaMinhaAdega(idwhisky: number){
-    let id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
-
-    if(id_usuarios == 0 || idwhisky == 0){
+    if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
     }else{
-      this.listaWhiskyService.tirarNaMinhaAdega(id_usuarios ,idwhisky).subscribe(result => {
+      this.listaWhiskyService.tirarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
 
         let ok = result;
   
