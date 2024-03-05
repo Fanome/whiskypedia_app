@@ -1,0 +1,48 @@
+<div *ngIf="loaderCriar == true" class="overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div> 
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="divTitulo_GERAL">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="divTitulo_GERAL">
+      <div class="divTopBar_GERAL">
+        <div class="divVoltarLocal_GERAL">
+          <button type="submit" class="botaoVoltar_GERAL" [routerLink]="['/tipowhisky']" ><</button> 
+        </div>
+        <div class="divTituloLocal_GERAL">
+          <b>Tipo Whisky</b>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> 
+  
+  
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="divHeaderlist">
+      <div class="containerTitulo">
+        <div class="containerTitulo1">
+          <b>Criar Tipo Whisky</b>
+        </div>
+      </div>
+    </div>
+    <div class="blue-box">
+      <div class="nomeCampo">
+      </div>
+    </div>
+    <div class="red-box">
+      <div class="divSubmit">
+        <div class="divSenha">
+          <input type="text" class="divInput" placeholder="Nome do Tipo Whisky" [(ngModel)]="tipoWhiskys.nomeTipoWhisky" name="name">
+        </div>
+        <div class="divBotaoIncluir">
+          <button type="submit" class="botaoIncluir" (click)="criarTipoWhisky()" ><b>Incluir Tipo Whisky</b></button>
+        </div>
+      </div>
+    </div>
+  </div> 
+</ion-content>

@@ -1,0 +1,60 @@
+<div *ngIf="loaderExcluir == true" class="overlay">
+    <app-loading-spinner></app-loading-spinner>
+</div> 
+
+<ion-header [translucent]="true">
+    <ion-toolbar class="divTitulo_GERAL">
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="divTitulo_GERAL">
+        <div class="divTopBar_GERAL">
+            <div class="divVoltarLocal_GERAL">
+            <button type="submit" class="botaoVoltar_GERAL" [routerLink]="['/fabricante/editarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" ><</button> 
+            </div>
+            <div class="divTituloLocal_GERAL">
+            <b>Fabricante</b>
+            </div>
+        </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> 
+  
+<ion-content [fullscreen]="true">
+    <div class="container">
+        <div class="divHeaderlist">
+            <div class="containerTitulo">
+            <div class="containerTitulo1">
+                <b>Excluir Fabricante</b>
+            </div>
+            </div>
+        </div>
+        <div class="blue-box">
+            <div class="nomeCampo">
+            </div>
+        </div>
+        <div class="red-box">
+            <div class="divSubmit">
+                <div class="divMsgExcluir">
+                    <h5 style="color: red;">Deseja realmente excluir</h5>
+                    <h5 style="color: red;">o registro abaixo?</h5>
+                </div>
+                <div class="divLabel">
+                    <label><b>Código Fabricante</b></label>
+                </div>
+                <div class="divCampos">
+                    <input type="text" class="divInput" disabled="" value="{{fabricante.idFabricante}}">
+                </div>
+                <div class="divLabel">
+                    <label><b>Nome Fabricante</b></label>
+                </div>
+                <div class="divCampos">
+                    <input type="text" class="divInput" disabled=""  [(ngModel)]="fabricante.nomeFabricante" name="name">
+                </div>
+                <div class="divBotao">
+                    <button type="submit" class="botao" (click)="excluirFabricante(fabricante)"><b>Excluir Fabricante</b></button>
+                </div>
+            </div>
+        </div>
+    </div> 
+</ion-content>

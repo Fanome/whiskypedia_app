@@ -31,8 +31,12 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "styles": ["src/theme/variables.scss", 
+                        "src/global.scss",
+                        "node_modules/ngx-toastr/toastr.css",
+                        "node_modules/bootstrap/scss/bootstrap.scss"
+                      ],
+            "scripts": [ ]
           },
           "configurations": {
             "production": {

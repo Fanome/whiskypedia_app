@@ -1,0 +1,288 @@
+ion-toolbar{
+    --background: var(--ion-item-background, var(--ion-background-color, burlywood));
+}
+
+.divTitulo{
+    color: white;
+}
+
+.container {
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 1100px; /* Altura da área contendo as divs */
+    margin-bottom: 30px;
+}
+
+.divHeaderlist{
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 0;
+    left: 0;
+    width: 100%; /* Preenche toda a largura do elemento pai */
+    height: 200px; /* Preenche toda a altura do elemento pai */
+    background-color: burlywood;
+    background-image: url('../../../../src/assets/imagens/madeira2.jpg');
+}
+  
+.blue-box {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 120px; /* Posicionamento vertical ajustado para a segunda div */
+    left: 0;
+    width: 100%; /* Preenche toda a largura do elemento pai */
+    height: 100%; /* Preenche toda a altura do elemento pai */
+    background-color: rgb(197, 156, 94); /* Cor de fundo azul */
+    border-top-left-radius: 20px ;
+    border-top-right-radius: 20px ;
+  }
+  
+  .red-box {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 180px; /* Posicionamento vertical ajustado para a segunda div */
+    left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
+    width: 100%; /* Largura da segunda div */
+    height: 100%; /* Altura da segunda div */
+    background-color: rgb(252, 252, 252); /* Cor de fundo vermelha */
+    border-top-left-radius: 20px ;
+    border-top-right-radius: 20px ;
+    z-index: 1; /* Define a ordem de empilhamento, colocando esta div sobre a outra */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .nomeCampo{
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin-top: 10px;
+  }
+
+  .containerTitulo{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+
+  .containerTitulo1{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    color: white;
+    font-size: 22px;
+  }
+
+  .containerTitulo2{
+    position: absolute;
+    top: 70px;
+    left: 70%;
+
+    width: 100px;
+    border: 2px solid white;
+    border-radius: 8px; 
+    height: 30px;
+    background-color: white; 
+    color:  rgb(197, 156, 94);
+  }
+
+  .trFabricante{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .tdFabricante{
+    border: 2px solid rgb(197, 156, 94);
+    border-radius: 10px; 
+    height: 175px;
+    width: 90%;
+    background-color: white; 
+    color:  rgb(143, 106, 57);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    align-content: center;
+    justify-content: center;
+  }
+
+
+  .divControla_1{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+
+  .divfotoWhisky{
+    position: absolute;
+    width: 78px; 
+    height: 80px; 
+    top: 10px;
+    left: 10px;
+    border-radius: 10px; /* Bordas arredondadas */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .divNomeWhisky{
+    position: absolute;
+    width: 70%; 
+    height: 78px; 
+    //background-color: blue; /* Cor de fundo azul */
+    top: 25px;
+    left: 110px;
+    border-radius: 10px; /* Bordas arredondadas */
+  }
+
+  .divFavorito{
+    position: absolute;
+    right: 15%;
+    top: 5px
+  }
+
+  .divMinhaAdega{
+    position: absolute;
+    right: 4%;
+    top: 5px
+  }
+
+  .divFabricante{
+    position: absolute;
+    left: 4%;
+    top: 100px;
+    font-size: 14px;
+  }
+
+  .divtipoWhisky{
+    position: absolute;
+    left: 4%;
+    top: 120px;
+    color: rgb(122, 122, 122);
+    font-size: 14px;
+  }
+
+  .divPais{
+    position: absolute;
+    left: 4%;
+    top: 140px;
+    color: rgb(122, 122, 122);
+    font-size: 14px;
+  }
+
+  .divNome{
+    color: rgb(143, 106, 57);
+    margin-top: 15px;
+    font-size: 14px;
+  }
+
+  .paginacaoPai{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+
+  .paginacaoFilho1{
+    position: absolute;
+    left:8%;
+    color:  rgb(143, 106, 57);
+    background-color: white
+  }
+
+  .paginacaoFilho2{
+    position: absolute;
+    left: 43%;
+    color:  rgb(143, 106, 57);
+    background-color: white
+  }
+
+  .paginacaoFilho3{
+    position: absolute;
+    right: 12%;
+    color:  rgb(143, 106, 57);
+    background-color: white
+  }
+
+  .paginacaoFilho4{
+    position: absolute;
+    left: 33%;
+    color:  rgb(143, 106, 57);
+    background-color: white
+  }
+
+  .paginacaoFilho5{
+    position: absolute;
+    right: 30%;
+    color:  rgb(143, 106, 57);
+    background-color: white
+  }
+
+  /* No seu arquivo de estilo CSS */
+.search-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 16px;
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px ;
+  height: 40px;
+  font-size: 16px;
+  outline: none;
+  width: 80%;
+  position: absolute;
+  top: 10px;
+}
+
+.search-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  right: 16%;
+  position: absolute;
+  //top: 6px;
+  height: 100%;
+  top: 30%;
+}
+
+.imagemPesquisa{
+  width: 35px;
+  height: 35px;
+  position: absolute;
+}
+
+.caixaNaoEncontrados{
+  margin-top: 30px;
+  color: #be677d;
+  height: 70px;
+  width: 80%;
+  border: 1px solid #d193a2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  align-content: center;
+  justify-content: center;
+  background-color: #e6ccd7;
+}

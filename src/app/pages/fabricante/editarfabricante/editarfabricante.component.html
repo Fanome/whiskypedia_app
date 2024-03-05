@@ -1,0 +1,59 @@
+<div *ngIf="loaderEditar == true" class="overlay">
+    <app-loading-spinner></app-loading-spinner>
+</div> 
+
+  <ion-header [translucent]="true">
+    <ion-toolbar class="divTitulo_GERAL">
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="divTitulo_GERAL">
+        <div class="divTopBar_GERAL">
+            <div class="divVoltarLocal_GERAL">
+            <button type="submit" class="botaoVoltar_GERAL" [routerLink]="['/fabricante']" ><</button> 
+            </div>
+            <div class="divTituloLocal_GERAL">
+            <b>Fabricante</b>
+            </div>
+        </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> 
+  
+<ion-content [fullscreen]="true">
+    <div class="container">
+        <div class="divHeaderlist">
+            <div class="containerTitulo">
+            <div class="containerTitulo1">
+                <b>Criar Fabricante</b>
+            </div>
+            </div>
+        </div>
+        <div class="blue-box">
+            <div class="nomeCampo">
+            </div>
+        </div>
+        <div class="red-box">
+            <div class="divSubmit">
+            <div class="divLabel">
+                <label><b>Código Fabricante</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" disabled="" value="{{fabricante.idFabricante}}">
+            </div>
+            <div class="divLabel">
+                <label><b>Nome Fabricante</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" placeholder=""  [(ngModel)]="fabricante.nomeFabricante" name="name">
+            </div>
+            <div class="divBotao">
+                <button type="submit" class="botao" (click)="editarFabricante(fabricante)"><b>Editar Fabricante</b></button>
+            </div>
+            <div class="divBotao">
+                <button type="submit" class="botaoExcluir" [routerLink]="['/fabricante/excluirfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" ><b>Excluir Fabricante</b></button>
+            </div>
+            </div>
+        </div>
+    </div> 
+</ion-content>

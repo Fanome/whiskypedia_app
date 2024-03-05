@@ -1,0 +1,70 @@
+<div *ngIf="loaderListar == true" class="overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons class="divTitulo" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="divTitulo">
+      <div class="divTituloGeral">
+        <b>Whiskys</b>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="divHeaderlist">
+      <div class="containerTitulo">
+        <div class="containerTitulo1">
+          <b>Lista de Whisky</b>
+        </div>
+        <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/whisky/criarwhisky']"><b>Criar</b></button>
+      </div>
+    </div>
+    <div class="blue-box">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Pesquisar..." [(ngModel)]="searchTerm" (keyup.enter)="search()">
+        <button class="search-button" (click)="search()">
+          <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
+        </button>
+      </div>
+    </div>
+    <div class="red-box">
+
+      <div *ngIf="whiskys.length < 1" class="caixaNaoEncontrados" > Não foram encontrados whiskys </div>
+      <tr class="trFabricante" *ngFor="let whisky of whiskys" (click)="selecionarWhisky(whisky)" >
+        <td class="tdFabricante">
+          <div class="divControla_1">
+              <div class="divfotoWhisky">
+                  <img [src]="whisky.imagem" style="height: 78px; width: 63px; "> 
+              </div>
+              <div class="divNomeWhisky">
+                  <div class="divNome">
+                      <b>{{whisky.nomeWhisky}}</b>
+                  </div>
+                  <div class="divPais">
+                      {{whisky.nacionalidade}}
+                  </div>
+              </div>
+          </div>
+        </td>
+      </tr>
+
+      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0">
+        <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
+        <div class="paginacaoPai">
+          <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
+          <button class="paginacaoFilho4" (click)="nextPagePrimeiro()" [disabled]="totalPages === 1">1...</button>
+          <span class="paginacaoFilho2">{{ currentPage }} de {{ totalPages }}</span>
+          <button class="paginacaoFilho5" (click)="nextPageUltimo()" [disabled]="totalPages === 1">...{{totalPages}}</button>
+          <button class="paginacaoFilho3" (click)="nextPage()" [disabled]="currentPage === totalPages">Next >></button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+</ion-content>

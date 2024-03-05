@@ -1,0 +1,106 @@
+<div *ngIf="loaderListar == true" class="overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="divTituloGlobal">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="divTituloGlobal">
+      <div class="divTituloGeral">
+        <b>Meus Favoritos</b>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header> 
+  
+<ion-content [fullscreen]="true" style="height: 50000px;">
+  <div class="container">
+    <div class="divHeaderlist">
+      <div class="containerTitulo">
+        <div class="containerTitulo1">
+          <!-- <b>Lista de Whisky</b> -->
+        </div>
+      </div>
+    </div>
+    <div class="blue-box">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Pesquisar..." >
+        <button class="search-button" >
+          <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
+        </button>
+
+        <!-- <input type="text" class="search-input" placeholder="Pesquisar..." [(ngModel)]="searchTerm" (keyup.enter)="search()">
+        <button class="search-button" (click)="search()">
+          <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
+        </button> -->
+      </div>
+    </div>
+    <div class="red-box">
+
+      <div *ngIf="whiskys.length < 1" class="caixaNaoEncontrados" > Não foram encontrados whiskys </div>
+      <tr class="trFabricante" *ngFor="let whisky of whiskys" (click)="selecionarWhisky(whisky)">
+        <td class="tdFabricante">
+          <div class="divControla_1">
+              <div class="divfotoWhisky">
+                  <img [src]="whisky.imagem" style="height: 78px; width: 63px; "> 
+              </div>
+              <div class="divNomeWhisky">
+                  <div class="divNome">
+                      <b>{{whisky.nomeWhisky}}</b>
+                  </div>
+              </div>
+
+              <div class="divFabricante">
+                {{whisky.nomeFabricante}}
+              </div>
+              <div class="divtipoWhisky">
+                {{whisky.nomeTipoWhisky}}
+              </div>
+              <div class="divPais">
+                {{whisky.nacionalidade}}
+              </div>
+
+              <div class="divFavorito">
+                <div *ngIf="whisky.idfavoritos == undefined">
+                  <button style="background-color: white;" (click)="favoritar(whisky.idWhisky ? whisky.idWhisky : 0)">
+                    <img src="../../../assets/imagens/coracao_branco.png" style="height: 17px; width: 19px; "> 
+                  </button>
+                </div>
+                <div *ngIf="whisky.idfavoritos != undefined">
+                  <button style="background-color: white;"  (click)="desFavoritar(whisky.idWhisky ? whisky.idWhisky : 0)">
+                    <img src="../../../assets/imagens/coracao_vermelho.png" style="height: 17px; width: 19px; ">
+                  </button>  
+                </div> 
+              </div>
+              <div class="divMinhaAdega">
+                <div *ngIf="whisky.idminhaadega == undefined">
+                  <button style="background-color: white;" (click)="colocarNaMinhaAdega(whisky.idWhisky ? whisky.idWhisky : 0)">
+                    <img src="../../../assets/imagens/barril_branco.png" style="height: 17px; width: 15px; "> 
+                  </button>
+                </div>
+                <div *ngIf="whisky.idminhaadega != undefined">
+                  <button style="background-color: white;" (click)="tirarNaMinhaAdega(whisky.idWhisky ? whisky.idWhisky : 0)">
+                    <img src="../../../assets/imagens/barril_marrom.png" style="height: 17px; width: 15px; ">  
+                  </button>
+                </div> 
+              </div>
+          </div>
+        </td>
+      </tr>
+
+      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0">
+        <div class="paginacaoPai">
+          <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
+          <button class="paginacaoFilho4" (click)="nextPagePrimeiro()" [disabled]="totalPages === 1">1...</button>
+          <span class="paginacaoFilho2">{{ currentPage }} de {{ totalPages }}</span>
+          <button class="paginacaoFilho5" (click)="nextPageUltimo()" [disabled]="totalPages === 1">...{{totalPages}}</button>
+          <button class="paginacaoFilho3" (click)="nextPage()" [disabled]="currentPage === totalPages">Next >></button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+</ion-content>

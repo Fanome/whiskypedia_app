@@ -1,0 +1,169 @@
+ion-toolbar{
+    --background: var(--ion-item-background, var(--ion-background-color, burlywood));
+}
+
+.divTitulo{
+    color: white;
+}
+
+.container {
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+}
+
+.divHeaderlist{
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 0;
+    left: 0;
+    width: 100%; /* Preenche toda a largura do elemento pai */
+    height: 200px; /* Preenche toda a altura do elemento pai */
+    background-color: burlywood;
+    background-image: url('../../../../assets/imagens/madeira2.jpg');
+}
+  
+.blue-box {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 120px; /* Posicionamento vertical ajustado para a segunda div */
+    left: 0;
+    width: 100%; /* Preenche toda a largura do elemento pai */
+    height: 100%; /* Preenche toda a altura do elemento pai */
+    background-color: rgb(197, 156, 94); /* Cor de fundo azul */
+    border-top-left-radius: 20px ;
+    border-top-right-radius: 20px ;
+  }
+  
+  .red-box {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 160px; /* Posicionamento vertical ajustado para a segunda div */
+    left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
+    width: 100%; /* Largura da segunda div */
+    height: 100%; /* Altura da segunda div */
+    background-color: rgb(252, 252, 252); /* Cor de fundo vermelha */
+    border-top-left-radius: 20px ;
+    border-top-right-radius: 20px ;
+    z-index: 1; /* Define a ordem de empilhamento, colocando esta div sobre a outra */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .divSubmit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+  .nomeCampo{
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin-top: 10px;
+  }
+
+  .containerTitulo{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+
+  .containerTitulo1{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    color: white;
+    font-size: 22px;
+  }
+
+
+.tamanhoFoto{
+    height: 250px;
+    margin-left: 10px;
+}
+
+.margim{
+    margin-top: 20px;
+}
+
+.CorTitulo{
+    color:cadetblue;
+}
+
+.divInput{
+    width: 100%;
+    border: 2px solid rgb(143, 106, 57);
+    border-radius: 10px; /* Arredonda os cantos da borda */
+    height: 50px;
+}
+
+.divTexteArea{
+    width: 100%;
+    border: 2px solid rgb(143, 106, 57);
+    border-radius: 10px; /* Arredonda os cantos da borda */
+    height: 100px;
+}
+
+.divCampos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    width: 90%;
+}
+
+.divLabel{
+    color: rgb(143, 106, 57);
+    width: 90%;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    margin-left: 0%;
+  }
+
+  .divBotao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin-top: 25px;
+    width: 90%;
+    margin-bottom: 30px;
+}
+
+.botao{
+    width: 100%;
+    border: 2px solid rgb(143, 106, 57);
+    border-radius: 10px; 
+    height: 50px;
+    background-color: burlywood; 
+    color: white;
+    margin-top: 25px;
+}
+  
+.botaoExcluir{
+    width: 100%;
+    border: 2px solid rgb(143, 106, 57);
+    border-radius: 10px; 
+    height: 50px;
+    background-color: rgb(197, 112, 112); 
+    color: white;
+  }
+
+  .divMsgExcluir{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}

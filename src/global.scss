@@ -24,3 +24,67 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+
+
+.divTituloGeral{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.divPaginacaoGlobal{
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  align-content: center;
+  justify-content: center;
+  color:  rgb(143, 106, 57);
+  margin-bottom: 20px;
+}
+
+
+
+/* === INICIO TOP BAR ============================================================================ */
+ion-toolbar{
+  --background: var(--ion-item-background, var(--ion-background-color, burlywood));
+}
+
+.divTitulo_GERAL{
+  color: white;
+}
+
+.divTopBar_GERAL{
+  position: relative; /* Necessário para posicionar as divs filhas */
+  width: 100%; /* Largura da área contendo as divs */
+  height: 100%; /* Altura da área contendo as divs */
+}
+
+.divVoltarLocal_GERAL{
+  position: absolute; /* Posiciona em relação ao elemento pai */
+}
+
+.divTituloLocal_GERAL{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.botaoVoltar_GERAL{
+  background-color: burlywood; 
+  color: white;
+}
+
+/* === FIM TOP BAR ============================================================================ */
+
+.divTituloGlobal{
+  color: white;
+} 

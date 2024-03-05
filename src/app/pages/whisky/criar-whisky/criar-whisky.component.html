@@ -1,0 +1,142 @@
+<div *ngIf="loaderCriar == true" class="overlay">
+    <app-loading-spinner></app-loading-spinner>
+  </div> 
+  
+<ion-header [translucent]="true">
+    <ion-toolbar class="divTitulo_GERAL">
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="divTitulo_GERAL">
+        <div class="divTopBar_GERAL">
+            <div class="divVoltarLocal_GERAL">
+            <button type="submit" class="botaoVoltar_GERAL" [routerLink]="['/whisky']" ><</button> 
+            </div>
+            <div class="divTituloLocal_GERAL">
+            <b>Whisky</b>
+            </div>
+        </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> 
+
+<ion-content [fullscreen]="true">
+    <div class="container">
+      <div class="divHeaderlist">
+        <div class="containerTitulo">
+          <div class="containerTitulo1">
+            <b>Cadastrar Whisky</b>
+          </div>
+        </div>
+      </div>
+      <div class="blue-box">
+        <div class="nomeCampo">
+          <b></b>
+        </div>
+      </div>
+      <div class="red-box">
+        
+        <div class="divSubmit">
+            <div class="tamanhoFoto image margim" style="text-align: center;">
+                <img [src]="imagemUrl" style="height: 250px; width: 200px;">
+            </div>
+            <div class="">
+                <input type="file" class="margim" id="customFileLang" lang="es" (change)="onChange($event)" >
+                <label class="" for="customFileLang" id="customFileLangLabel"></label>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Nome Whisky</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" placeholder="Digite o nome do novo whisky" [(ngModel)]="whiskys.nomeWhisky" name="name">
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Histórica</b></label>
+            </div>
+            <div class="divCampos">
+                <textarea class="divTexteArea" placeholder="Digite a descrição histórica" [(ngModel)]="whiskys.descricao_historica" name="name"></textarea>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Barril</b></label>
+            </div>
+            <div class="divCampos">
+                <textarea class="divTexteArea" placeholder="Digite os Barris" [(ngModel)]="whiskys.descricao_barril" name="name"></textarea>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Idade</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" placeholder="Digite a idade" [(ngModel)]="whiskys.idade" name="name">
+            </div>
+
+            <div class="divLabel">
+                <label><b>Teor Alcolico</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" placeholder="Digite o teor alcolico" [(ngModel)]="whiskys.teroAlcolico" name="name">
+            </div>
+
+            <div class="divLabel">
+                <label><b>Origem</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="text" class="divInput" placeholder="Digite a nacionalidade" [(ngModel)]="whiskys.nacionalidade" name="name">
+            </div>
+            
+            <div class="divLabel">
+                <label><b>Data Inclusão</b></label>
+            </div>
+            <div class="divCampos">
+                <input type="date" class="divInput" placeholder="" disabled="" value="{{whiskys.dataCadastro}}" name="name">
+            </div>
+
+            <div class="divLabel">
+                <label><b>Fabricante</b></label>
+            </div>
+            <div class="divCampos">
+                <select type="text" class="divInput" placeholder="" name="name" [(ngModel)]="whiskys.idFabricante">
+                    <option *ngFor="let fabricante of fabricantes" [value]="fabricante.idFabricante">{{ fabricante.nomeFabricante }}</option>
+                </select>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Tipo de Whisky</b></label>
+            </div>
+            <div class="divCampos">
+                <select type="text" class="divInput" placeholder="" name="name" [(ngModel)]="whiskys.idTipoWhisky">
+                    <option *ngFor="let tipoWhisky of tipoWhiskys" [value]="tipoWhisky.idTipoWhisky">{{ tipoWhisky.nomeTipoWhisky }}</option>
+                </select>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Olfato</b></label>
+            </div>
+            <div class="divCampos">
+                <textarea class="divTexteArea" placeholder="Digite a descrição olfativa" [(ngModel)]="whiskys.descricao_olfato" name="descricao_olfato"></textarea>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Paladar</b></label>
+            </div>
+            <div class="divCampos">
+                <textarea class="divTexteArea" placeholder="Digite a descrição do paladar" [(ngModel)]="whiskys.descricao_paladar" name="descricao_paladar"></textarea>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Finalização</b></label>
+            </div>
+            <div class="divCampos">
+                <textarea class="divTexteArea" placeholder="Digite a descrição da finalização" [(ngModel)]="whiskys.descricao_finalizacao" name="descricao_finalizacao"></textarea>
+            </div>
+
+            <div class="divBotao">
+                <button type="submit" class="botao" (click)="criarWhisky()" >Criar Whisky</button>
+            </div>
+        </div>
+      </div>
+    </div> 
+  </ion-content>
