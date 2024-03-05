@@ -3,6 +3,7 @@ import { FabricanteService } from 'src/app/service/fabricante/fabricante.service
 import { Fabricante } from 'src/app/model/fabricante.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { FabricanteDataBase } from 'src/app/bancodados_service/fabricante_db/fabricante_db.service';
 
 @Component({
   selector: 'app-criarfabricante',
@@ -18,6 +19,7 @@ export class CriarfabricanteComponent implements OnInit {
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,
+    private fabricanteDataBase: FabricanteDataBase,
     private toastr: ToastrService) { }
 
   ngOnInit() { 
@@ -25,21 +27,32 @@ export class CriarfabricanteComponent implements OnInit {
 
   criarFabricante(){
     this.loaderCriar = true;
-    this.fabricanteService.criarFabricantePost(this.fabricante).subscribe(result => {
-      if(result){
-        this.notificacao("sucesso", "Fabricante criado com sucesso");
-        this.fabricante = {};
-        this.loaderCriar = false;
-        this.router.navigate(["/fabricante"]);
-      }else{
-        this.notificacao("danger", "Erro ao criar Fabricante");
-        this.loaderCriar = false;
-      }
-    }, error => {
-        console.log(error);
-        this.notificacao("danger", "Erro de acesso a API");
-        this.loaderCriar = false;
+
+    const nomeFabricante = this.fabricante.nomeFabricante || "";
+
+    this.fabricanteDataBase.addFabricante(nomeFabricante).then((data) => {
+      this.notificacao("sucesso", "Fabricante criado com sucesso");
+          this.fabricante = {};
+          this.loaderCriar = false;
+          this.router.navigate(["/fabricante"]);
     });
+
+
+    // this.fabricanteService.criarFabricantePost(this.fabricante).subscribe(result => {
+    //   if(result){
+    //     this.notificacao("sucesso", "Fabricante criado com sucesso");
+    //     this.fabricante = {};
+    //     this.loaderCriar = false;
+    //     this.router.navigate(["/fabricante"]);
+    //   }else{
+    //     this.notificacao("danger", "Erro ao criar Fabricante");
+    //     this.loaderCriar = false;
+    //   }
+    // }, error => {
+    //     console.log(error);
+    //     this.notificacao("danger", "Erro de acesso a API");
+    //     this.loaderCriar = false;
+    // });
 
   }
   

@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgChartsModule } from 'ng2-charts';
 
 import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login/loading-spinner-login.component';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
 @NgModule({
   declarations: [AppComponent, LoadingSpinnerLoginComponent],
@@ -30,7 +31,6 @@ import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login
     NgxMaskDirective,
     NgxMaskPipe,
     ReactiveFormsModule,
-    //LoadingSpinnerComponent,
     NgxPaginationModule,
     ToastrModule.forRoot(
       {
@@ -43,7 +43,9 @@ import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login
   providers: [provideNgxMask(),{ 
     provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy,
-   }],
+   },
+   SQLite
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

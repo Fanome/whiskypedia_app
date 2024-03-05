@@ -3,6 +3,7 @@ import { Fabricante } from 'src/app/model/fabricante.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
 import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
+import { FabricanteDataBase } from 'src/app/bancodados_service/fabricante_db/fabricante_db.service';
 
 @Component({
   selector: 'app-fabricante',
@@ -22,14 +23,18 @@ export class FabricanteComponent  implements OnInit {
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,
+    private fabricanteDataBase: FabricanteDataBase,
     private toastr: ToastrService
     ) 
   { 
+    this.fabricanteDataBase.createDataBase().then(() => {
+      this.listarFabricantesALL();
+    })
   }
 
   ngOnInit(): void {
-    this.fabricantes = [];
-    this.listarFabricantesALL();
+    //this.fabricantes = [];
+    //this.listarFabricantesALL();
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
@@ -39,14 +44,26 @@ export class FabricanteComponent  implements OnInit {
 
   listarFabricantesALL(): void{
     this.loaderListar = true;
-    this.fabricanteService.listarALL().subscribe(results => {
-      this.fabricantes = results;
-      this.loaderListar = false;
-    }, error => {
-        console.log(error);
-        this.notificacao("danger", "Erro de acesso a API");
+    
+    this.fabricanteDataBase.getFabricante().then((data) => {
+      this.fabricantes = [];
+      if(data.rows.length > 0){
+        for(var i = 0; i < data.rows.length; i++){
+          this.fabricantes.push(data.rows.item(i));
+        }
         this.loaderListar = false;
+      }
     });
+    
+    this.loaderListar = false;
+    // this.fabricanteService.listarALL().subscribe(results => {
+    //   this.fabricantes = results;
+    //   this.loaderListar = false;
+    // }, error => {
+    //     console.log(error);
+    //     this.notificacao("danger", "Erro de acesso a API");
+    //     this.loaderListar = false;
+    // });
   }
 
   //MOTIFICAÇÃO 
