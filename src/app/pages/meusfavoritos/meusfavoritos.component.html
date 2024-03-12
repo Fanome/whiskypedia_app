@@ -65,24 +65,24 @@
               <div class="divFavorito">
                 <div *ngIf="whisky.idfavoritos == undefined">
                   <button style="background-color: white;" (click)="favoritar(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/coracao_branco.png" style="height: 17px; width: 19px; "> 
+                    <img src="../../../assets/imagens/coracao_branco.png" class="tamanhoFavAdeg_Global"> 
                   </button>
                 </div>
                 <div *ngIf="whisky.idfavoritos != undefined">
                   <button style="background-color: white;"  (click)="desFavoritar(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/coracao_vermelho.png" style="height: 17px; width: 19px; ">
+                    <img src="../../../assets/imagens/coracao_vermelho.png" class="tamanhoFavAdeg_Global">
                   </button>  
                 </div> 
               </div>
               <div class="divMinhaAdega">
                 <div *ngIf="whisky.idminhaadega == undefined">
                   <button style="background-color: white;" (click)="colocarNaMinhaAdega(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/barril_branco.png" style="height: 17px; width: 15px; "> 
+                    <img src="../../../assets/imagens/barril_branco.png" class="tamanhoFavAdeg_Global"> 
                   </button>
                 </div>
                 <div *ngIf="whisky.idminhaadega != undefined">
                   <button style="background-color: white;" (click)="tirarNaMinhaAdega(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/barril_marrom.png" style="height: 17px; width: 15px; ">  
+                    <img src="../../../assets/imagens/barril_marrom.png" class="tamanhoFavAdeg_Global">  
                   </button>
                 </div> 
               </div>
