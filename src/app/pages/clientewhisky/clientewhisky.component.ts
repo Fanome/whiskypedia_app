@@ -144,9 +144,9 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   selecionarWhisky(whiskySelecionado:any){
-    console.log("foi");
+    //console.log("foi");
     //console.log("whiskySelecionado");
-    //this.router.navigate(['/whisky/editarwhisky'], { queryParams: { whiskySelecionado: JSON.stringify(whiskySelecionado) } });
+    this.router.navigate(['/exibirwhisky'], { queryParams: { whiskySelecionado: JSON.stringify(whiskySelecionado) } });
   }
 
   nextPage() {

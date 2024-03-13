@@ -24,11 +24,15 @@ import { MinhaAdegaComponent } from '../pages/minhaadega/minhaadega.component';
 import { MeusFavoritosComponent } from '../pages/meusfavoritos/meusfavoritos.component';
 import { MeuPerfilComponent } from '../pages/meuperfil/meuperfil.component';
 
+import { ExibirWhiskyComponent } from '../pages/exibirwhisky/exibirwhisky.component';
+
 import { ListarWhiskyComponent } from '../pages/whisky/listar-whisky/listar-whisky.component';
 import { CriarWhiskyComponent } from '../pages/whisky/criar-whisky/criar-whisky.component';
 import { EditarWhiskyComponent } from '../pages/whisky/editar-whisky/editar-whisky.component';
 import { ExcluirWhiskyComponent } from '../pages/whisky/excluir-whisky/excluir-whisky.component';
 import { LoadingSpinnerComponent } from '../Utils/loading-spinner/loading-spinner.component';
+
+
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -64,7 +68,8 @@ import { AppModule } from '../../../src/app/app.module';
     ClienteWhiskyComponent,
     MinhaAdegaComponent,
     MeusFavoritosComponent,
-    MeuPerfilComponent
+    MeuPerfilComponent,
+    ExibirWhiskyComponent
   ]
 })
 export class FolderPageModule {}

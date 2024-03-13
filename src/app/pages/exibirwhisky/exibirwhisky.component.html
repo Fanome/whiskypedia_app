@@ -1,0 +1,142 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="divTitulo_GERAL">
+        <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="divTitulo_GERAL">
+        <div class="divTopBar_GERAL">
+            <div class="divVoltarLocal_GERAL">
+            <button type="submit" class="botaoVoltar_GERAL" [routerLink]="['/clientewhisky']" >
+                <img src="../../../assets/imagens/voltar.png" style="height: 27px; width: 27px; "> 
+            </button> 
+            </div>
+            <div class="divTituloLocal_GERAL">
+            <b>Whisky</b>
+            </div>
+        </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> 
+
+<ion-content [fullscreen]="true">
+    <div class="container">
+      <div class="divHeaderlist">
+        <div class="containerTitulo">
+          <div class="containerTitulo1">
+            <b>{{whiskys.nomeWhisky}}</b>
+          </div>
+          <div class="um-box">
+            <div class="dois-box">
+                <div *ngIf="whiskys.idfavoritos == undefined">
+                    <button style="background-color: white; border-radius: 50%;" (click)="favoritar(whiskys.idWhisky ? whiskys.idWhisky : 0)">
+                        <img src="../../../assets/imagens/coracao_branco.png" class="tamanhoFavAdeg_Global"> 
+                    </button>
+                </div>
+                <div *ngIf="whiskys.idfavoritos != undefined">
+                    <button style="background-color: white; border-radius: 50%;"  (click)="desFavoritar(whiskys.idWhisky ? whiskys.idWhisky : 0)">
+                        <img src="../../../assets/imagens/coracao_vermelho.png" class="tamanhoFavAdeg_Global">
+                    </button>  
+                </div> 
+            </div>
+            <div class="tres-box">
+                <div *ngIf="whiskys.idminhaadega == undefined">
+                    <button style="background-color: white; border-radius: 50%;" (click)="colocarNaMinhaAdega(whiskys.idWhisky ? whiskys.idWhisky : 0)">
+                        <img src="../../../assets/imagens/barril_branco.png" class="tamanhoFavAdeg_Global"> 
+                    </button>
+                </div>
+                <div *ngIf="whiskys.idminhaadega != undefined">
+                    <button style="background-color: white; border-radius: 50%;" (click)="tirarNaMinhaAdega(whiskys.idWhisky ? whiskys.idWhisky : 0)">
+                        <img src="../../../assets/imagens/barril_marrom.png" class="tamanhoFavAdeg_Global">  
+                    </button>
+                </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="red-box">
+        <div class="divSubmit">
+            <div class="tamanhoFoto image margim" style="text-align: center;">
+                <img [src]="imagemUrl" style="height: 270px; width: 200px;">
+            </div>
+            
+            <div class="divLabel" style="margin-top: 50px;">
+                <label><b>Descrição Histórica</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.descricao_historica}}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Barril</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.descricao_barril}}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Idade</b></label>
+            </div>
+            <div class="divCampos">
+                <div *ngIf="whiskys.idade == '0'">
+                    Nas
+                </div>
+                <div *ngIf="whiskys.idade != '0'">
+                    {{whiskys.idade}}
+                </div>
+            </div>
+
+            <div class="divLabel">
+                <label><b>Teor Alcolico</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.teroAlcolico}}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Origem</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.nacionalidade}}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Fabricante</b></label>
+            </div>
+            <div class="divCampos">
+                {{ whiskys.nomeFabricante }}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Tipo de Whisky</b></label>
+            </div>
+            <div class="divCampos">
+                {{ whiskys.nomeTipoWhisky }}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Olfato</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.descricao_olfato}}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Paladar</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.descricao_paladar}}
+            </div>
+
+            <div class="divLabel">
+                <label><b>Descrição Finalização</b></label>
+            </div>
+            <div class="divCampos">
+                {{whiskys.descricao_finalizacao}}
+            </div>
+
+            <div style="height: 100px;"></div>
+
+        </div>
+      </div>
+    </div> 
+</ion-content>

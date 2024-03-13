@@ -1,0 +1,17 @@
+.um-box{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+}
+
+.dois-box{
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 90px;
+    right: 15%;
+}
+
+.tres-box{
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 90px;
+    right: 4%;
+}
