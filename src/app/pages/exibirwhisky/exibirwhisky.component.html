@@ -1,3 +1,11 @@
+<div *ngIf="loaderFavoritar == true" class="overlay">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
+<div *ngIf="loaderAdega == true" class="overlay">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
 <ion-header [translucent]="true">
     <ion-toolbar class="divTitulo_GERAL">
         <ion-buttons slot="start">

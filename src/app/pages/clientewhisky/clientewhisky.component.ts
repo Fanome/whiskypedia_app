@@ -7,7 +7,7 @@ import { ListaWhiskyService } from 'src/app/service/listawhisky/listawhisky.serv
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { Usuario } from '../../model/usuario.model';
 
-
+ 
 @Component({
   selector: 'app-home',
   templateUrl: './clientewhisky.component.html',
@@ -71,8 +71,6 @@ export class ClienteWhiskyComponent implements OnInit {
       this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
-
-      console.log(this.whiskys);
 
       this.loaderListar = false;
     }, error => {
