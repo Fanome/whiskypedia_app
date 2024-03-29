@@ -5,7 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FolderPageRoutingModule } from './folder-routing.module';
 import { FolderPage } from './folder.page';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDialogModule } from '@angular/material/dialog';
+//import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FabricanteComponent } from '../pages/fabricante/listarfabricante/fabricante.component';
@@ -32,19 +33,22 @@ import { EditarWhiskyComponent } from '../pages/whisky/editar-whisky/editar-whis
 import { ExcluirWhiskyComponent } from '../pages/whisky/excluir-whisky/excluir-whisky.component';
 import { LoadingSpinnerComponent } from '../Utils/loading-spinner/loading-spinner.component';
 
-
-
 import { NgChartsModule } from 'ng2-charts';
 
 import { AppModule } from '../../../src/app/app.module';
 
+
+import { ModelOrdenacaoComponent } from '../pages/modalOrdenacao/modalordenacao.component';
+import { ModelFiltroComponent } from '../pages/modalFiltro/modalfiltro.component';
+
 @NgModule({
   imports: [
+    MatDialogModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(FolderPageRoutingModule),
-    ScrollingModule,
+    //ScrollingModule,
     NgxPaginationModule,
     NgChartsModule,
     AppModule
@@ -69,7 +73,9 @@ import { AppModule } from '../../../src/app/app.module';
     MinhaAdegaComponent,
     MeusFavoritosComponent,
     MeuPerfilComponent,
-    ExibirWhiskyComponent
+    ExibirWhiskyComponent,
+    ModelOrdenacaoComponent,
+    ModelFiltroComponent
   ]
 })
 export class FolderPageModule {}

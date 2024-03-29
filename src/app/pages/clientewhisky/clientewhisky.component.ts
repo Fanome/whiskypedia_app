@@ -7,6 +7,9 @@ import { ListaWhiskyService } from 'src/app/service/listawhisky/listawhisky.serv
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { Usuario } from '../../model/usuario.model';
 
+import { ModelOrdenacaoComponent } from '../../pages/modalOrdenacao/modalordenacao.component';
+import { ModelFiltroComponent } from '../../pages/modalFiltro/modalfiltro.component';
+import { MatDialog } from '@angular/material/dialog';
  
 @Component({
   selector: 'app-home',
@@ -31,7 +34,9 @@ export class ClienteWhiskyComponent implements OnInit {
       private router: Router,
       private listaWhiskyService: ListaWhiskyService,
       private usuarioService: UsuarioService,
-      private toastr: ToastrService) { }
+      private toastr: ToastrService,
+      public dialog: MatDialog
+      ) { }
   
   ngOnInit() {
     this.currentPage= 1;
@@ -279,6 +284,28 @@ export class ClienteWhiskyComponent implements OnInit {
     }    
   }
 
+  ordenacao(){
+      const dialogRef = this.dialog.open(ModelOrdenacaoComponent, {
+        width: '100%',
+        height: '35%',
+        data: { item: 'Ordenação' },
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+      });
+  }
 
+  filtro(){
+    const dialogRef = this.dialog.open(ModelFiltroComponent, {
+      width: '100%',
+      height: '35%',
+      data: { item: 'Filtro' },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
 
 }

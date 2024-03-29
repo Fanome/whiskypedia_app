@@ -25,7 +25,7 @@ ion-toolbar{
   
 .blue-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 120px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 100px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;
     width: 100%; /* Preenche toda a largura do elemento pai */
     height: 100%; /* Preenche toda a altura do elemento pai */
@@ -36,7 +36,7 @@ ion-toolbar{
   
   .red-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 180px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 100px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
     width: 100%; /* Largura da segunda div */
     height: 100%; /* Altura da segunda div */
@@ -247,9 +247,10 @@ ion-toolbar{
   height: 40px;
   font-size: 16px;
   outline: none;
-  width: 80%;
+  width: 90%;
   position: absolute;
   top: 10px;
+  color:rgb(143, 106, 57); 
 }
 
 .search-button {
@@ -258,7 +259,7 @@ ion-toolbar{
   cursor: pointer;
   width: 35px;
   height: 35px;
-  right: 16%;
+  right: 10%;
   position: absolute;
   //top: 6px;
   height: 100%;
@@ -285,4 +286,50 @@ ion-toolbar{
   align-content: center;
   justify-content: center;
   background-color: #e6ccd7;
+}
+
+.retangulo {
+  margin-top: 45px;
+  position: relative; /* Necessário para posicionar as divs filhas */
+  width: 100%; /* Largura da área contendo as divs */
+  background-color: #be677d;
+}
+
+.retangulo_esquerda {
+  position: absolute;
+  width: 150px; /* largura do retângulo */
+  height: 30px; /* altura do retângulo */
+  border: 2px solid rgb(250, 247, 247); /* borda preta de 2px */
+  background-color: white; /* fundo transparente */
+  left: 5%;
+  border-radius: 8px; 
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center; 
+}
+
+.retangulo_direita{
+  position: absolute;
+  width: 150px; /* largura do retângulo */
+  height: 30px; /* altura do retângulo */
+  border: 2px solid rgb(250, 247, 247); /* borda preta de 2px */
+  background-color: white; 
+  right: 5%;
+  border-radius: 8px;  
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;  
+}
+
+.botao_retangulo{
+  color:  rgb(143, 106, 57);
+  border-radius: 8px; 
+  background-color: white; 
+  width: 130px;
 }

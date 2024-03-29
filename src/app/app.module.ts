@@ -14,6 +14,7 @@ import { ToastrModule } from "ngx-toastr";
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgChartsModule } from 'ng2-charts';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login/loading-spinner-login.component';
 
@@ -30,8 +31,8 @@ import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login
     NgxMaskDirective,
     NgxMaskPipe,
     ReactiveFormsModule,
-    //LoadingSpinnerComponent,
     NgxPaginationModule,
+    MatDialogModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000,
