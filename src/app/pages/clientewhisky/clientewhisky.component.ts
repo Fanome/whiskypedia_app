@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-home',
   templateUrl: './clientewhisky.component.html',
-  styleUrls: ['./clientewhisky.component.scss']
+  styleUrls: ['./clientewhisky.component.scss', './clientewhisky-2.component.scss']
 })
 export class ClienteWhiskyComponent implements OnInit {
 
