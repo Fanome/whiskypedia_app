@@ -2,18 +2,17 @@
     <div class="loading-modal">
         <p><b>{{aus}}</b></p>
 
-        <div *ngFor="let opcao of opcoes">
-            <input type="radio" name="opcao" [(ngModel)]="opcaoSelecionada" [value]="opcao">{{ opcao }}
+        <div class="radio-list">
+            <div *ngFor="let opcao of opcoes">
+                <input type="radio" name="opcao" [(ngModel)]="opcaoSelecionada" [value]="opcao"><label (click)="ordenar(opcao)">{{ opcao }}</label>
+            </div> 
         </div>
-          
+
         <div class="botao_principal">   
-            <div class="botao_Aplicar">
-                <button class="botao" (click)="ordenar()"><b>Ordenação</b></button>
-            </div>
             <div class="botao_cancelar">
                 <button class="botao" (click)="cancelar()"><b>Cancelar</b></button>
             </div>
         </div>
+          
     </div>
 </div>
-  

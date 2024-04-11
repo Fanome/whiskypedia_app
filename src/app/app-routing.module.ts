@@ -24,6 +24,8 @@ import { ExcluirWhiskyComponent } from './pages/whisky/excluir-whisky/excluir-wh
 
 import { ExibirWhiskyComponent } from './pages/exibirwhisky/exibirwhisky.component';
 
+import { MigracaoComponent } from './pages/migracao/migracao.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -62,6 +64,9 @@ const routes: Routes = [
 
   /// EXIBIR WHISKY
   { path: 'exibirwhisky', component: ExibirWhiskyComponent },
+
+  /// Carga
+  { path: 'migracao', component: MigracaoComponent },
 ];
 
 @NgModule({

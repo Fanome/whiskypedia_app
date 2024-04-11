@@ -37,9 +37,9 @@ import { NgChartsModule } from 'ng2-charts';
 
 import { AppModule } from '../../../src/app/app.module';
 
-
 import { ModelOrdenacaoComponent } from '../pages/modalOrdenacao/modalordenacao.component';
 import { ModelFiltroComponent } from '../pages/modalFiltro/modalfiltro.component';
+import { MigracaoComponent } from '../pages/migracao/migracao.component';
 
 @NgModule({
   imports: [
@@ -75,7 +75,8 @@ import { ModelFiltroComponent } from '../pages/modalFiltro/modalfiltro.component
     MeuPerfilComponent,
     ExibirWhiskyComponent,
     ModelOrdenacaoComponent,
-    ModelFiltroComponent
+    ModelFiltroComponent,
+    MigracaoComponent
   ]
 })
 export class FolderPageModule {}

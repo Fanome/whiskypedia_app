@@ -15,13 +15,13 @@
   </ion-toolbar>
 </ion-header> 
 
-<ion-content [fullscreen]="true" style="height: 50000px;">
+<ion-content [fullscreen]="true" style="height: 200000px;">
   <div class="container">
     <div class="divHeaderlist">
       <div class="containerTitulo">
         <div class="search-container">
-          <input type="text" class="search-input" placeholder="Pesquisar..." >
-          <button class="search-button" >
+          <input type="text" class="search-input" placeholder="Pesquisar..." [(ngModel)]="pesquisarTexto" (keyup.enter)="pesquisar()">
+          <button class="search-button" (click)="pesquisar()">
             <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
           </button>
         </div>
@@ -98,7 +98,7 @@
         </td>
       </tr>
 
-      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0">
+      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0" style="padding-bottom: 50px;">
         <div class="paginacaoPai">
           <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
           <button class="paginacaoFilho4" (click)="nextPagePrimeiro()" [disabled]="totalPages === 1">1...</button>

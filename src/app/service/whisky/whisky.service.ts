@@ -19,10 +19,18 @@ export class WhiskyService {
   public excluirwhiskyPostAllURL = '/api/whisky';
   public whiskyGetAllURLPaginado = '/api/whiskys/paginado';
 
+  public whiskyGetRangerURL = '/api/whiskys/getranger';
 
-  listarALL()  { 
+
+  listarALL(){ 
     this.ambiente = this.configService.buscarAmbiente()
     const url = this.ambiente + this.whiskyGetAllURL;
+    return this.http.get<Whisky[]>(`${url}`);
+  } 
+
+  listarRengeID(num1: number, num2: number){ 
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.whiskyGetRangerURL + '/' + num1 + '/' + num2;
     return this.http.get<Whisky[]>(`${url}`);
   } 
 
@@ -57,4 +65,4 @@ export class WhiskyService {
     let data = this.http.get<WhiskyPaginado>(`${url}`);
     return data;
   }
-}
+} 

@@ -6,7 +6,11 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
     buscarAmbiente()  {
-        //return "http://localhost:3001";
-        return "https://whiskypedia.onrender.com"; 
+        return "http://localhost:3002";
+        //return "https://whiskypedia.onrender.com"; 
+    }
+
+    buscarAmbienteLocal()  {
+      return "http://localhost:3001";
     }
 }

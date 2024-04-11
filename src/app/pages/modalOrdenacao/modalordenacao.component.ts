@@ -20,11 +20,11 @@ export class ModelOrdenacaoComponent {
     }
 
     cancelar(): void{
-        this.dialogRef.close();
+        this.dialogRef.close('');
     }
 
-    ordenar(){
-
+    ordenar(opcao: string ){
+      this.dialogRef.close(opcao);
     }
 }
 
