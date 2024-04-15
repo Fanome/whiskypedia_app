@@ -5,7 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { FolderPageRoutingModule } from './folder-routing.module';
 import { FolderPage } from './folder.page';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDialogModule } from '@angular/material/dialog';
+//import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FabricanteComponent } from '../pages/fabricante/listarfabricante/fabricante.component';
@@ -24,6 +25,8 @@ import { MinhaAdegaComponent } from '../pages/minhaadega/minhaadega.component';
 import { MeusFavoritosComponent } from '../pages/meusfavoritos/meusfavoritos.component';
 import { MeuPerfilComponent } from '../pages/meuperfil/meuperfil.component';
 
+import { ExibirWhiskyComponent } from '../pages/exibirwhisky/exibirwhisky.component';
+
 import { ListarWhiskyComponent } from '../pages/whisky/listar-whisky/listar-whisky.component';
 import { CriarWhiskyComponent } from '../pages/whisky/criar-whisky/criar-whisky.component';
 import { EditarWhiskyComponent } from '../pages/whisky/editar-whisky/editar-whisky.component';
@@ -34,13 +37,18 @@ import { NgChartsModule } from 'ng2-charts';
 
 import { AppModule } from '../../../src/app/app.module';
 
+import { ModelOrdenacaoComponent } from '../pages/modalOrdenacao/modalordenacao.component';
+import { ModelFiltroComponent } from '../pages/modalFiltro/modalfiltro.component';
+import { MigracaoComponent } from '../pages/migracao/migracao.component';
+
 @NgModule({
   imports: [
+    MatDialogModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(FolderPageRoutingModule),
-    ScrollingModule,
+    //ScrollingModule,
     NgxPaginationModule,
     NgChartsModule,
     AppModule
@@ -64,7 +72,11 @@ import { AppModule } from '../../../src/app/app.module';
     ClienteWhiskyComponent,
     MinhaAdegaComponent,
     MeusFavoritosComponent,
-    MeuPerfilComponent
+    MeuPerfilComponent,
+    ExibirWhiskyComponent,
+    ModelOrdenacaoComponent,
+    ModelFiltroComponent,
+    MigracaoComponent
   ]
 })
 export class FolderPageModule {}

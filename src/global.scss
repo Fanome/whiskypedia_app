@@ -27,11 +27,11 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
 
-
 .divTituloGeral{
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 .divPaginacaoGlobal{
@@ -57,6 +57,7 @@ ion-toolbar{
 
 .divTitulo_GERAL{
   color: white;
+  height: 100%;
 }
 
 .divTopBar_GERAL{
@@ -67,6 +68,7 @@ ion-toolbar{
 
 .divVoltarLocal_GERAL{
   position: absolute; /* Posiciona em relação ao elemento pai */
+  height: 100%;
 }
 
 .divTituloLocal_GERAL{
@@ -81,6 +83,7 @@ ion-toolbar{
 .botaoVoltar_GERAL{
   background-color: burlywood; 
   color: white;
+  height: 100%;
 }
 
 /* === FIM TOP BAR ============================================================================ */
@@ -88,3 +91,8 @@ ion-toolbar{
 .divTituloGlobal{
   color: white;
 } 
+
+.tamanhoFavAdeg_Global{
+  height: 25px; 
+  width: 25px;
+}

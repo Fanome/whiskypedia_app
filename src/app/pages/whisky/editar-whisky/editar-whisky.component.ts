@@ -22,7 +22,7 @@ export class EditarWhiskyComponent implements OnInit {
   tipoWhiskys: TipoWhisky[] = [];
 
   base64String: any;
-  imagemUrl: any;
+  imagemUrl: any; 
 
   loaderEditar = false;
 

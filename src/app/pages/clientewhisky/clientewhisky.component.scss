@@ -25,7 +25,7 @@ ion-toolbar{
   
 .blue-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 120px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 100px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;
     width: 100%; /* Preenche toda a largura do elemento pai */
     height: 100%; /* Preenche toda a altura do elemento pai */
@@ -36,7 +36,7 @@ ion-toolbar{
   
   .red-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 180px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 100px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
     width: 100%; /* Largura da segunda div */
     height: 100%; /* Altura da segunda div */
@@ -228,61 +228,3 @@ ion-toolbar{
     background-color: white
   }
 
-  /* No seu arquivo de estilo CSS */
-.search-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  height: 16px;
-}
-
-.search-input {
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 8px ;
-  height: 40px;
-  font-size: 16px;
-  outline: none;
-  width: 80%;
-  position: absolute;
-  top: 10px;
-}
-
-.search-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  right: 16%;
-  position: absolute;
-  //top: 6px;
-  height: 100%;
-  top: 30%;
-}
-
-.imagemPesquisa{
-  width: 35px;
-  height: 35px;
-  position: absolute;
-}
-
-.caixaNaoEncontrados{
-  margin-top: 30px;
-  color: #be677d;
-  height: 70px;
-  width: 80%;
-  border: 1px solid #d193a2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  align-content: center;
-  justify-content: center;
-  background-color: #e6ccd7;
-}

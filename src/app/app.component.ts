@@ -51,6 +51,7 @@ export class AppComponent  implements OnInit {
     { title: 'Fabricante', url: '/fabricante', icon: '' },
     { title: 'Tipo Whisky', url: '/tipowhisky', icon: '' },
     { title: 'Whisky', url: '/whisky', icon: '' },
+    { title: 'Migracao', url: '/migracao', icon: '' },
   ];
 
   constructor(

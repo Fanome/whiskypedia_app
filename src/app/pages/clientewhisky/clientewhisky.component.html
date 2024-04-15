@@ -15,74 +15,82 @@
   </ion-toolbar>
 </ion-header> 
 
-<ion-content [fullscreen]="true" style="height: 50000px;">
+<ion-content [fullscreen]="true" style="height: 200000px;">
   <div class="container">
     <div class="divHeaderlist">
       <div class="containerTitulo">
-        <div class="containerTitulo1">
-          <b>Lista de Whisky</b>
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Pesquisar..." [(ngModel)]="pesquisarTexto" (keyup.enter)="pesquisar()">
+          <button class="search-button" (click)="pesquisar()">
+            <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
+          </button>
         </div>
+
+        <div class="retangulo"> 
+          <div class="retangulo_esquerda">    
+            <button class="botao_retangulo" (click)="ordenacao()"><b>Ordenação</b></button>
+          </div>
+  
+          <div class="retangulo_direita">
+            <button class="botao_retangulo" (click)="filtro()"><b>Filtro</b></button>
+          </div>
+        </div>
+        
       </div>
     </div>
     <div class="blue-box">
-      <div class="search-container">
+      <!-- <div class="search-container">
         <input type="text" class="search-input" placeholder="Pesquisar..." >
         <button class="search-button" >
           <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
         </button>
-
-        <!-- <input type="text" class="search-input" placeholder="Pesquisar..." [(ngModel)]="searchTerm" (keyup.enter)="search()">
-        <button class="search-button" (click)="search()">
-          <img class="imagemPesquisa" src="../../../../assets/icon/pesquisa.png">
-        </button> -->
-      </div>
+      </div> -->
     </div>
     <div class="red-box">
-
       <div *ngIf="whiskys.length < 1" class="caixaNaoEncontrados" > Não foram encontrados whiskys </div>
-      <tr class="trFabricante" *ngFor="let whisky of whiskys" (click)="selecionarWhisky(whisky)">
+      <tr class="trFabricante" *ngFor="let whisky of whiskys">
         <td class="tdFabricante">
           <div class="divControla_1">
-              <div class="divfotoWhisky">
+              <div class="divfotoWhisky" (click)="selecionarWhisky(whisky)">
                   <img [src]="whisky.imagem" style="height: 78px; width: 63px; "> 
               </div>
-              <div class="divNomeWhisky">
+              <div class="divNomeWhisky" (click)="selecionarWhisky(whisky)">
                   <div class="divNome">
                       <b>{{whisky.nomeWhisky}}</b>
                   </div>
               </div>
 
-              <div class="divFabricante">
+              <div class="divFabricante" (click)="selecionarWhisky(whisky)">
                 {{whisky.nomeFabricante}}
               </div>
-              <div class="divtipoWhisky">
+              <div class="divtipoWhisky" (click)="selecionarWhisky(whisky)">
                 {{whisky.nomeTipoWhisky}}
               </div>
-              <div class="divPais">
+              <div class="divPais" (click)="selecionarWhisky(whisky)">
                 {{whisky.nacionalidade}}
               </div>
 
               <div class="divFavorito">
                 <div *ngIf="whisky.idfavoritos == undefined">
                   <button style="background-color: white;" (click)="favoritar(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/coracao_branco.png" style="height: 17px; width: 19px; "> 
+                    <img src="../../../assets/imagens/coracao_branco.png" class="tamanhoFavAdeg_Global"> 
                   </button>
                 </div>
                 <div *ngIf="whisky.idfavoritos != undefined">
                   <button style="background-color: white;"  (click)="desFavoritar(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/coracao_vermelho.png" style="height: 17px; width: 19px; ">
+                    <img src="../../../assets/imagens/coracao_vermelho.png" class="tamanhoFavAdeg_Global">
                   </button>  
                 </div> 
               </div>
               <div class="divMinhaAdega">
                 <div *ngIf="whisky.idminhaadega == undefined">
                   <button style="background-color: white;" (click)="colocarNaMinhaAdega(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/barril_branco.png" style="height: 17px; width: 15px; "> 
+                    <img src="../../../assets/imagens/barril_branco.png" class="tamanhoFavAdeg_Global"> 
                   </button>
                 </div>
                 <div *ngIf="whisky.idminhaadega != undefined">
                   <button style="background-color: white;" (click)="tirarNaMinhaAdega(whisky.idWhisky ? whisky.idWhisky : 0)">
-                    <img src="../../../assets/imagens/barril_marrom.png" style="height: 17px; width: 15px; ">  
+                    <img src="../../../assets/imagens/barril_marrom.png" class="tamanhoFavAdeg_Global">  
                   </button>
                 </div> 
               </div>
@@ -90,7 +98,7 @@
         </td>
       </tr>
 
-      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0">
+      <div class="divPaginacaoGlobal" *ngIf="whiskys.length > 0" style="padding-bottom: 50px;">
         <div class="paginacaoPai">
           <button class="paginacaoFilho1" (click)="prevPage()" [disabled]="currentPage === 1"><< Previous</button>
           <button class="paginacaoFilho4" (click)="nextPagePrimeiro()" [disabled]="totalPages === 1">1...</button>

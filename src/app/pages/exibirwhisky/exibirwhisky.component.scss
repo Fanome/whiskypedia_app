@@ -5,7 +5,7 @@ ion-toolbar{
 .divTitulo{
     color: white;
 }
- 
+
 .container {
     position: relative; /* Necessário para posicionar as divs filhas */
     width: 100%; /* Largura da área contendo as divs */
@@ -19,12 +19,12 @@ ion-toolbar{
     width: 100%; /* Preenche toda a largura do elemento pai */
     height: 200px; /* Preenche toda a altura do elemento pai */
     background-color: burlywood;
-    background-image: url('../../../../assets/imagens/madeira2.jpg');
+    background-image: url('../../../assets/imagens/madeira2.jpg');
 }
   
 .blue-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 100px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 120px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;
     width: 100%; /* Preenche toda a largura do elemento pai */
     height: 100%; /* Preenche toda a altura do elemento pai */
@@ -35,7 +35,7 @@ ion-toolbar{
   
   .red-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 140px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 125px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
     width: 100%; /* Largura da segunda div */
     height: 100%; /* Altura da segunda div */
@@ -68,110 +68,88 @@ ion-toolbar{
   }
 
   .containerTitulo1{
-    //position: absolute;
-    // top: 20px;
-    // left: 10px;
+    position: absolute;
+    top: 20px;
+    left: 10px;
     color: white;
     font-size: 22px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    margin-top: 40px;
-  }
-
-  .containerTitulo2{
-    position: absolute;
-    top: 70px;
-    left: 70%;
-    width: 100px;
-    border: 2px solid white;
-    border-radius: 8px; 
-    height: 30px;
-    background-color: white; 
-    color:  rgb(197, 156, 94);
   }
 
 
-
-
-
-.divSubmit{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    margin-top: 20px;
-    width: 100%;
+.tamanhoFoto{
+    height: 250px;
+    margin-left: 10px;
 }
 
-.divSenha{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
+.margim{
     margin-top: 20px;
-    width: 100%;
+}
+
+.CorTitulo{
+    color:cadetblue;
 }
 
 .divInput{
-    width: 85%;
+    width: 100%;
     border: 2px solid rgb(143, 106, 57);
     border-radius: 10px; /* Arredonda os cantos da borda */
     height: 50px;
 }
 
-.divBotaoIncluir{
+.divTexteArea{
+    width: 100%;
+    border: 2px solid rgb(143, 106, 57);
+    border-radius: 10px; /* Arredonda os cantos da borda */
+    height: 100px;
+}
+
+.divCampos{
+    width: 90%;
+}
+
+.divLabel{
+    color: rgb(143, 106, 57);
+    width: 90%;
+    margin-top: 30px;
+    margin-left: 0%;
+  }
+
+  .divBotao{
     display: flex;
     flex-direction: column;
     align-items: center;
     background-size: cover;
     background-position: center;
-    margin-top: 20px;
-    width: 100%;
+    margin-top: 25px;
+    width: 90%;
 }
 
-.botaoIncluir{
-    width: 85%;
+.botao{
+    width: 100%;
     border: 2px solid rgb(143, 106, 57);
     border-radius: 10px; 
     height: 50px;
     background-color: burlywood; 
     color: white;
+    margin-top: 25px;
 }
+  
+.botaoExcluir{
+    width: 100%;
+    border: 2px solid rgb(143, 106, 57);
+    border-radius: 10px; 
+    height: 50px;
+    background-color: rgb(197, 112, 112); 
+    color: white;
+    margin-bottom: 30px;
+  }
 
-
-.divTopBar{
-    position: relative; /* Necessário para posicionar as divs filhas */
-    width: 100%; /* Largura da área contendo as divs */
-    height: 100%; /* Altura da área contendo as divs */
-}
-
-.divVoltarLocal{
-    position: absolute; /* Posiciona em relação ao elemento pai */
-    // top: 0px;
-    // left: 0px;
-    // color: white;
-    height: 100%;
-}
-
-.divTituloLocal{
-    //position: absolute; /* Posiciona em relação ao elemento pai */
-    // top: 0px;
-    // left: 0px;
-    // color: white;
+  .divSubmit{
     display: flex;
     flex-direction: column;
     align-items: center;
     background-size: cover;
     background-position: center;
-    color: white;
-}
-
-.botaoVoltar{
-    background-color: burlywood; 
-    color: white;
+    width: 100%;
+    margin-bottom: 50px;
 }

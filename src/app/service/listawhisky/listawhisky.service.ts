@@ -19,6 +19,7 @@ export class ListaWhiskyService {
   public desFavoritawhiskyGetAllURL = '/api/listawhiskys/desfavoritar';
   public colocarNaMinhaAdegawhiskyGetAllURL = '/api/listawhiskys/colocarNaMinhaAdega';
   public tirarNaMinhaAdegawhiskyGetAllURL = '/api/listawhiskys/tirarNaMinhaAdega';
+  public listawhiskyGetAllURLPaginadoOrdenado = '/api/listawhiskys/paginado/ordenado';
 
   listarALL(idusuario: number)  { 
     this.ambiente = this.configService.buscarAmbiente()
@@ -30,6 +31,20 @@ export class ListaWhiskyService {
     this.ambiente = this.configService.buscarAmbiente()
     const url = this.ambiente + this.listawhiskyGetAllURLPaginado + '/' + idusuario + '/' + pageNumber + '/' + pageSize;
     let data = this.http.get<ListaWhiskyPaginado>(`${url}`);
+    return data;
+  }
+
+  listarWhiskyPesquisaPaginado(idusuario: number, pageNumber: number, pageSize: number, pesquisa: string)  { 
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.listawhiskyGetAllURLPaginado + '/' + idusuario + '/' + pageNumber + '/' + pageSize + '/' + pesquisa  ;
+    let data = this.http.get<any>(`${url}`);
+    return data;
+  }
+
+  listarWhiskyOrdernarPaginado(idusuario: number, pageNumber: number, pageSize: number, ordenar: string)  { 
+    this.ambiente = this.configService.buscarAmbiente()
+    const url = this.ambiente + this.listawhiskyGetAllURLPaginadoOrdenado + '/' + idusuario + '/' + pageNumber + '/' + pageSize + '/' + ordenar  ;
+    let data = this.http.get<any>(`${url}`);
     return data;
   }
 
@@ -56,4 +71,5 @@ export class ListaWhiskyService {
     const url = this.ambiente + this.tirarNaMinhaAdegawhiskyGetAllURL + '/' + idusuario + '/' + idwhisky;
     return this.http.get<any>(`${url}`);
   }
+
 }
