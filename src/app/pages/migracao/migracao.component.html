@@ -12,6 +12,8 @@
 </ion-header> 
 
 <ion-content [fullscreen]="true" style="height: 50000px;">
+
+  <label>MIGRACAO NUVEM PARA LOCAL</label>
     <div class="container">
       <div>
         <button class="" (click)="migrarFabricantes()">Fabricantes</button>
@@ -33,4 +35,29 @@
       </div>
 
     </div> 
+
+
+  <label style="margin-top: 50px;margin-bottom: 10px;">MIGRACAO LOCAL PARA NUVEM</label>
+    <div class="container">
+      <div>
+        <button class="" (click)="migrarFabricantesLocalParaNuvem()">Fabricantes</button>
+      </div>
+      <div style="margin-top: 30px;">
+        <button class="" (click)="migrarTipoWhiskysLocalParaNuvem()">Tipo Whisky</button>
+      </div>
+
+      <div style="margin-top: 30px;">
+        <div style="margin-top: 5px;">
+          <input type="text" class="divInput" placeholder="" [(ngModel)]="num1" name="num1">
+        </div>
+        <div style="margin-top: 5px;">
+          <input type="text" class="divInput" placeholder="" [(ngModel)]="num2" name="num2">
+        </div>
+        <div style="margin-top: 5px;">
+          <button class="" (click)="migrarWhiskysLocalParaNuvem(num1, num2)">Whisky</button>
+        </div>
+      </div>
+
+    </div> 
+
 </ion-content>

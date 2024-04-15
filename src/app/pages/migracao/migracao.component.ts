@@ -12,10 +12,12 @@ import { WhiskyService } from 'src/app/service/whisky/whisky.service';
 import { Whisky } from 'src/app/model/whisky.model';
 import { WhiskyPaginado } from 'src/app/model/whiskyPaginado.model';
 
-import { MigracaoService } from 'src/app/service/migracao/migracao.service';
+import { MigracaoService } from 'src/app/service/migracao/migracao-nuvem-local.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { formatDate } from '@angular/common';
 
+
+import { MigracaoLocalNuvemService } from 'src/app/service/migracao/migracao-local-nuvem.service';
 
 @Component({
   selector: 'app-migracao',
@@ -39,11 +41,14 @@ export class MigracaoComponent implements OnInit {
       private tipowhiskyService: TipowhiskyService, 
       private migracaoService: MigracaoService, 
       private whiskyService: WhiskyService, 
+      private migracaoLocalNuvemService: MigracaoLocalNuvemService
   ) { }
   
   ngOnInit(): void {
     
   }
+
+  //// Migracao Nuvem para Local
 
   migrarFabricantes(): void{
     this.fabricanteService.listarALL().subscribe(results => {
@@ -164,59 +169,80 @@ export class MigracaoComponent implements OnInit {
   }
 
 
+  //// Migracao Local para Nuvem
 
+  migrarFabricantesLocalParaNuvem(): void{
+    this.migracaoService.listarALL().subscribe(results => {
+      this.fabricantes = results;
+      var cont = 0;
 
-  // migrarWhiskys(){
-  //   var pageNumber = 0;
-  //   var pageNumberTotal: number = 0;
-  //   var totalregistros: number = 50;
+      //console.log(this.fabricantes);
 
-  //   this.whiskyService.listarALLPaginado(1, totalregistros).subscribe(result => {
-  //     pageNumberTotal = result.totalPage != null ? result.totalPage : 0;
-  //     console.log(pageNumberTotal);
+      for (const value of this.fabricantes) {
+        this.migracaoLocalNuvemService.criarFabricanteMigracaoLocalParaNuvemPost(value).subscribe(result => {
+          cont = cont + 1;
+          console.log(cont);
+        }, error => {
+            console.log(error);
+            this.notificacao("danger", "Erro de acesso a API");
+        });
 
+      }
 
-  //     while (pageNumber < pageNumberTotal ){
-      
-  //       if(pageNumber == 0){
-  //         pageNumber = 1;
-  //       }else{
-  //         pageNumber = pageNumber + 1;
-  //       }
+      this.notificacao("sucesso", "Migração feita com sucesso");
+    }, error => {
+        console.log(error);
+        this.notificacao("danger", "Erro de acesso a API");
+    });
 
-  //       console.log(pageNumber);
+  }
 
-  //       this.whiskyService.listarALLPaginado(pageNumber, totalregistros).subscribe(result => {
-  //           this.whiskys = result.data != null ? result.data : [];
-  //           console.log(this.whiskys);
+  migrarTipoWhiskysLocalParaNuvem(): void{
+    this.migracaoService.listarTipoWhiskyALL().subscribe(result => {
+      this.tipoWhiskys = result;
+      var cont = 0;
 
-  //           // for (const value of this.whiskys) {
-  //           //   this.migracaoService.criarWhiskyMigracaoPost(value).subscribe(result => {
-  //           //     cont = cont + 1;
-  //           //     console.log(cont);
-  //           //   }, error => {
-  //           //       console.log(error);
-  //           //       this.notificacao("danger", "Erro de acesso a API");
-  //           //   });
-  //           // }
+      //console.log(this.tipoWhiskys);
+      for (const value of this.tipoWhiskys) {
+        this.migracaoLocalNuvemService.criartipowhiskyMigracaoLocalParaNuvemPost(value).subscribe(result => {
+          cont = cont + 1;
+          console.log(cont);
+        }, error => {
+            console.log(error);
+            this.notificacao("danger", "Erro de acesso a API");
+        });
+      }
 
-            
-            
-  //           // this.notificacao("sucesso", "Migração feita com sucesso");
+      this.notificacao("sucesso", "Migração feita com sucesso");
 
-  //         }, error => {
-  //             console.log(error);
-  //             this.notificacao("danger", "Erro de acesso a API");
-  //       });
+    }, error => {
+        console.log(error);
+        this.notificacao("danger", "Erro de acesso a API");
+    });
+  }
 
-        
-  //     }
+  migrarWhiskysLocalParaNuvem(num10: number, num20: number): void{
 
-  //   }, error => {
-  //       console.log(error);
-  //       this.notificacao("danger", "Erro de acesso a API");
-  //   });
+    this.migracaoService.listarRengeID(num10, num20).subscribe(result => {
+      this.whiskys = result;
+
+      console.log(this.whiskys);
+
+      for (const value of this.whiskys) {
+        value.dataCadastro = formatDate(value.dataCadastro != null ? value.dataCadastro : new Date(), 'yyyy-MM-dd', 'en');;
+        this.migracaoLocalNuvemService.criarWhiskyMigracaoLocalParaNuvemPos(value).subscribe(result => {
+        }, error => {
+            console.log(error);
+            this.notificacao("danger", "Erro de acesso a API");
+        });
+      }
+
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+    });
 
     
-  // }
+  }
+
 }
