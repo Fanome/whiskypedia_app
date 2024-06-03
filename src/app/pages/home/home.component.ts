@@ -65,11 +65,12 @@ export class HomeComponent  implements OnInit {
     this.tipoUsuario = this.usuarioLogado.id_tipousuario;
   }
 
-  // sair(){
-  //   this.nomeUsuario = '';
-  //   this.usuarioService.setGlobalVariable({});
-  //   this.loginok = 1;
-  // }
+  sair(){
+    // this.nomeUsuario = '';
+    // this.usuarioService.setGlobalVariable({});
+    //this.router.navigate(["/login", 1]);
+    //this.loginok = 1;
+  }
 
   // criarUsuario(){
   //   this.usuarios = {};

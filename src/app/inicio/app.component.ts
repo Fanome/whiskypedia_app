@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; 
+import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
 import { Login } from 'src/app/model/login.model';
 import { UsuarioService } from '../service/usuario/usuario.service';
@@ -21,8 +21,19 @@ export class AppComponent {
 
   constructor(private router: Router,
     private toastr: ToastrService,
+    private route: ActivatedRoute,
     private usuarioService: UsuarioService,
   ) {}
+
+  ngOnInit() {
+    // var numero = this.route.snapshot.params['numero'];
+
+    // console.log(numero);
+
+    // if(numero == 1){
+    //   this.loginok = 1;
+    // }
+  }
 
   fazerLogin(){
     if(this.login.email_usuario == ''){

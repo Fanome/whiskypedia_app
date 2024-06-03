@@ -25,6 +25,7 @@ import { MeuPerfilComponent } from '../pages/meuperfil/meuperfil.component';
 import { ExibirWhiskyComponent } from '../pages/exibirwhisky/exibirwhisky.component';
 
 import { MigracaoComponent } from '../pages/migracao/migracao.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,8 @@ const routes: Routes = [
     path: 'folder/:id',
     loadChildren: () => import('../folder/folder.module').then( m => m.FolderPageModule)
   },
+
+  //{path: 'login/:numero', component: AppComponent},
 
   /// MENU
   {path: 'homelogado', component: HomeLogadoComponent},
