@@ -73,10 +73,8 @@ export class MeusFavoritosComponent implements OnInit {
       this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
-
-      console.log(this.whiskys);
-
       this.loaderListar = false;
+      
     }, error => {
         console.log(error); 
         this.notificacao("danger", "Erro de acesso a API");

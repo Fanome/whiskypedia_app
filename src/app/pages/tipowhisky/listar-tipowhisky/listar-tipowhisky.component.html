@@ -1,44 +1,44 @@
 <div *ngIf="loaderListar == true" class="overlay">
-  <app-loading-spinner></app-loading-spinner>
-</div>
-
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons class="divTitulo" slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="divTitulo">
-      <div class="divTituloGeral">
-        <b>Tipo Whisky</b>
-      </div>
-    </ion-title>
-  </ion-toolbar>
-</ion-header> 
+    <app-loading-spinner></app-loading-spinner>
+  </div>
   
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="divHeaderlist">
-      <div class="containerTitulo">
-        <div class="containerTitulo1">
-          <b>Tipos de Whisky</b>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons class="divTitulo" slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="divTitulo">
+        <div class="divTituloGeral">
+          <b>Tipo Whisky</b>
         </div>
-        <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/tipowhisky/criartipowhisky']"><b>Criar</b></button>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header> 
+    
+  <ion-content [fullscreen]="true">
+    <div class="container">
+      <div class="divHeaderlist">
+        <div class="containerTitulo">
+          <div class="containerTitulo1">
+            <b>Tipos de Whisky</b>
+          </div>
+          <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/tipowhisky/criartipowhisky']"><b>Criar</b></button>
+        </div>
       </div>
-    </div>
-    <div class="blue-box">
-      <div class="nomeCampo">
-        <b>Nome dos Tipos Whisky</b>
+      <div class="blue-box">
+        <div class="nomeCampo">
+          <b>Nome dos Tipos Whisky</b>
+        </div>
       </div>
-    </div>
-    <div class="red-box">
-      <tr class="trFabricante" *ngFor="let tipowhisky of tipoWhiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" [routerLink]="['/tipowhisky/editartipowhisky', tipowhisky.idTipoWhisky, tipowhisky.nomeTipoWhisky]" >
-        <td class="tdFabricante">
-          <b>{{tipowhisky.nomeTipoWhisky}}</b>
-        </td>
-      </tr>
-      <div class="divPaginacaoGlobal">
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      <div class="red-box">
+        <tr class="trFabricante" *ngFor="let tipowhisky of tipoWhiskys | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" [routerLink]="['/tipowhisky/editartipowhisky', tipowhisky.idTipoWhisky, tipowhisky.nomeTipoWhisky]" >
+          <td class="tdFabricante">
+            <b>{{tipowhisky.nomeTipoWhisky}}</b>
+          </td>
+        </tr>
+        <div class="divPaginacaoGlobal">
+          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
       </div>
-    </div>
-  </div> 
-</ion-content>
+    </div> 
+  </ion-content>

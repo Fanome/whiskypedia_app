@@ -160,8 +160,6 @@ export class ExibirWhiskyComponent implements OnInit {
       this.listaWhiskyService.colocarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
 
         let minhaadega = result.result;
-
-        console.log(result);
   
         if(minhaadega){
           this.notificacao("sucess", "Whiskiy incluido na minha adega");

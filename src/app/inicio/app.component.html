@@ -1,0 +1,40 @@
+<div *ngIf="loginok == 1"> 
+  <ion-app>
+    <ion-content style="height: 3000px; width: 100%;">
+      <div class="divLogin">
+        <div class="divCriarConta">
+          <b><label for="">Ainda não tem conta?</label></b>
+        </div>
+        <div>
+          <!-- <button class="botaoCliqueAqui"  (click)="criarUsuario()">Clique Aqui!</button> -->
+        </div>
+        <div class="divBemVindo">
+          <b>SEJA BEM VINDO!</b>
+        </div> 
+      </div>
+      <div class="divLoginAbaixo">
+        <div class="divEmail">
+          <input class="divInput" type="email" placeholder="E-mail" [(ngModel)]="login.email_usuario" autofocus="true" />
+        </div>
+        <div class="divSenha">
+          <input class="divInput" type="password" placeholder="Senha" [(ngModel)]="login.senha_usuario"/>
+        </div>
+        <div class="divBotaoLogin">
+          <button class="botaoLogin" type="submit" value="Acessar" (click)="fazerLogin()">LOGIN</button>
+        </div>
+        <div class="divEsqueceuSenha">
+          <a class="linkEsqueceuSenha" href="/">Esqueci minha senha</a>
+        </div>
+      </div>
+    </ion-content>
+  </ion-app>
+</div>
+
+
+<div *ngIf="loginok == 2">
+  <ion-app>
+    <ion-content>
+      <home-root></home-root>
+    </ion-content>
+  </ion-app>
+</div>

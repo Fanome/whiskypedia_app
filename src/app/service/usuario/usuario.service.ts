@@ -19,7 +19,7 @@ export class UsuarioService {
   public criarUsuarioPostAllURL = '/api/usuario/incluir';
 
   setGlobalVariable(value: any) {
-    this.usuario_global = value;
+    this.usuario_global = value; 
   }
 
   getGlobalVariable() {

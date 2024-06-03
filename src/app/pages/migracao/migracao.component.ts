@@ -78,8 +78,6 @@ export class MigracaoComponent implements OnInit {
     this.tipowhiskyService.listarALL().subscribe(result => {
       this.tipoWhiskys = result;
       var cont = 0;
-
-      console.log(this.tipoWhiskys);
       for (const value of this.tipoWhiskys) {
         this.migracaoService.criartipowhiskyMigracaoPost(value).subscribe(result => {
           cont = cont + 1;
@@ -102,8 +100,6 @@ export class MigracaoComponent implements OnInit {
 
     this.whiskyService.listarRengeID(num10, num20).subscribe(result => {
       this.whiskys = result;
-
-      console.log(this.whiskys);
 
       for (const value of this.whiskys) {
         value.dataCadastro = formatDate(value.dataCadastro != null ? value.dataCadastro : new Date(), 'yyyy-MM-dd', 'en');;
@@ -176,8 +172,6 @@ export class MigracaoComponent implements OnInit {
       this.fabricantes = results;
       var cont = 0;
 
-      //console.log(this.fabricantes);
-
       for (const value of this.fabricantes) {
         this.migracaoLocalNuvemService.criarFabricanteMigracaoLocalParaNuvemPost(value).subscribe(result => {
           cont = cont + 1;
@@ -202,7 +196,6 @@ export class MigracaoComponent implements OnInit {
       this.tipoWhiskys = result;
       var cont = 0;
 
-      //console.log(this.tipoWhiskys);
       for (const value of this.tipoWhiskys) {
         this.migracaoLocalNuvemService.criartipowhiskyMigracaoLocalParaNuvemPost(value).subscribe(result => {
           cont = cont + 1;
@@ -225,8 +218,6 @@ export class MigracaoComponent implements OnInit {
 
     this.migracaoService.listarRengeID(num10, num20).subscribe(result => {
       this.whiskys = result;
-
-      console.log(this.whiskys);
 
       for (const value of this.whiskys) {
         value.dataCadastro = formatDate(value.dataCadastro != null ? value.dataCadastro : new Date(), 'yyyy-MM-dd', 'en');;

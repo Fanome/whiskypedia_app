@@ -1,7 +1,5 @@
 {
-  "name": "whiskypedia",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "WhiskyPedia.APP",
+  "integrations": {},
   "type": "angular"
 }

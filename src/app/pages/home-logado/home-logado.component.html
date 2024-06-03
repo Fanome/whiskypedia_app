@@ -1,0 +1,153 @@
+<ion-header [translucent]="true">
+    <ion-toolbar class="divTitulo">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="divTitulo">
+        <div class="divTituloGeral">
+          <b>Home</b>
+        </div>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header> 
+  
+<ion-content [fullscreen]="true" style="height: 3000px; width: 100%;">
+    <div class="container">
+      <div class="divHeaderlist">
+        <div class="containerTitulo">
+          <div class="containerTitulo1">
+            <b>WhiskyPedia</b>
+          </div>
+          <div class="containerTitulo2">
+            <b>Dashboard</b>
+          </div>
+        </div>
+      </div>
+      <div class="blue-box">
+        <div class="parte2_pai">
+          <div class="parte2_filho1">
+            <div class="parte3_pai">
+              <div class="parte3_filho1">
+                <b><Label>Whisky</Label></b>
+              </div>
+              <div class="parte3_filho2">
+                <b><label>58</label></b>
+              </div>
+            </div>
+          </div>
+          <div class="parte2_filho2">
+            <div class="parte3_pai">
+              <div class="parte3_filho1">
+                <b><Label>Marcas</Label></b>
+              </div>
+              <div class="parte3_filho2_1">
+                <b><label>150</label></b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="red-box">
+
+        <div class="containerTitulo3 tituloArea" style="font-size: 20px; ">
+          <div style="text-align: center;"><b>Quantidades de Tipo de Whisky</b></div>
+          <div style="text-align: center;"><b>Cadastrados</b></div>
+        </div>
+        <div style="display: block; margin-bottom: 25px; margin-top: 15px;">
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="pieChartDatasets"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+            >
+          </canvas>
+
+        </div>
+
+
+        <div class="containerTitulo3 tituloArea">
+          <b>Os Mais Curtidos</b>
+        </div>
+        <div class="carrossel">
+          <div class="item cor1">
+            <div class="parte4_pai">
+              <div class="parte4_filho1">
+                <img style="height: 150px;" src="../../../assets/imagens/whiskyTesteHome/bluelabel.jpg" alt="">
+              </div>
+              <div class="parte4_filho2">
+                <div class="teste_1"><b><label>Johnnie Walker</label></b></div>
+                <div class="teste_2"><b><label>Blue Label</label></b></div>
+              </div>
+            </div>
+          </div>
+          <div class="item cor2">
+            <div class="parte4_pai">
+              <div class="parte4_filho1">
+                <img style="height: 150px;" src="../../../assets/imagens/whiskyTesteHome/chivas13.jpg" alt="">
+              </div>
+              <div class="parte4_filho2">
+                <div class="teste_1"><b><label>Chivas Regal</label></b></div>
+                <div class="teste_2"><b><label>13 Anos</label></b></div>
+              </div>
+            </div>
+          </div>
+          <div class="item cor1">
+            <div class="parte4_pai">
+              <div class="parte4_filho1">
+                <img style="height: 150px;" src="../../../assets/imagens/whiskyTesteHome/chivas18.jpg" alt="">
+              </div>
+              <div class="parte4_filho2">
+                <div class="teste_1"><b><label>Chivas Regal</label></b></div>
+                <div class="teste_2"><b><label>18 Anos</label></b></div>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+        <div class="containerTitulo3 tituloArea">
+          <b>Últimos Incluídos</b>
+        </div>
+        <div class="carrossel2">
+          <div class="item2 cor2">
+            <div class="parte4_pai">
+              <div class="parte4_filho1">
+                <img style="height: 150px;" src="../../../assets/imagens/whiskyTesteHome/bunna1.jpg" alt="">
+              </div>
+              <div class="parte4_filho2">
+                <div class="teste_1"><b><label>Bunnahabhain</label></b></div>
+                <div class="teste_2"><b><label>Toiteach a Dhà</label></b></div>
+              </div>
+            </div>
+          </div>
+          <div class="item2 cor1">
+            <div class="parte4_pai">
+              <div class="parte4_filho1">
+                <img style="height: 150px;" src="../../../assets/imagens/whiskyTesteHome/Chivas Royal Salute Chinese.jpg" alt="">
+              </div>
+              <div class="parte4_filho2">
+                <div class="teste_1"><b><label>Chivas Regal</label></b></div>
+                <div class="teste_2"><b><label>Royal Salute Chinese</label></b></div>
+              </div>
+            </div>
+          </div>
+          <div class="item2 cor2">
+            <div class="parte4_pai">
+              <div class="parte4_filho1">
+                <img style="height: 150px;" src="../../../assets/imagens/whiskyTesteHome/chivas15anos.jpg" alt="">
+              </div>
+              <div class="parte4_filho2">
+                <div class="teste_1"><b><label>Chivas Regal</label></b></div>
+                <div class="teste_2"><b><label>15 Anos</label></b></div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div> 
+</ion-content>
+
+
+

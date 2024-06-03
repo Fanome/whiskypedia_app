@@ -24,75 +24,85 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-@import "~bootstrap/dist/css/bootstrap.min.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
 
 
 .divTituloGeral{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-}
-
-.divPaginacaoGlobal{
-  width: 100%;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  align-content: center;
-  justify-content: center;
-  color:  rgb(143, 106, 57);
-  margin-bottom: 20px;
-}
-
-
-
-/* === INICIO TOP BAR ============================================================================ */
-ion-toolbar{
-  --background: var(--ion-item-background, var(--ion-background-color, burlywood));
-}
-
-.divTitulo_GERAL{
-  color: white;
-  height: 100%;
-}
-
-.divTopBar_GERAL{
-  position: relative; /* Necessário para posicionar as divs filhas */
-  width: 100%; /* Largura da área contendo as divs */
-  height: 100%; /* Altura da área contendo as divs */
-}
-
-.divVoltarLocal_GERAL{
-  position: absolute; /* Posiciona em relação ao elemento pai */
-  height: 100%;
-}
-
-.divTituloLocal_GERAL{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  color: white;
-}
-
-.botaoVoltar_GERAL{
-  background-color: burlywood; 
-  color: white;
-  height: 100%;
-}
-
-/* === FIM TOP BAR ============================================================================ */
-
-.divTituloGlobal{
-  color: white;
-} 
-
-.tamanhoFavAdeg_Global{
-  height: 25px; 
-  width: 25px;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .divPaginacaoGlobal{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    align-content: center;
+    justify-content: center;
+    color:  rgb(143, 106, 57);
+    margin-bottom: 20px;
+  }
+  
+  
+  
+  /* === INICIO TOP BAR ============================================================================ */
+  ion-toolbar{
+    --background: var(--ion-item-background, var(--ion-background-color, burlywood));
+  }
+  
+  .divTitulo_GERAL{
+    color: white;
+    height: 100%;
+  }
+  
+  .divTopBar_GERAL{
+    position: relative; /* Necessário para posicionar as divs filhas */
+    width: 100%; /* Largura da área contendo as divs */
+    height: 100%; /* Altura da área contendo as divs */
+  }
+  
+  .divVoltarLocal_GERAL{
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    height: 100%;
+  }
+  
+  .divTituloLocal_GERAL{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+  
+  .botaoVoltar_GERAL{
+    background-color: burlywood; 
+    color: white;
+    height: 100%;
+  }
+  
+  /* === FIM TOP BAR ============================================================================ */
+  
+  .divTituloGlobal{
+    color: white;
+  } 
+  
+  .tamanhoFavAdeg_Global{
+    height: 25px; 
+    width: 25px;
+  }

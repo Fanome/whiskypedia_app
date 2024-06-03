@@ -71,8 +71,6 @@ export class ListarWhiskyComponent implements OnInit {
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
 
-      console.log(this.whiskys.length);
-
       this.loaderListar = false;
     }, error => {
         console.log(error); 
@@ -178,8 +176,6 @@ export class ListarWhiskyComponent implements OnInit {
 
   search() {
     // Lógica para lidar com a pesquisa aqui
-    console.log(this.searchTerm);
-
     if(this.searchTerm != ''){
       this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
     }else{

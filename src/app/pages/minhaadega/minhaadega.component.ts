@@ -73,8 +73,6 @@ export class MinhaAdegaComponent implements OnInit {
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
 
-      console.log(this.whiskys);
-
       this.loaderListar = false;
     }, error => {
         console.log(error); 

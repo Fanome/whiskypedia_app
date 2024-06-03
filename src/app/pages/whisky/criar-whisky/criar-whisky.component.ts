@@ -98,7 +98,6 @@ export class CriarWhiskyComponent implements OnInit {
 
     reader.onload = (e: any) => {
       const base64String: string = e.target.result;
-      console.log('String Base64:', base64String);
       this.whiskys.imagem = base64String;
       img2.src = this.whiskys.imagem;
       this.imagemUrl = img2.src;

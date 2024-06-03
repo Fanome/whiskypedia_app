@@ -1,44 +1,44 @@
-<div *ngIf="loaderListar == true" class="overlay">
-  <app-loading-spinner></app-loading-spinner>
-</div>
-
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons class="divTitulo" slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="divTitulo">
-      <div class="divTituloGeral">
-        <b>Fabricante</b>
-      </div>
-    </ion-title>
-  </ion-toolbar>
-</ion-header> 
-
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <div class="divHeaderlist">
-      <div class="containerTitulo">
-        <div class="containerTitulo1">
-          <b>Fabricantes</b>
-        </div>
-        <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/fabricante/criarfabricante']"><b>Criar</b></button>
-      </div>
-    </div>
-    <div class="blue-box">
-      <div class="nomeCampo">
-        <b>Nome dos Fabricantes</b>
-      </div>
-    </div>
-    <div class="red-box">
-      <tr class="trFabricante" *ngFor="let fabricante of fabricantes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" [routerLink]="['/fabricante/editarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" >
-        <td class="tdFabricante">
-          <b>{{fabricante.nomeFabricante}}</b>
-        </td>
-      </tr>
-      <div class="divPaginacaoGlobal">
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-      </div>
-    </div>
+  <div *ngIf="loaderListar == true" class="overlay">
+    <app-loading-spinner></app-loading-spinner>
   </div> 
-</ion-content>
+  
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons class="divTitulo" slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="divTitulo">
+        <div class="divTituloGeral">
+          <b>Fabricante</b>
+        </div>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header> 
+  
+  <ion-content [fullscreen]="true">
+    <div class="container">
+      <div class="divHeaderlist">
+        <div class="containerTitulo">
+          <div class="containerTitulo1">
+            <b>Fabricantes</b>
+          </div>
+          <button title="Criar" alt="Criar" class="containerTitulo2" [routerLink]="['/fabricante/criarfabricante']"><b>Criar</b></button>
+        </div>
+      </div>
+      <div class="blue-box">
+        <div class="nomeCampo">
+          <b>Nome dos Fabricantes</b>
+        </div>
+      </div>
+      <div class="red-box">
+       <tr class="trFabricante" *ngFor="let fabricante of fabricantes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }" [routerLink]="['/fabricante/editarfabricante', fabricante.idFabricante, fabricante.nomeFabricante]" >
+          <td class="tdFabricante">
+            <b>{{fabricante.nomeFabricante}}</b>
+          </td>
+        </tr>
+        <div class="divPaginacaoFabricante">
+          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div> 
+      </div>
+    </div> 
+  </ion-content>

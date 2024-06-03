@@ -159,8 +159,6 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   selecionarWhisky(whiskySelecionado:any){
-    //console.log("foi");
-    //console.log("whiskySelecionado");
     this.router.navigate(['/exibirwhisky'], { queryParams: { whiskySelecionado: JSON.stringify(whiskySelecionado) } });
   }
 
@@ -428,8 +426,6 @@ export class ClienteWhiskyComponent implements OnInit {
       this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
-
-      console.log(this.currentPage); 
 
       this.loaderListar = false;
     }, error => {
