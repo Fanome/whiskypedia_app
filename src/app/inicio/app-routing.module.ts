@@ -29,7 +29,7 @@ import { MigracaoComponent } from '../pages/migracao/migracao.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'homelogado',
     pathMatch: 'full' 
   },
   {
