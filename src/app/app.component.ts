@@ -5,6 +5,9 @@ import { ToastrService } from "ngx-toastr";
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { Router } from '@angular/router'; 
 import { Login } from '../../src/app/model/login.model';
+import { TesteDataBase } from './service_db/teste_db/teste_db.service';
+import { UsuarioDataBase } from './service_db/usuario_db/usuario_db.service';
+import { ConfigService } from './service/config/config-service';
 
 @Component({
   selector: 'app-root',
@@ -58,7 +61,21 @@ export class AppComponent  implements OnInit {
     private usuarioService: UsuarioService,
     private toastr: ToastrService,
     private router: Router, 
+    private testeDataBase: TesteDataBase,
+    private usuarioDataBase: UsuarioDataBase,
+    private configService: ConfigService
     ){
+
+      if(this.configService.bancoDados() == "sqllite"){
+        //alert("chamar config banco local");
+        try{
+          this.carregartabelas();
+        }
+        catch (error) {
+          console.error('Erro ao configurar banco:', error);
+          throw error;
+        }
+      }
   } 
   
   ngOnInit(): void {
@@ -68,8 +85,11 @@ export class AppComponent  implements OnInit {
     this.tipoUsuario = 0;
   }
 
+  async carregartabelas(): Promise<void>{
+    this.usuarioDataBase.createOpenDatabase();
+  }
 
-  fazerLogin(){
+  async fazerLogin():  Promise<void>{
     if(this.login.email_usuario == ''){
       this.notificacao("danger", "Digite o e-mail de usuário.");
     }
@@ -77,38 +97,46 @@ export class AppComponent  implements OnInit {
       this.notificacao("danger", "Digite a senha de usuário.");
     }
 
-    if(this.login.email_usuario != '' && this.login.senha_usuario != ''){
-      this.loaderLogin = true;
-      this.usuarioService.login(this.login).subscribe(result => {
-        if(result.length == 1){
-          this.loginok = 2;
-          this.usuarios = {};
-          this.usuarioLogado = result;
-          this.usuarioService.setGlobalVariable(this.usuarioLogado[0]);// passa o usuario logado para um objeto global
+    const email = this.login.email_usuario == undefined ? "" : this.login.email_usuario
+    const senha = this.login.senha_usuario == undefined ? "" : this.login.senha_usuario
 
-          this.nomeUsuario = this.usuarioLogado[0].nome_usuario;
-          this.tipoUsuario = this.usuarioLogado[0].id_tipousuario;
-
-          this.loaderLogin = false;
-
-          this.router.navigate(["/home"]);
-        }else{
-          this.notificacao("danger", "E-mail ou senha inválida");
-          this.nomeUsuario = '';
-          this.tipoUsuario = 0;
-          this.usuarioService.setGlobalVariable({});
-          this.loaderLogin = false;
-          this.loginok = 1;
-        }
-      }, error => {
-          this.notificacao("danger", "Erro de acesso a API. " + error );
-          this.nomeUsuario = '';
-          this.tipoUsuario = 0;
-          this.usuarioService.setGlobalVariable({});
-          this.loaderLogin = false;
-          this.loginok = 1;
-      });   
+    if(this.configService.bancoDados() == "sqllite"){
+      alert("login local");
+      await this.loginLocal(email, senha);
     }
+    else{
+      await this.loginNuvem();
+    }
+
+    if(this.usuarioLogado != null){
+      this.loginok = 2;
+      this.usuarios = {};
+      this.usuarioService.setGlobalVariable(this.usuarioLogado[0]);// passa o usuario logado para um objeto global
+
+      this.nomeUsuario = this.usuarioLogado[0].nome_usuario;
+      this.tipoUsuario = this.usuarioLogado[0].id_tipousuario;
+
+      alert(this.usuarioLogado[0].nome_usuario);
+
+      this.loaderLogin = false;
+
+      this.router.navigate(["/home"]);
+    }else{
+      this.notificacao("danger", "E-mail ou senha inválida");
+      this.nomeUsuario = '';
+      this.tipoUsuario = 0;
+      this.usuarioService.setGlobalVariable({});
+      this.loaderLogin = false;
+      this.loginok = 1;
+    }
+  }
+
+  async loginLocal(email: string, senha: string){
+    this.usuarioLogado = await this.usuarioDataBase.login(email, senha);
+  }
+
+  async loginNuvem(){
+    this.usuarioLogado = await this.usuarioService.login(this.login);
   }
 
   sair(){
@@ -267,4 +295,55 @@ export class AppComponent  implements OnInit {
     }
   }
 
+  // TESTE DE SQLITE ///////////////////////////////////////////////////////////////////////////////////////
+  // TESTE DE SQLITE ///////////////////////////////////////////////////////////////////////////////////////
+  // TESTE DE SQLITE ///////////////////////////////////////////////////////////////////////////////////////
+
+  testeSqlite(){
+    this.loginok = 4
+  }
+
+  book_name: string;
+  book_price: string;
+
+  id_usuarios: number;
+  bookData:book[];
+  usuarioLogadoTeste: Usuario[];
+  
+  createOpenDatabase(){
+    this.testeDataBase.createOpenDatabase();
+  }
+
+  createTable(){
+    this.testeDataBase.createTable();
+  }
+
+  insertData(){
+    this.testeDataBase.insertData(this.book_name, this.book_price);
+  }
+
+  selectData(){
+    this.bookData = this.testeDataBase.selectData();
+  }
+
+  createOpenDatabaseUsuario(){
+    this.usuarioDataBase.createOpenDatabase();
+  }
+
+  selectDataUsuario(){
+    this.usuarioLogadoTeste = this.usuarioDataBase.selectData();
+  }
+
+  deletarUsuario(){
+    this.usuarioDataBase.deletarUsuario(this.id_usuarios);
+  }
+
 }
+
+class book{
+  public book_name:string;
+  public book_price:string;
+}
+
+
+

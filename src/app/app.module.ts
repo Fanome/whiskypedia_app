@@ -17,6 +17,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login/loading-spinner-login.component';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
 @NgModule({
   declarations: [AppComponent, LoadingSpinnerLoginComponent],
@@ -41,7 +42,7 @@ import { LoadingSpinnerLoginComponent } from '../app/Utils/loading-spinner-login
       }
     ),
   ],
-  providers: [provideNgxMask(),{ 
+  providers: [SQLite, provideNgxMask(),{ 
     provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy,
    }],

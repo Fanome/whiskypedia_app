@@ -32,11 +32,22 @@ export class UsuarioService {
     return  this.http.post<any>(url, usuario);
   };
 
-  login(login: Login): Observable<any> {
-    this.ambiente = this.configService.buscarAmbiente()
-    const url = this.ambiente + this.LoginUsuario + '/' + login.email_usuario + '/' + login.senha_usuario ;
-    return  this.http.get<any>(url);
-  };
+  // login(login: Login): Observable<any> {
+  //   this.ambiente = this.configService.buscarAmbiente()
+  //   const url = this.ambiente + this.LoginUsuario + '/' + login.email_usuario + '/' + login.senha_usuario ;
+  //   return  this.http.get<any>(url);
+  // };
+
+  async login(login: Login): Promise<any> {
+    try {
+      this.ambiente = this.configService.buscarAmbiente()
+      const url = this.ambiente + this.LoginUsuario + '/' + login.email_usuario + '/' + login.senha_usuario ;
+      return  this.http.get<any>(url).toPromise();
+    } catch (error) {
+      console.error('Erro ao obter dados da API:', error);
+      throw error;
+    }
+  }
 
 
 }

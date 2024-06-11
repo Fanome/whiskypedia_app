@@ -29,6 +29,10 @@
       <div class="divEsqueceuSenha">
         <a class="linkEsqueceuSenha" href="/">Esqueci minha senha</a>
       </div>
+
+      <div class="divBotaoLogin">
+        <button class="botaoLogin" type="submit" value="Acessar" (click)="testeSqlite()">Teste SQlite</button>
+      </div>
     </div>
   </ion-content>
 </div>
@@ -156,6 +160,60 @@
       </form>
     </div>
   </ion-content>
+</div>
+
+
+<div *ngIf="loginok == 4">
+  <ion-content style="height: 3000px; width: 100%;">
+    <div id="container">
+       <div style="border-bottom: solid 1px lightgray; margin-bottom: 20px;">
+        <ion-button (click)="createOpenDatabase()" size="small">Create/Open Database</ion-button>
+        <ion-button (click)="createTable()" size="small">Create Table</ion-button>
+      </div>
+  
+      <div style="max-width: 200px; margin: auto;">
+        <ion-item>
+          <ion-input placeholder="Enter book name" [(ngModel)]="book_name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Enter book price" [(ngModel)]="book_price"></ion-input>
+        </ion-item>
+        <ion-button size="small" (click)="insertData()" style="margin-bottom: 20px;">Add Record</ion-button>
+  
+        <div style="border-top: solid 1px lightgray;">
+          <ion-button (click)="selectData()" style="margin-bottom: 20px;">Add Record</ion-button>
+  
+          <div *ngFor="let b of bookData; let i = index">
+            <div>book name : {{b.book_name}}</div>
+            <div>price : {{b.book_price}}</div>
+          </div>
+        </div>
+      </div> 
+
+
+      <div style="border-bottom: solid 1px lightgray; margin-top: 20px; margin-bottom: 20px; ">
+        <ion-button (click)="createOpenDatabaseUsuario()" size="small">Usuario Create/Open Database</ion-button>
+        <ion-button (click)="deletarUsuario()" size="small">Deletar Usuario</ion-button>
+      </div>
+     
+      <div style="max-width: 200px; margin: auto;">
+        <ion-item>
+          <ion-input placeholder="id usuario" [(ngModel)]="id_usuarios"></ion-input>
+        </ion-item>
+
+        <div style="border-top: solid 1px lightgray;">
+          <ion-button (click)="selectDataUsuario()" style="margin-bottom: 20px;">Buscar usuario</ion-button>
+  
+          <div *ngFor="let b of usuarioLogadoTeste; let i = index">
+            <div>email usuario : {{b.email_usuario}}</div>
+            <div>nome usuario : {{b.nome_usuario}}</div>
+            <div>id usuario : {{b.id_usuarios}}</div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </ion-content>
+  
 </div>
 
 <div style="height: 300px;"></div>
