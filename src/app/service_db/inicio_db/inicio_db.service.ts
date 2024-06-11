@@ -26,7 +26,7 @@ export class InicioDataBase {
         })
         .then((db: SQLiteObject) => {
         this.db=db;
-            //alert('database created/opened');
+            //alert('database created/opened whiskypedia');
         })
         .catch(e => alert(JSON.stringify(e)));
 

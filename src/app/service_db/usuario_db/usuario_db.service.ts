@@ -16,7 +16,7 @@ export class UsuarioDataBase {
   async createTable_Usuario(db:SQLiteObject): Promise<void>{
     this.db=db;
 
-    this.db.executeSql(`CREATE TABLE IF NOT EXISTS usuarios (
+    await this.db.executeSql(`CREATE TABLE IF NOT EXISTS usuarios (
             id_usuarios INTEGER PRIMARY KEY AUTOINCREMENT, 
             email_usuario VARCHAR(100) NOT NULL,
             nome_usuario VARCHAR(45) NOT NULL,
@@ -30,7 +30,7 @@ export class UsuarioDataBase {
 
         this.usuarioLogadoTeste = this.verificaUsuarioAdmin();
 
-        if(this.usuarioLogadoTeste.length == null ){
+        if(this.usuarioLogadoTeste.length == null){
           this.insertUsuarioAdmin();
         }
     } )
@@ -66,7 +66,7 @@ export class UsuarioDataBase {
                       values("`+ email_usuario +`","`+ nome_usuario +`","`+ senha_usuario +`","`+ id_tipousuario +`","`+ telefone_usuario +`","`+ data_nascimento_usuario +`")`;
     this.db.executeSql(query,[])
     .then(() => {
-      //alert('Record inserted')
+      //alert('usuario admin criado');
     })
     .catch(e => alert(JSON.stringify(e)));
   }
