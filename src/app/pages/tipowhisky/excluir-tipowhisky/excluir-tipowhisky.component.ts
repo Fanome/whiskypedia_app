@@ -3,6 +3,8 @@ import { TipowhiskyService } from 'src/app/service/tipowhisky/tipowhisky.service
 import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { TipoWhiskyDataBase } from 'src/app/service_db/tipowhisky_db/tipowhisky_db.service';
 
 @Component({
   selector: 'app-excluir-tipowhisky',
@@ -19,15 +21,42 @@ export class ExcluirTipowhiskyComponent implements OnInit {
     private tipowhiskyService: TipowhiskyService, 
     private router: Router, 
     private route: ActivatedRoute,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private tipoWhiskyDataBase: TipoWhiskyDataBase
+  ) { }
 
   ngOnInit() {
     this.tipoWhisky.idTipoWhisky = this.route.snapshot.params['idTipoWhisky'];
     this.tipoWhisky.nomeTipoWhisky = this.route.snapshot.params['nomeTipoWhisky'];
   }
 
-  excluirTipoWhisky(tipowhiskyExcluido: any){
+  async excluirTipoWhisky(tipowhiskyExcluido: TipoWhisky): Promise<void>{
     this.loaderExcluir = true;
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.excluirTipoWhiskyLocal(tipowhiskyExcluido);
+    }
+    else{
+      await this.excluirTipoWhiskyNuvem(tipowhiskyExcluido);
+    }
+  }
+
+  async excluirTipoWhiskyLocal(tipowhiskyExcluido: TipoWhisky): Promise<void>{
+    const id = tipowhiskyExcluido.idTipoWhisky == undefined? 0 : tipowhiskyExcluido.idTipoWhisky;
+    const result = await this.tipoWhiskyDataBase.deletarTipoWhisky(id);
+    if(result){
+      this.notificacao("sucesso", "Tipo Whisky excluirdo com sucesso");
+      this.tipoWhisky = {};
+      this.loaderExcluir = false;
+      this.router.navigate(["/tipowhisky"]);
+    }else{
+      this.notificacao("danger", "Erro ao excluir Tipo Whisky");
+      this.loaderExcluir = false;
+    }
+  }
+
+  async excluirTipoWhiskyNuvem(tipowhiskyExcluido: TipoWhisky): Promise<void>{
     this.tipowhiskyService.excluirtipowhiskyPost(tipowhiskyExcluido).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Tipo Whisky excluirdo com sucesso");

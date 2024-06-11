@@ -3,6 +3,8 @@ import { TipowhiskyService } from 'src/app/service/tipowhisky/tipowhisky.service
 import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { TipoWhiskyDataBase } from 'src/app/service_db/tipowhisky_db/tipowhisky_db.service';
 
 @Component({
   selector: 'app-editar-tipowhisky',
@@ -19,16 +21,41 @@ export class EditarTipowhiskyComponent implements OnInit {
     private tipowhiskyService: TipowhiskyService, 
     private router: Router, 
     private route: ActivatedRoute,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private tipoWhiskyDataBase: TipoWhiskyDataBase
+  ) { }
 
   ngOnInit() {
     this.tipoWhiskys.idTipoWhisky = this.route.snapshot.params['idTipoWhisky'];
     this.tipoWhiskys.nomeTipoWhisky = this.route.snapshot.params['nomeTipoWhisky'];
   }
 
-  editarTipoWhisky(tipoWhiskyEditado: any){
+  async editarTipoWhisky(tipoWhiskyEditado: TipoWhisky): Promise<void>{
     this.loaderEditar = true;
-    this.tipowhiskyService.editartipowhiskyPut(tipoWhiskyEditado).subscribe(result => {
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.alterarTipoWhiskyLocal(tipoWhiskyEditado);
+    }
+    else{
+      await this.alterarTipoWhiskyNuvem(tipoWhiskyEditado);
+    }
+  }
+
+  async alterarTipoWhiskyLocal(tipoWhiskyEditado: TipoWhisky): Promise<void>{
+    const result = await this.tipoWhiskyDataBase.alterarTipoWhisky(tipoWhiskyEditado.nomeTipoWhisky, tipoWhiskyEditado.idTipoWhisky);
+    if(result){
+      this.notificacao("sucesso", "Tipo Whisky alterado com sucesso");
+        this.loaderEditar = false;
+        this.router.navigate(["/tipowhisky"]);
+    }else{
+      this.notificacao("danger", "Erro ao alterar Tipo Whisky");
+      this.loaderEditar = false;
+    }
+  }
+
+  async alterarTipoWhiskyNuvem(tipoWhiskyEditado: TipoWhisky): Promise<void>{
+    this.tipowhiskyService.editartipowhiskyPut(tipoWhiskyEditado).subscribe(result => { 
       if(result){
         this.notificacao("sucesso", "Tipo Whisky alterado com sucesso");
         this.loaderEditar = false;

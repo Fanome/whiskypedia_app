@@ -3,6 +3,8 @@ import { TipowhiskyService } from 'src/app/service/tipowhisky/tipowhisky.service
 import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { TipoWhiskyDataBase } from 'src/app/service_db/tipowhisky_db/tipowhisky_db.service';
 
 @Component({
   selector: 'app-listar-tipowhisky',
@@ -21,12 +23,14 @@ export class ListarTipowhiskyComponent implements OnInit {
   constructor(
     private tipowhiskyService: TipowhiskyService, 
     private router: Router,
-    private toastr: ToastrService) { 
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private tipoWhiskyDataBase: TipoWhiskyDataBase
+  ) { 
   }
 
   ngOnInit() {
     this.tipoWhiskys = [];
-    this.listarTipoWhiskyALL();
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
@@ -34,10 +38,24 @@ export class ListarTipowhiskyComponent implements OnInit {
     this.listarTipoWhiskyALL();
   }
 
-
-  listarTipoWhiskyALL(){
+  async listarTipoWhiskyALL(): Promise<void>{
     this.loaderListar = true;
+    this.tipoWhiskys = [];
 
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.listarFabricantesAllLocal();
+    }
+    else{
+      await this.listarFabricantesAllNuvem();
+    }
+  }
+
+  async listarFabricantesAllLocal(): Promise<void>{
+    this.tipoWhiskys = await this.tipoWhiskyDataBase.listarTipoWhiskys();
+    this.loaderListar = false;
+  }
+
+  async listarFabricantesAllNuvem(): Promise<void>{
     this.tipowhiskyService.listarALL().subscribe(result => {
       this.tipoWhiskys = result
       this.loaderListar = false;
@@ -47,6 +65,7 @@ export class ListarTipowhiskyComponent implements OnInit {
         this.loaderListar = false;
     });
   }
+
 
    //MOTIFICAÇÃO 
    notificacao(tipo: any, msg: any){

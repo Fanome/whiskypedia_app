@@ -3,6 +3,8 @@ import { TipowhiskyService } from 'src/app/service/tipowhisky/tipowhisky.service
 import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { TipoWhiskyDataBase } from 'src/app/service_db/tipowhisky_db/tipowhisky_db.service';
 
 @Component({
   selector: 'app-criar-tipowhisky',
@@ -18,13 +20,41 @@ export class CriarTipowhiskyComponent implements OnInit {
   constructor(
     private tipowhiskyService: TipowhiskyService, 
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private tipoWhiskyDataBase: TipoWhiskyDataBase
+  ) { }
 
   ngOnInit() {
   }
 
-  criarTipoWhisky(){
+  async criarTipoWhisky(): Promise<void>{
     this.loaderCriar = true;
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.criarTipoWhiskyLocal();
+      this.loaderCriar = false;
+    }
+    else{
+      await this.criarTipoWhiskyNuvem();
+    }   
+  }
+
+  async criarTipoWhiskyLocal(): Promise<void>{
+    const nome = this.tipoWhiskys.nomeTipoWhisky == undefined? "" : this.tipoWhiskys.nomeTipoWhisky
+    const result = await this.tipoWhiskyDataBase.criarTipoWhisky(nome);
+    if(result){
+      this.notificacao("sucesso", "Tipo Whisky criado com sucesso");
+      this.tipoWhiskys = {};
+      this.loaderCriar = false;
+      this.router.navigate(["/tipowhisky"]);
+    }else{
+      this.notificacao("danger", "Erro ao criar Tipo Whisky");
+      this.loaderCriar = false;
+    }
+  }
+
+  async criarTipoWhiskyNuvem(): Promise<void>{
     this.tipowhiskyService.criartipowhiskyPost(this.tipoWhiskys).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Tipo Whisky criado com sucesso");
