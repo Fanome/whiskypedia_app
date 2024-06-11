@@ -3,6 +3,8 @@ import { FabricanteService } from 'src/app/service/fabricante/fabricante.service
 import { Fabricante } from 'src/app/model/fabricante.model';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { FabricanteDataBase } from 'src/app/service_db/fabricante_db/fabricante_db.service';
 
 @Component({
   selector: 'app-excluirfabricante',
@@ -19,15 +21,42 @@ export class ExcluirfabricanteComponent implements OnInit {
     private fabricanteService: FabricanteService, 
     private router: Router, 
     private route: ActivatedRoute,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private fabricanteDataBase: FabricanteDataBase
+  ) { }
 
   ngOnInit() {
     this.fabricante.idFabricante = this.route.snapshot.params['idFabricante'];
     this.fabricante.nomeFabricante = this.route.snapshot.params['nomeFabricante'];
   }
 
-  excluirFabricante(fabricanteExcluido: any){
+  async excluirFabricante(fabricanteExcluido: any): Promise<void>{
     this.loaderExcluir = true;
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.excluirFabricantesAllLocal(fabricanteExcluido);
+    }
+    else{
+      await this.excluirFabricantesAllNuvem(fabricanteExcluido);
+    }
+  }
+
+
+  async excluirFabricantesAllLocal(fabricanteExcluido: any): Promise<void>{
+    const result = await this.fabricanteDataBase.deletarFabricantes(fabricanteExcluido.idFabricante);
+    if(result){
+      this.notificacao("sucesso", "Fabricante excluído com sucesso");
+      this.fabricante = {};
+      this.loaderExcluir = false;
+      this.router.navigate(["/fabricante"]);
+    }else{
+      this.notificacao("danger", "Erro ao excluir Fabricante");
+      this.loaderExcluir = false;
+    }
+  }
+
+  async excluirFabricantesAllNuvem(fabricanteExcluido: any): Promise<void>{
     this.fabricanteService.excluirFabricantePost(fabricanteExcluido).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Fabricante excluirdo com sucesso");
@@ -43,6 +72,7 @@ export class ExcluirfabricanteComponent implements OnInit {
         this.loaderExcluir = false;
     });
   }
+
 
    //MOTIFICAÇÃO 
    notificacao(tipo: any, msg: any){

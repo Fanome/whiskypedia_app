@@ -9,6 +9,8 @@ import { ConfigService } from '../../service/config/config-service';
 })
 export class FabricanteService {
 
+  fabricantes: Fabricante[] = [];
+
   constructor(private http: HttpClient,  private configService: ConfigService) {}
 
   public ambiente: string = "";
@@ -23,10 +25,35 @@ export class FabricanteService {
     return this.http.get<Fabricante[]>(`${url}`);
   }
 
+  async listarALLAsync(): Promise<any> {
+    try {
+      this.ambiente = this.configService.buscarAmbiente();
+      const url = this.ambiente + this.fabricanteGetAllURL;
+      return await this.http.get<Fabricante[]>(url).toPromise();
+    } catch (error) {
+      console.error('Erro ao obter dados da API de fabricantes:', error);
+      throw error;
+    }
+  }
+
   criarFabricantePost(data: any) {
     this.ambiente = this.configService.buscarAmbiente()
     const url = this.ambiente + this.criarfabricantePostAllURL;
+    console.log(url);
     return  this.http.post(url, data);
+  }
+
+  async criarFabricantePostAsync(data: any): Promise<any> {
+    try {
+      this.ambiente = this.configService.buscarAmbiente()
+      const url = this.ambiente + this.criarfabricantePostAllURL;
+
+      console.log(url);
+      return this.http.post(url, data);
+    } catch (error) {
+      console.error('Erro ao criar fabricantes:', error);
+      throw error;
+    }
   }
 
   editarFabricantePut(data: any) {

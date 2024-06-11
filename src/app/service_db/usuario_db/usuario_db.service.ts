@@ -8,33 +8,16 @@ import { Usuario } from 'src/app/model/usuario.model';
 
 export class UsuarioDataBase {
   db:SQLiteObject;
-  book_name: string;
   book_price: string;
   usuarioLogadoTeste: Usuario[];
 
   constructor(private sqlite: SQLite) {}
 
-  createOpenDatabase(){
-    try{
-      this.sqlite.create({
-        name: 'whiskypedia.db',
-        location: 'default'
-      })
-        .then((db: SQLiteObject) => {
-          this.db=db;
-          alert('database created/opened');
+  async createTable_Usuario(db:SQLiteObject): Promise<void>{
+    this.db=db;
 
-          this.createTable();
-        })
-        .catch(e => alert(JSON.stringify(e)))
-    }
-    catch(err:any){
-      alert(err);
-    }
-  }
-
-  createTable(){
-    this.db.executeSql( `CREATE TABLE IF NOT EXISTS usuarios (id_usuarios INTEGER PRIMARY KEY AUTOINCREMENT, 
+    this.db.executeSql(`CREATE TABLE IF NOT EXISTS usuarios (
+            id_usuarios INTEGER PRIMARY KEY AUTOINCREMENT, 
             email_usuario VARCHAR(100) NOT NULL,
             nome_usuario VARCHAR(45) NOT NULL,
             senha_usuario VARCHAR(45) NOT NULL,
@@ -43,14 +26,16 @@ export class UsuarioDataBase {
             data_nascimento_usuario date DEFAULT NULL
         )`, [])
     .then((result) => {
-        alert('table usuarios criada')
+        //alert('table usuarios criada');
+
         this.usuarioLogadoTeste = this.verificaUsuarioAdmin();
 
         if(this.usuarioLogadoTeste.length == null ){
-            this.insertUsuarioAdmin();
+          this.insertUsuarioAdmin();
         }
     } )
     .catch(e => alert(JSON.stringify(e)));
+  
   }
 
   verificaUsuarioAdmin(){
@@ -80,9 +65,12 @@ export class UsuarioDataBase {
     let query:string=`insert into usuarios(email_usuario,nome_usuario,senha_usuario,id_tipousuario,telefone_usuario,data_nascimento_usuario) 
                       values("`+ email_usuario +`","`+ nome_usuario +`","`+ senha_usuario +`","`+ id_tipousuario +`","`+ telefone_usuario +`","`+ data_nascimento_usuario +`")`;
     this.db.executeSql(query,[])
-    .then(() => alert('Record inserted'))
-      .catch(e => alert(JSON.stringify(e)));
+    .then(() => {
+      //alert('Record inserted')
+    })
+    .catch(e => alert(JSON.stringify(e)));
   }
+
 
   selectData(){
     this.usuarioLogadoTeste=[];

@@ -3,6 +3,8 @@ import { FabricanteService } from 'src/app/service/fabricante/fabricante.service
 import { Fabricante } from 'src/app/model/fabricante.model';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { FabricanteDataBase } from 'src/app/service_db/fabricante_db/fabricante_db.service';
 
 @Component({
   selector: 'app-editarfabricante',
@@ -19,15 +21,41 @@ export class EditarfabricanteComponent implements OnInit {
     private fabricanteService: FabricanteService, 
     private router: Router, 
     private route: ActivatedRoute,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private fabricanteDataBase: FabricanteDataBase
+  ) { }
 
   ngOnInit() {
     this.fabricante.idFabricante = this.route.snapshot.params['idFabricante'];
     this.fabricante.nomeFabricante = this.route.snapshot.params['nomeFabricante'];
   }
 
-  editarFabricante(barrilEditado: any){
+  async editarFabricante(barrilEditado: any){
     this.loaderEditar = true;
+    
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.alterarFabricantesAllLocal(barrilEditado);
+    }
+    else{
+      await this.alterarFabricantesAllNuvem(barrilEditado);
+    }
+  }
+
+
+  async alterarFabricantesAllLocal(fabricanteExcluido: any): Promise<void>{
+    const result = await this.fabricanteDataBase.alterarFabricantes(fabricanteExcluido.nomeFabricante, fabricanteExcluido.idFabricante);
+    if(result){
+      this.notificacao("sucesso", "Fabricante alterado com sucesso");
+        this.loaderEditar = false;
+        this.router.navigate(["/fabricante"]);
+    }else{
+      this.notificacao("danger", "Erro ao alterar Fabricante");
+      this.loaderEditar = false;
+    }
+  }
+
+  async alterarFabricantesAllNuvem(barrilEditado: any): Promise<void>{
     this.fabricanteService.editarFabricantePut(barrilEditado).subscribe(result => {
       if(result){
         this.notificacao("sucesso", "Fabricante alterado com sucesso");

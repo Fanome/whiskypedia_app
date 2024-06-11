@@ -8,6 +8,7 @@ import { Login } from '../../src/app/model/login.model';
 import { TesteDataBase } from './service_db/teste_db/teste_db.service';
 import { UsuarioDataBase } from './service_db/usuario_db/usuario_db.service';
 import { ConfigService } from './service/config/config-service';
+import { InicioDataBase } from './service_db/inicio_db/inicio_db.service';
 
 @Component({
   selector: 'app-root',
@@ -63,11 +64,11 @@ export class AppComponent  implements OnInit {
     private router: Router, 
     private testeDataBase: TesteDataBase,
     private usuarioDataBase: UsuarioDataBase,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private inicioDataBase: InicioDataBase
     ){
 
       if(this.configService.bancoDados() == "sqllite"){
-        //alert("chamar config banco local");
         try{
           this.carregartabelas();
         }
@@ -86,7 +87,7 @@ export class AppComponent  implements OnInit {
   }
 
   async carregartabelas(): Promise<void>{
-    this.usuarioDataBase.createOpenDatabase();
+    await this.inicioDataBase.createOpenDatabase();
   }
 
   async fazerLogin():  Promise<void>{
@@ -101,7 +102,6 @@ export class AppComponent  implements OnInit {
     const senha = this.login.senha_usuario == undefined ? "" : this.login.senha_usuario
 
     if(this.configService.bancoDados() == "sqllite"){
-      alert("login local");
       await this.loginLocal(email, senha);
     }
     else{
@@ -115,8 +115,6 @@ export class AppComponent  implements OnInit {
 
       this.nomeUsuario = this.usuarioLogado[0].nome_usuario;
       this.tipoUsuario = this.usuarioLogado[0].id_tipousuario;
-
-      alert(this.usuarioLogado[0].nome_usuario);
 
       this.loaderLogin = false;
 
@@ -327,7 +325,7 @@ export class AppComponent  implements OnInit {
   }
 
   createOpenDatabaseUsuario(){
-    this.usuarioDataBase.createOpenDatabase();
+    this.inicioDataBase.createOpenDatabase();
   }
 
   selectDataUsuario(){

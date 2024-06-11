@@ -3,6 +3,8 @@ import { Fabricante } from 'src/app/model/fabricante.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
 import { FabricanteService } from 'src/app/service/fabricante/fabricante.service';
+import { ConfigService } from 'src/app/service/config/config-service';
+import { FabricanteDataBase } from 'src/app/service_db/fabricante_db/fabricante_db.service';
 
 @Component({
   selector: 'app-fabricante',
@@ -22,14 +24,15 @@ export class FabricanteComponent  implements OnInit {
   constructor(
     private fabricanteService: FabricanteService, 
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private fabricanteDataBase: FabricanteDataBase
     ) 
   { 
   }
 
   ngOnInit(): void {
     this.fabricantes = [];
-    this.listarFabricantesALL();
   }
 
   ionViewDidEnter() { // metodo para atualizar a pagina
@@ -37,16 +40,28 @@ export class FabricanteComponent  implements OnInit {
     this.listarFabricantesALL();
   }
 
-  listarFabricantesALL(): void{
+  async listarFabricantesALL(): Promise<void>{
     this.loaderListar = true;
-    this.fabricanteService.listarALL().subscribe(results => {
-      this.fabricantes = results;
+    this.fabricantes = [];
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.listarFabricantesAllLocal();
       this.loaderListar = false;
-    }, error => {
-        console.log(error);
-        this.notificacao("danger", "Erro de acesso a API");
-        this.loaderListar = false;
-    });
+    }
+    else{
+      await this.listarFabricantesAllNuvem();
+    }
+  }
+
+  async listarFabricantesAllLocal(): Promise<void>{
+    this.fabricantes = [];
+    this.fabricantes = await this.fabricanteDataBase.listarFabricantes();
+  }
+
+  async listarFabricantesAllNuvem(): Promise<void>{
+    this.fabricantes = [];
+    this.fabricantes = await this.fabricanteService.listarALLAsync();
+    this.loaderListar = false;
   }
 
   //MOTIFICAÇÃO 
