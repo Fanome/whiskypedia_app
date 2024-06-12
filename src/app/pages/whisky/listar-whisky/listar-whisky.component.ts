@@ -82,11 +82,9 @@ export class ListarWhiskyComponent implements OnInit {
     this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
     this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
 
-    console.log(this.whiskys.length);
-
     this.loaderListar = false;
 
-    this.converteImagem(); 
+    this.converteImagem();     
   }
 
   listarWhiskyALL (pageNumber: number) {
@@ -125,7 +123,7 @@ export class ListarWhiskyComponent implements OnInit {
   converteImagem(){
     const img2:any = new Image();
     img2.src = "";
-    var i = 1;
+    var i = 0;
     for (const value of this.whiskys) {
       img2.src = value.imagem;
       value.imagem = img2.src;
