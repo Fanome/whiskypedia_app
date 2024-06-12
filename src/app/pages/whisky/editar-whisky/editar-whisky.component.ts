@@ -8,6 +8,10 @@ import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
 import { formatDate } from '@angular/common';
+import { WhiskyDataBase } from 'src/app/service_db/whisky_db/whisky_db.service';
+import { FabricanteDataBase } from 'src/app/service_db/fabricante_db/fabricante_db.service';
+import { TipoWhiskyDataBase } from 'src/app/service_db/tipowhisky_db/tipowhisky_db.service';
+import { ConfigService } from 'src/app/service/config/config-service';
 
 
 @Component({
@@ -31,10 +35,14 @@ export class EditarWhiskyComponent implements OnInit {
     private tipowhiskyService: TipowhiskyService,
     private router: Router, 
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private whiskyDataBase: WhiskyDataBase,
+    private fabricanteDataBase: FabricanteDataBase,
+    private tipoWhiskyDataBase: TipoWhiskyDataBase
     ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log("foi");
     this.route.queryParams.subscribe(params => {
       this.whiskys = JSON.parse(params['whiskySelecionado']);
@@ -42,8 +50,14 @@ export class EditarWhiskyComponent implements OnInit {
 
     const img = new Image();
 
-    this.listarFabricantesALL();
-    this.listarTipoWhiskyALL();
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.listarFabricantesALLLocal();
+      await this.listarTipoWhiskyALLLocal();
+    }
+    else{
+      this.listarFabricantesALL();
+      this.listarTipoWhiskyALL();
+    }
 
     this.base64String = this.whiskys.imagem;
     img.src = this.base64String;
@@ -52,7 +66,28 @@ export class EditarWhiskyComponent implements OnInit {
     this.whiskys.dataCadastro = this.whiskys.dataCadastro = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
   }
 
-  editarWhisky(whiskyEditado: any){
+  async editarWhisky(whiskyEditado: any): Promise<void>{
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.editarWhiskyocal(whiskyEditado);
+    }
+    else{
+      await this.editarWhiskyNuvem(whiskyEditado);
+    }
+  }
+
+  async editarWhiskyocal(whiskyEditado: any): Promise<void>{
+    const result = await this.whiskyDataBase.alterarWhisky(whiskyEditado);
+    if(result){
+      this.notificacao("sucesso", "Whisky alterado com sucesso!");
+      this.loaderEditar = false;
+      this.router.navigate(["/whisky"]);
+    }else{
+      this.notificacao("danger", "Erro ao alterar o Whisky");
+      this.loaderEditar = false;
+    }
+  }
+
+  async editarWhiskyNuvem(whiskyEditado: any): Promise<void>{
     this.loaderEditar = true;
     this.whiskyService.editarwhiskyPut(whiskyEditado).subscribe(result => {
       if(result){
@@ -70,6 +105,11 @@ export class EditarWhiskyComponent implements OnInit {
     });
   }
 
+  async listarFabricantesALLLocal(): Promise<void>{
+    this.fabricantes = [];
+    this.fabricantes = await this.fabricanteDataBase.listarFabricantes();
+  }
+
   listarFabricantesALL(){
     this.fabricanteService.listarALL().subscribe(result => {
       this.fabricantes = result
@@ -77,6 +117,11 @@ export class EditarWhiskyComponent implements OnInit {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
+  }
+
+  async listarTipoWhiskyALLLocal(): Promise<void>{
+    this.tipoWhiskys = [];
+    this.tipoWhiskys = await this.tipoWhiskyDataBase.listarTipoWhiskys();
   }
 
   listarTipoWhiskyALL(){
@@ -117,7 +162,6 @@ export class EditarWhiskyComponent implements OnInit {
   excluirWhisky(whiskyExcluido: any){
     this.router.navigate(['/whisky/excluirwhisky'], { queryParams: { whiskyExcluido: JSON.stringify(whiskyExcluido) } });
   }
-
 
   //MOTIFICAÇÃO 
   notificacao(tipo: any, msg: any){

@@ -4,6 +4,8 @@ import { Whisky } from 'src/app/model/whisky.model';
 import { Router } from '@angular/router'; 
 import { ToastrService } from "ngx-toastr";
 import { WhiskyPaginado } from 'src/app/model/whiskyPaginado.model';
+import { ConfigService } from 'src/app/service/config/config-service';
+import { WhiskyDataBase } from 'src/app/service_db/whisky_db/whisky_db.service';
 
 @Component({
   selector: 'app-listar-whisky',
@@ -31,32 +33,65 @@ export class ListarWhiskyComponent implements OnInit {
 
   loaderListar = false;
 
-  constructor(private whiskyService: WhiskyService, private router: Router,
-    private toastr: ToastrService) { 
+  constructor(
+    private whiskyService: WhiskyService, 
+    private router: Router,
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private whiskyDataBase: WhiskyDataBase
+  ) { 
   }
 
   ngOnInit() {
-    // this.escolheGrid();
-    // this.listarWhiskyALL(this.currentPage);
     this.currentPage= 1;
-    this.pageSize = 5;
+    this.pageSize = 10;
     this.totalPages = 0;
   }
 
-  ionViewDidEnter() { // metodo para atualizar a pagina
+  async ionViewDidEnter() { // metodo para atualizar a pagina
     this.escolheGrid();
 
-    if(this.searchTerm != ''){
-      this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
-    }else{
-      this.listarWhiskyALL(this.currentPage);
+    if(this.configService.bancoDados() == "sqllite"){
+      if(this.searchTerm != ''){
+        //await this.listarWhiskyPesquisaPaginadoLocal(this.currentPage, this.searchTerm);
+      }else{
+        await this.listarWhiskyALLLocal(this.currentPage);
+      }
     }
+    else{
+      if(this.searchTerm != ''){
+        this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
+      }else{
+        this.listarWhiskyALL(this.currentPage);
+      }
+    }
+  } 
+
+  async listarWhiskyALLLocal(pageNumber: number) {
+    this.loaderListar = true;
+
+    if(this.controlePagina != 'A'){
+      this.controlePagina = 'A';
+      this.currentPage= 1;
+      pageNumber = 1;
+    }
+
+    this.whiskysPaginado = await this.whiskyDataBase.buscarTodosPaginadoLocal(pageNumber, this.pageSize);
+
+    this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
+    this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
+    this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
+
+    console.log(this.whiskys.length);
+
+    this.loaderListar = false;
+
+    this.converteImagem(); 
   }
 
   listarWhiskyALL (pageNumber: number) {
     this.loaderListar = true;
 
-    //this.controlePaginaMetodo('A');
     if(this.controlePagina != 'A'){
       this.controlePagina = 'A';
       this.currentPage= 1;
@@ -158,20 +193,41 @@ export class ListarWhiskyComponent implements OnInit {
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
-      if(this.searchTerm != ''){
-        this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
-      }else{
-        this.listarWhiskyALL(this.currentPage + 1);
+      
+      if(this.configService.bancoDados() == "sqllite"){
+        if(this.searchTerm != ''){
+          //this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
+        }else{
+          this.listarWhiskyALLLocal(this.currentPage + 1);
+        }  
+      }
+      else{
+        if(this.searchTerm != ''){
+          this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
+        }else{
+          this.listarWhiskyALL(this.currentPage + 1);
+        }  
       }
     }
   }
 
   prevPage() {
     if (this.currentPage > 1) {
-      if(this.searchTerm != ''){
-        this.listarWhiskyPesquisaPaginado(this.currentPage - 1, this.searchTerm);
-      }else{
-        this.listarWhiskyALL(this.currentPage - 1);
+
+
+      if(this.configService.bancoDados() == "sqllite"){
+        if(this.searchTerm != ''){
+          //this.listarWhiskyPesquisaPaginado(this.currentPage - 1, this.searchTerm);
+        }else{
+          this.listarWhiskyALLLocal(this.currentPage - 1);
+        }  
+      }
+      else{
+        if(this.searchTerm != ''){
+          this.listarWhiskyPesquisaPaginado(this.currentPage - 1, this.searchTerm);
+        }else{
+          this.listarWhiskyALL(this.currentPage - 1);
+        }
       }
     }
   }
@@ -180,10 +236,19 @@ export class ListarWhiskyComponent implements OnInit {
     // Lógica para lidar com a pesquisa aqui
     console.log(this.searchTerm);
 
-    if(this.searchTerm != ''){
-      this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
-    }else{
-      this.listarWhiskyALL(this.currentPage);
+    if(this.configService.bancoDados() == "sqllite"){
+      if(this.searchTerm != ''){
+        //this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
+      }else{
+        this.listarWhiskyALLLocal(this.currentPage);
+      }  
+    }
+    else{
+      if(this.searchTerm != ''){
+        this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
+      }else{
+        this.listarWhiskyALL(this.currentPage);
+      }
     }
   }
 
@@ -230,19 +295,36 @@ export class ListarWhiskyComponent implements OnInit {
   }
 
   nextPagePrimeiro(){
-    if(this.searchTerm != ''){
-      this.listarWhiskyPesquisaPaginado(1, this.searchTerm);
-    }else{
-      this.listarWhiskyALL(1);
+    if(this.configService.bancoDados() == "sqllite"){
+      if(this.searchTerm != ''){
+        //this.listarWhiskyPesquisaPaginado(1, this.searchTerm);
+      }else{
+        this.listarWhiskyALLLocal(1);
+      }  
+    }
+    else{
+      if(this.searchTerm != ''){
+        this.listarWhiskyPesquisaPaginado(1, this.searchTerm);
+      }else{
+        this.listarWhiskyALL(1);
+      }
     }
   }
 
   nextPageUltimo(){
-    if(this.searchTerm != ''){
-      this.listarWhiskyPesquisaPaginado(this.totalPages, this.searchTerm);
-    }else{
-      this.listarWhiskyALL(this.totalPages);
+    if(this.configService.bancoDados() == "sqllite"){
+      if(this.searchTerm != ''){
+        //this.listarWhiskyPesquisaPaginado(this.totalPages, this.searchTerm);
+      }else{
+        this.listarWhiskyALLLocal(this.totalPages);
+      }  
+    }
+    else{
+      if(this.searchTerm != ''){
+        this.listarWhiskyPesquisaPaginado(this.totalPages, this.searchTerm);
+      }else{
+        this.listarWhiskyALL(this.totalPages);
+      }
     }
   }
-
 }

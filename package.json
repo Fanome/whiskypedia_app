@@ -4,14 +4,14 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
+    "dev": "ionic serve",
+    "gerar-app": "ionic build && ionic cap copy && ionic cap sync && ionic cap open android",
     "ng": "ng",
     "start": "ng serve",
-    "dev": "ionic serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "gerar-app": "ionic build && ionic cap copy && ionic cap sync && ionic cap open android"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {

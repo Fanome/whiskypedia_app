@@ -8,6 +8,10 @@ import { TipoWhisky } from 'src/app/model/tipowhisky.model';
 import { Router } from '@angular/router'; 
 import { formatDate } from '@angular/common';
 import { ToastrService } from "ngx-toastr";
+import { ConfigService } from 'src/app/service/config/config-service';
+import { WhiskyDataBase } from 'src/app/service_db/whisky_db/whisky_db.service';
+import { FabricanteDataBase } from 'src/app/service_db/fabricante_db/fabricante_db.service';
+import { TipoWhiskyDataBase } from 'src/app/service_db/tipowhisky_db/tipowhisky_db.service';
 
 @Component({
   selector: 'app-criar-whisky',
@@ -29,22 +33,54 @@ export class CriarWhiskyComponent implements OnInit {
     private fabricanteService: FabricanteService, 
     private tipowhiskyService: TipowhiskyService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private whiskyDataBase: WhiskyDataBase,
+    private fabricanteDataBase: FabricanteDataBase,
+    private tipoWhiskyDataBase: TipoWhiskyDataBase
     ) { }
 
   ngOnInit() {
     this.whiskys.dataCadastro = formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    this.listarFabricantesALL();
-    this.listarTipoWhiskyALL();
   }
 
-  ionViewDidEnter() { // metodo para atualizar a pagina
+  async ionViewDidEnter() { // metodo para atualizar a pagina
     this.whiskys.dataCadastro = formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    this.listarFabricantesALL();
-    this.listarTipoWhiskyALL();
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.listarFabricantesALLLocal();
+      await this.listarTipoWhiskyALLLocal();
+    }
+    else{
+      this.listarFabricantesALL();
+      this.listarTipoWhiskyALL();
+    }
+    
   }
 
-  criarWhisky(){
+  async criarWhisky(){
+
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.criarWhiskyocal();
+    }
+    else{
+      await this.criarWhiskyNuvem();
+    }
+  }
+
+  async criarWhiskyocal(){
+    const result = await this.whiskyDataBase.criarWhisky(this.whiskys);
+    if(result){
+      this.notificacao("sucesso", "Whisky criado com sucesso!");
+      this.loaderCriar = false;
+      this.router.navigate(["/whisky"]);
+    }else{
+      this.notificacao("danger", "Erro de acesso a API");
+      this.loaderCriar = false;
+    }
+  }
+
+  async criarWhiskyNuvem(){
     this.loaderCriar = true;
     this.whiskyService.criarwhiskyPost(this.whiskys).subscribe(result => {
       if(result){
@@ -62,6 +98,11 @@ export class CriarWhiskyComponent implements OnInit {
     });
   }
 
+  async listarFabricantesALLLocal(): Promise<void>{
+    this.fabricantes = [];
+    this.fabricantes = await this.fabricanteDataBase.listarFabricantes();
+  }
+
   listarFabricantesALL(){
     this.fabricanteService.listarALL().subscribe(result => {
       this.fabricantes = result
@@ -69,6 +110,11 @@ export class CriarWhiskyComponent implements OnInit {
         console.log(error);
         this.notificacao("danger", "Erro de acesso a API");
     });
+  }
+
+  async listarTipoWhiskyALLLocal(): Promise<void>{
+    this.tipoWhiskys = [];
+    this.tipoWhiskys = await this.tipoWhiskyDataBase.listarTipoWhiskys();
   }
 
   listarTipoWhiskyALL(){
@@ -105,7 +151,6 @@ export class CriarWhiskyComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-  
   
   //MOTIFICAÇÃO 
   notificacao(tipo: any, msg: any){
