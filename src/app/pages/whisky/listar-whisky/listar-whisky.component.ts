@@ -53,7 +53,7 @@ export class ListarWhiskyComponent implements OnInit {
 
     if(this.configService.bancoDados() == "sqllite"){
       if(this.searchTerm != ''){
-        //await this.listarWhiskyPesquisaPaginadoLocal(this.currentPage, this.searchTerm);
+        await this.listarWhiskyPesquisaPaginadoLocal(this.currentPage, this.searchTerm);
       }else{
         await this.listarWhiskyALLLocal(this.currentPage);
       }
@@ -194,7 +194,7 @@ export class ListarWhiskyComponent implements OnInit {
       
       if(this.configService.bancoDados() == "sqllite"){
         if(this.searchTerm != ''){
-          //this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
+          this.listarWhiskyPesquisaPaginadoLocal(this.currentPage + 1, this.searchTerm);
         }else{
           this.listarWhiskyALLLocal(this.currentPage + 1);
         }  
@@ -211,11 +211,9 @@ export class ListarWhiskyComponent implements OnInit {
 
   prevPage() {
     if (this.currentPage > 1) {
-
-
       if(this.configService.bancoDados() == "sqllite"){
         if(this.searchTerm != ''){
-          //this.listarWhiskyPesquisaPaginado(this.currentPage - 1, this.searchTerm);
+          this.listarWhiskyPesquisaPaginadoLocal(this.currentPage - 1, this.searchTerm);
         }else{
           this.listarWhiskyALLLocal(this.currentPage - 1);
         }  
@@ -236,7 +234,7 @@ export class ListarWhiskyComponent implements OnInit {
 
     if(this.configService.bancoDados() == "sqllite"){
       if(this.searchTerm != ''){
-        //this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
+        this.listarWhiskyPesquisaPaginadoLocal(this.currentPage, this.searchTerm);
       }else{
         this.listarWhiskyALLLocal(this.currentPage);
       }  
@@ -248,6 +246,41 @@ export class ListarWhiskyComponent implements OnInit {
         this.listarWhiskyALL(this.currentPage);
       }
     }
+  }
+
+  async listarWhiskyPesquisaPaginadoLocal (pageNumber: number, pesquisa: string) {
+    this.loaderListar = true;
+
+    if(this.controlePagina != 'B'){
+      this.controlePagina = 'B';
+      this.currentPage= 1;
+      pageNumber = 1;
+    }
+
+    if(this.controlePesquisa == ''){
+      this.controlePagina = 'B';
+      this.currentPage= 1;
+      this.controlePesquisa = this.searchTerm
+      pageNumber = 1;
+    }else{
+      if(this.controlePesquisa != this.searchTerm)
+      {
+        this.controlePagina = 'B';
+        this.currentPage= 1;
+        this.controlePesquisa = this.searchTerm
+        pageNumber = 1;
+      }
+    }
+
+    this.whiskysPaginado = await this.whiskyDataBase.buscarTodosPesquisaPaginadoLocal(pageNumber, this.pageSize, pesquisa);
+
+    this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
+    this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
+    this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
+
+    this.loaderListar = false;
+    
+    this.converteImagem(); 
   }
 
   listarWhiskyPesquisaPaginado (pageNumber: number, pesquisa: string) {
@@ -295,7 +328,7 @@ export class ListarWhiskyComponent implements OnInit {
   nextPagePrimeiro(){
     if(this.configService.bancoDados() == "sqllite"){
       if(this.searchTerm != ''){
-        //this.listarWhiskyPesquisaPaginado(1, this.searchTerm);
+        this.listarWhiskyPesquisaPaginadoLocal(1, this.searchTerm);
       }else{
         this.listarWhiskyALLLocal(1);
       }  
@@ -312,7 +345,7 @@ export class ListarWhiskyComponent implements OnInit {
   nextPageUltimo(){
     if(this.configService.bancoDados() == "sqllite"){
       if(this.searchTerm != ''){
-        //this.listarWhiskyPesquisaPaginado(this.totalPages, this.searchTerm);
+        this.listarWhiskyPesquisaPaginadoLocal(this.totalPages, this.searchTerm);
       }else{
         this.listarWhiskyALLLocal(this.totalPages);
       }  

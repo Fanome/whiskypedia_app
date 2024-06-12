@@ -11,10 +11,12 @@ export class WhiskyDataBase {
     db:SQLiteObject;
     whiskys: Whisky[];
     whiskyPaginado: WhiskyPaginado;
+    whiskyPesquisaPaginado: WhiskyPaginado;
     cofirmaDeletar: boolean;
     cofirmaAlterar: boolean;
     cofirmaCriar: boolean;
     totalPaginado: number;
+    totalPesquisaPaginado: number;
 
     constructor(private sqlite: SQLite) {}
 
@@ -197,5 +199,71 @@ export class WhiskyDataBase {
             }).catch(e => alert(JSON.stringify(e)));
 
         return this.totalPaginado ;
+    }
+
+    async buscarTodosPesquisaPaginadoLocal(pageNumber: number, pageSize: number, pesquisa: string): Promise<any>{
+        let page = pageNumber;
+        let registros = pageSize;
+        let pesquisar = '%' + pesquisa + '%';
+
+        this.whiskyPesquisaPaginado = {};
+
+        const offset = (page - 1) * registros;
+
+        this.whiskyPesquisaPaginado.data = await this.buscarTodosPesquisaPaginadoData(pesquisar, registros, offset);
+
+        const totalPageData = await this.buscarTodosPesquisaPaginadoTotal(pesquisa);
+
+        const totalPage = Math.ceil(+totalPageData / registros);
+
+        this.whiskyPesquisaPaginado.page = +page;
+        this.whiskyPesquisaPaginado.registros = +registros;
+        this.whiskyPesquisaPaginado.totalPage = totalPage
+
+        return this.whiskyPesquisaPaginado;
+    }
+
+    async buscarTodosPesquisaPaginadoData(pesquisa: string, registros: number, offset: number): Promise<Whisky[]>{
+        this.whiskys=[];
+        await this.db.executeSql('SELECT *, f.nomeFabricante, t.nomeTipoWhisky FROM whisky w inner join fabricante f on f.idFabricante = w.idFabricante inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky where nomeWhisky like ? limit ? offset ? ',
+            [pesquisa, +registros, +offset])
+            .then((result) => {
+                for(let i=0; i<result.rows.length;i++)
+                {
+                  this.whiskys.push({idWhisky:result.rows.item(i).idWhisky,
+                                    "nomeWhisky":result.rows.item(i).nomeWhisky,
+                                    "idade":result.rows.item(i).idade,
+                                    "dataCadastro":result.rows.item(i).dataCadastro,
+                                    "teroAlcolico":result.rows.item(i).teroAlcolico,
+                                    "descricao_olfato":result.rows.item(i).descricao_olfato,
+                                    "descricao_paladar":result.rows.item(i).descricao_paladar,
+                                    "descricao_finalizacao":result.rows.item(i).descricao_finalizacao,
+                                    "idTipoWhisky":result.rows.item(i).idTipoWhisky,
+                                    "idFabricante":result.rows.item(i).idFabricante,
+                                    "descricao_historica":result.rows.item(i).descricao_historica,
+                                    "nacionalidade":result.rows.item(i).nacionalidade,
+                                    "imagem":result.rows.item(i).imagem,
+                                    "descricao_barril":result.rows.item(i).descricao_barril,
+                                    "nomeFabricante":result.rows.item(i).nomeFabricante,
+                                    "nomeTipoWhisky":result.rows.item(i).nomeTipoWhisky,
+                  });
+                }
+              })
+              .catch(e => alert(JSON.stringify(e)));
+    
+        return this.whiskys;
+    }
+
+    async buscarTodosPesquisaPaginadoTotal(pesquisa: string): Promise<any>{
+        this.totalPesquisaPaginado = 0;
+        await this.db.executeSql('select count(*) as count from whisky w inner join fabricante f on f.idFabricante = w.idFabricante inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky  where nomeWhisky like ? ',[pesquisa])
+        .then((result) => {
+            for(let i=0; i<result.rows.length;i++)
+            {
+                this.totalPesquisaPaginado = result.rows.item(i).count;                
+            }
+            }).catch(e => alert(JSON.stringify(e)));
+
+        return this.totalPesquisaPaginado ;
     }
 }
