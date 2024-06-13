@@ -7,6 +7,9 @@ import { MinhaAdegaService } from 'src/app/service/minhaadega/minhaadega.service
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { ListaWhiskyService } from 'src/app/service/listawhisky/listawhisky.service';
 import { Usuario } from '../../model/usuario.model';
+import { ConfigService } from 'src/app/service/config/config-service';
+import { ListarWhiskyDataBase } from 'src/app/service_db/listarwhisky_db/listarwhisky_db.service';
+import { MinhaAdegaDataBase } from 'src/app/service_db/minhaadega_db/minhaadega_db.service';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +35,11 @@ export class MinhaAdegaComponent implements OnInit {
     private minhaAdegaService: MinhaAdegaService,
     private usuarioService: UsuarioService,
     private listaWhiskyService: ListaWhiskyService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private listarWhiskyDataBase: ListarWhiskyDataBase,
+    private minhaAdegaDataBase: MinhaAdegaDataBase
+  ) { }
   
   ngOnInit() {
     this.currentPage= 1;
@@ -40,30 +47,41 @@ export class MinhaAdegaComponent implements OnInit {
     this.totalPages = 0;
     this.usuarioLogado = this.usuarioService.getGlobalVariable();
     this.id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
-    this.listarWhiskyALL(this.currentPage);
+    //this.listarWhiskyALL(this.currentPage);
   }
     
   ionViewDidEnter() { // metodo para atualizar a pagina
     this.usuarioLogado = this.usuarioService.getGlobalVariable();
     this.id_usuarios = this.usuarioLogado.id_usuarios ? this.usuarioLogado.id_usuarios : 0;
-    //this.escolheGrid();
 
-    //if(this.searchTerm != ''){
-    //  this.listarWhiskyPesquisaPaginado(this.currentPage, this.searchTerm);
-    //}else{
-      this.listarWhiskyALL(this.currentPage);
-    //}
+    this.listarWhiskyALL(this.currentPage);
   }
     
-  listarWhiskyALL (pageNumber: number) {
+  async listarWhiskyALL (pageNumber: number) {
     this.loaderListar = true;
 
-    //this.controlePaginaMetodo('A');
-    // if(this.controlePagina != 'A'){
-    //   this.controlePagina = 'A';
-    //   this.currentPage= 1;
-    //   pageNumber = 1;
-    // }
+    if(this.configService.bancoDados() == "sqllite"){
+      await this.listarWhiskyALLLocal(this.id_usuarios, pageNumber, this.pageSize);
+    }else{
+      await this.listarWhiskyALLNuvem(this.id_usuarios, pageNumber, this.pageSize);
+    }
+      
+  }
+
+  async listarWhiskyALLLocal(id_usuarios: number, pageNumber: number, pageSize: number){
+    this.whiskysPaginado = await this.minhaAdegaDataBase.buscarTodosPaginadoLocal(id_usuarios, pageNumber, pageSize);
+
+    this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
+    this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
+    this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
+
+    this.loaderListar = false;
+
+    this.converteImagem(); 
+
+  }
+
+  async listarWhiskyALLNuvem(id_usuarios: number, pageNumber: number, pageSize: number){
 
     this.minhaAdegaService.listarALLPaginado(this.id_usuarios, pageNumber, this.pageSize).subscribe(result => {
 
@@ -72,8 +90,6 @@ export class MinhaAdegaComponent implements OnInit {
       this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
       this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
       this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
-
-      console.log(this.whiskys);
 
       this.loaderListar = false;
     }, error => {
@@ -152,136 +168,303 @@ export class MinhaAdegaComponent implements OnInit {
     
   nextPage() {
     if (this.currentPage < this.totalPages) {
-      //if(this.searchTerm != ''){
-      //  this.listarWhiskyPesquisaPaginado(this.currentPage + 1, this.searchTerm);
-      //}else{
-        this.listarWhiskyALL(this.currentPage + 1);
-      //}
+      this.listarWhiskyALL(this.currentPage + 1);
     }
   }
     
   prevPage() {
     if (this.currentPage > 1) {
-      //if(this.searchTerm != ''){
-      //  this.listarWhiskyPesquisaPaginado(this.currentPage - 1, this.searchTerm);
-      //}else{
-        this.listarWhiskyALL(this.currentPage - 1);
-      //}
+      this.listarWhiskyALL(this.currentPage - 1);
     }
   }
     
   nextPagePrimeiro(){
-    //if(this.searchTerm != ''){
-    //  this.listarWhiskyPesquisaPaginado(1, this.searchTerm);
-    //}else{
-      this.listarWhiskyALL(1);
-    //}
+    this.listarWhiskyALL(1);
   }
     
   nextPageUltimo(){
-    //if(this.searchTerm != ''){
-    //  this.listarWhiskyPesquisaPaginado(this.totalPages, this.searchTerm);
-    //}else{
-      this.listarWhiskyALL(this.totalPages);
-    //}
+    this.listarWhiskyALL(this.totalPages);
   }
     
-  favoritar(idwhisky: number){  
+  // favoritar(idwhisky: number){  
+  //   if(this.id_usuarios == 0 || idwhisky == 0){
+  //     this.notificacao("danger", "Erro ao curtit Whiskiy");
+  //   }else{
+  //     this.listaWhiskyService.favoritar(this.id_usuarios ,idwhisky).subscribe(result => {
+
+  //       let ok = result;
+  
+  //       if(ok){
+  //         this.notificacao("sucess", "Whiskiy curtido");
+  //         this.listarWhiskyALL(this.currentPage);
+  //       }else{
+  //         this.notificacao("danger", "Erro ao curtit Whiskiy");
+  //       }
+        
+  //       //this.loaderListar = false;
+  //     }, error => {
+  //         console.log(error); 
+  //         this.notificacao("danger", "Erro de acesso a API");
+  //         //this.loaderListar = false;
+  //     });
+  //   }    
+  // }
+    
+  // desFavoritar(idwhisky: number){
+  //   if(this.id_usuarios == 0 || idwhisky == 0){
+  //     this.notificacao("danger", "Erro ao descurtit Whiskiy");
+  //   }else{
+  //     this.listaWhiskyService.desFavoritar(this.id_usuarios ,idwhisky).subscribe(result => {
+
+  //       let ok = result;
+  
+  //       if(ok){
+  //         this.notificacao("sucess", "Whiskiy descurtido");
+  //         this.listarWhiskyALL(this.currentPage);
+  //       }else{
+  //         this.notificacao("danger", "Erro ao descurtit Whiskiy");
+  //       }
+        
+  //       //this.loaderListar = false;
+  //     }, error => {
+  //         console.log(error); 
+  //         this.notificacao("danger", "Erro de acesso a API");
+  //         //this.loaderListar = false;
+  //     });
+  //   }    
+  // }
+    
+  // colocarNaMinhaAdega(idwhisky: number){
+  //   if(this.id_usuarios == 0 || idwhisky == 0){
+  //     this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
+  //   }else{
+  //     this.listaWhiskyService.colocarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+
+  //       let ok = result;
+  
+  //       if(ok){
+  //         this.notificacao("sucess", "Whiskiy incluido na minha adega");
+  //         this.listarWhiskyALL(this.currentPage);
+  //       }else{
+  //         this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
+  //       }
+        
+  //       //this.loaderListar = false;
+  //     }, error => {
+  //         console.log(error); 
+  //         this.notificacao("danger", "Erro de acesso a API");
+  //         //this.loaderListar = false;
+  //     });
+  //   }    
+  // }
+    
+  // tirarNaMinhaAdega(idwhisky: number){
+  //   if(this.id_usuarios == 0 || idwhisky == 0){
+  //     this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
+  //   }else{
+  //     this.listaWhiskyService.tirarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+
+  //       let ok = result;
+  
+  //       if(ok){
+  //         this.notificacao("sucess", "Whiskiy retirado da minha adega");
+  //         this.listarWhiskyALL(this.currentPage);
+  //       }else{
+  //         this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
+  //       }
+        
+  //       //this.loaderListar = false;
+  //     }, error => {
+  //         console.log(error); 
+  //         this.notificacao("danger", "Erro de acesso a API");
+  //         //this.loaderListar = false;
+  //     });
+  //   }    
+  // }
+    
+  
+
+  async favoritar(idwhisky: number){  
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao curtit Whiskiy");
     }else{
-      this.listaWhiskyService.favoritar(this.id_usuarios ,idwhisky).subscribe(result => {
-
-        let ok = result;
-  
-        if(ok){
-          this.notificacao("sucess", "Whiskiy curtido");
-          this.listarWhiskyALL(this.currentPage);
-        }else{
-          this.notificacao("danger", "Erro ao curtit Whiskiy");
-        }
-        
-        //this.loaderListar = false;
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          //this.loaderListar = false;
-      });
+      
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.favoritarLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.favoritarNuvem(this.id_usuarios ,idwhisky);
+      }
     }    
+
+    this.loaderListar = false;
   }
-    
-  desFavoritar(idwhisky: number){
+
+  async favoritarLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.favoritarLocal(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whiskiy curtido");
+      this.listarWhiskyALL(this.currentPage);
+    }
+    else{
+      this.notificacao("danger", "Erro ao curtit Whiskiy");
+    }
+  }
+
+  async favoritarNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.favoritar(id_usuarios ,idwhisky).subscribe(result => {
+
+      let ok = result;
+
+      if(ok){
+        this.notificacao("sucess", "Whiskiy curtido");
+        
+        this.listarWhiskyALL(this.currentPage);
+      }else{
+        this.notificacao("danger", "Erro ao curtit Whiskiy");
+      }
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+    });
+  }
+
+
+
+  
+  async desFavoritar(idwhisky: number){
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao descurtit Whiskiy");
     }else{
-      this.listaWhiskyService.desFavoritar(this.id_usuarios ,idwhisky).subscribe(result => {
-
-        let ok = result;
-  
-        if(ok){
-          this.notificacao("sucess", "Whiskiy descurtido");
-          this.listarWhiskyALL(this.currentPage);
-        }else{
-          this.notificacao("danger", "Erro ao descurtit Whiskiy");
-        }
-        
-        //this.loaderListar = false;
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          //this.loaderListar = false;
-      });
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.desfavoritarLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.desfavoritarNuvem(this.id_usuarios ,idwhisky);
+      }
     }    
+
+    this.loaderListar = false;
   }
-    
-  colocarNaMinhaAdega(idwhisky: number){
+
+  async desfavoritarLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.desfavoritarLocal(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whiskiy descurtido");
+      this.listarWhiskyALL(this.currentPage);
+    }else{
+      this.notificacao("danger", "Erro ao descurtido Whiskiy");
+    }
+  }
+
+  async desfavoritarNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.desFavoritar(this.id_usuarios ,idwhisky).subscribe(result => {
+
+      let ok = result;
+
+      if(ok){
+        this.notificacao("sucess", "Whiskiy descurtido");
+        this.listarWhiskyALL(this.currentPage);
+      }else{
+        this.notificacao("danger", "Erro ao descurtit Whiskiy");
+      }
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+
+    });
+  }
+
+
+
+
+
+  async colocarNaMinhaAdega(idwhisky: number){
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
     }else{
-      this.listaWhiskyService.colocarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
-
-        let ok = result;
-  
-        if(ok){
-          this.notificacao("sucess", "Whiskiy incluido na minha adega");
-          this.listarWhiskyALL(this.currentPage);
-        }else{
-          this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
-        }
-        
-        //this.loaderListar = false;
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          //this.loaderListar = false;
-      });
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.colocarNaMinhaAdegaLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.colocarNaMinhaAdegaNuvem(this.id_usuarios ,idwhisky);
+      }
     }    
+
+    this.loaderListar = false;
   }
+  
+  async colocarNaMinhaAdegaLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.colocarNaMinhaAdega(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whiskiy incluido na minha adega");
+      this.listarWhiskyALL(this.currentPage);
+    }else{
+      this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
+    }
+  }
+
+  async colocarNaMinhaAdegaNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.colocarNaMinhaAdega(id_usuarios ,idwhisky).subscribe(result => {
+
+      let ok = result;
+
+      if(ok){
+        this.notificacao("sucess", "Whiskiy incluido na minha adega");
+        this.listarWhiskyALL(this.currentPage);
+      }else{
+        this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
+      }
+      
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+    });
+  }
+
+
     
-  tirarNaMinhaAdega(idwhisky: number){
+
+    
+  async tirarNaMinhaAdega(idwhisky: number){
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
     }else{
-      this.listaWhiskyService.tirarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
-
-        let ok = result;
-  
-        if(ok){
-          this.notificacao("sucess", "Whiskiy retirado da minha adega");
-          this.listarWhiskyALL(this.currentPage);
-        }else{
-          this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
-        }
-        
-        //this.loaderListar = false;
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          //this.loaderListar = false;
-      });
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.tirarNaMinhaAdegaLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.tirarNaMinhaAdegaNuvem(this.id_usuarios ,idwhisky);
+      }
     }    
   }
-    
-    
+
+  async tirarNaMinhaAdegaLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.tirarNaMinhaAdega(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whiskiy retirado na minha adega");
+      this.listarWhiskyALL(this.currentPage);
+    }else{
+      this.notificacao("danger", "Erro ao retirar whiskiy da minha adega");
+    }
+  }
+
+  async tirarNaMinhaAdegaNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.tirarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+
+      let ok = result;
+
+      if(ok){
+        this.notificacao("sucess", "Whiskiy retirado da minha adega");
+        this.listarWhiskyALL(this.currentPage);
+      }else{
+        this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
+      }
+
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+    });
+  }
     
 }

@@ -14,6 +14,7 @@ export class ListarWhiskyDataBase {
     whiskys: ListaWhisky[] = []; 
     whiskyPaginado: WhiskyPaginado;
     whiskyPesquisaPaginado: WhiskyPaginado;
+    whiskyOrdenadoPaginado: WhiskyPaginado;
     totalPaginado: number;
     totalPesquisaPaginado: number;
     totalOrdernarPaginado: number;
@@ -53,7 +54,7 @@ export class ListarWhiskyDataBase {
       return this.whiskyPaginado;
   }
 
-  async buscarTodosPaginadoData(idusuario: number, registros: number, offset: number): Promise<Whisky[]>{
+  async buscarTodosPaginadoData(idusuario: number, registros: number, offset: number): Promise<ListaWhisky[]>{
     this.whiskys=[];
     await this.db.executeSql('SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
                         ' inner join fabricante f on f.idFabricante = w.idFabricante ' + 
@@ -126,7 +127,7 @@ export class ListarWhiskyDataBase {
     return this.whiskyPesquisaPaginado;
   }
 
-  async buscarTodosPesquisaPaginadoData(idusuario: number, pesquisa: string, registros: number, offset: number): Promise<Whisky[]>{
+  async buscarTodosPesquisaPaginadoData(idusuario: number, pesquisa: string, registros: number, offset: number): Promise<any>{
     this.whiskys=[];
     await this.db.executeSql('SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
                          ' inner join fabricante f on f.idFabricante = w.idFabricante ' + 
@@ -179,7 +180,6 @@ export class ListarWhiskyDataBase {
   }
 
   async buscarTodosOrdernarPaginadoLocal(id_usuarios: number, pageNumber: number, pageSize: number, ordenacaoAtiva: string): Promise<any> {
-
     let id = id_usuarios;
     let page = pageNumber;
     let registros = pageSize;
@@ -187,166 +187,96 @@ export class ListarWhiskyDataBase {
 
     const offset = (page - 1) * registros;
 
-    this.whiskyPesquisaPaginado.data = await this.buscarOrdenadoPaginado(id, ordenar, registros, offset);
+    this.whiskyOrdenadoPaginado = {};
+
+    this.whiskyOrdenadoPaginado.data = await this.buscarOrdenadoPaginado(id, ordenar, registros, offset);
 
     const totalPageData = await this.buscarOrdenadoPaginadoTotal(ordenar);
 
     const totalPage = Math.ceil(+totalPageData / registros);
 
-    this.whiskyPesquisaPaginado.page = +page;
-    this.whiskyPesquisaPaginado.registros = +registros;
-    this.whiskyPesquisaPaginado.totalPage = totalPage
+    this.whiskyOrdenadoPaginado.page = +page;
+    this.whiskyOrdenadoPaginado.registros = +registros;
+    this.whiskyOrdenadoPaginado.totalPage = totalPage
 
-    return this.whiskyPesquisaPaginado;
+    return this.whiskyOrdenadoPaginado;
   }
 
-  async buscarOrdenadoPaginado(idusuario: number, ordenar: string, registros: number, offset: number): Promise<Whisky[]>{
+  async buscarOrdenadoPaginado(idusuario: number, ordenar: string, registros: number, offset: number): Promise<any>{
     this.whiskys=[];
+    let query:string = "";
 
     if(ordenar == 'Fabricante'){
-      await this.db.executeSql('SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
-                              ' inner join fabricante f on f.idFabricante = w.idFabricante ' + 
-                              ' inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky ' +
-                              ' left join favoritos fa on fa.idwhisky = w.idwhisky and fa.id_usuarios = ? ' + 
-                              ' left join minhaadega a on a.idwhisky = w.idwhisky and a.id_usuarios = ? ' + 
-                              ' ORDER BY f.nomeFabricante ASC' +
-                              ' limit ? offset ? ',
-          [idusuario, idusuario, +registros, +offset])
-          .then((result) => {
-              for(let i=0; i<result.rows.length;i++)
-              {
-                this.whiskys.push({idWhisky:result.rows.item(i).idWhisky,
-                                  "nomeWhisky":result.rows.item(i).nomeWhisky,
-                                  "idade":result.rows.item(i).idade,
-                                  "dataCadastro":result.rows.item(i).dataCadastro,
-                                  "teroAlcolico":result.rows.item(i).teroAlcolico,
-                                  "descricao_olfato":result.rows.item(i).descricao_olfato,
-                                  "descricao_paladar":result.rows.item(i).descricao_paladar,
-                                  "descricao_finalizacao":result.rows.item(i).descricao_finalizacao,
-                                  "idTipoWhisky":result.rows.item(i).idTipoWhisky,
-                                  "idFabricante":result.rows.item(i).idFabricante,
-                                  "descricao_historica":result.rows.item(i).descricao_historica,
-                                  "nacionalidade":result.rows.item(i).nacionalidade,
-                                  "imagem":result.rows.item(i).imagem,
-                                  "descricao_barril":result.rows.item(i).descricao_barril,
-                                  "nomeFabricante":result.rows.item(i).nomeFabricante,
-                                  "nomeTipoWhisky":result.rows.item(i).nomeTipoWhisky,
-                                  "idfavoritos":result.rows.item(i).idfavoritos,
-                                  "idminhaadega":result.rows.item(i).idminhaadega,
-                });
-              }
-            })
-            .catch(e => alert(JSON.stringify(e)));
+      query =` SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega FROM whisky w 
+              inner join fabricante f on f.idFabricante = w.idFabricante 
+              inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky 
+              left join favoritos fa on fa.idwhisky = w.idwhisky and fa.id_usuarios = ?  
+              left join minhaadega a on a.idwhisky = w.idwhisky and a.id_usuarios = ? 
+              ORDER BY f.nomeFabricante ASC  
+              LIMIT ? OFFSET ? `;                      
     }
 
     if(ordenar == 'Nome A - Z'){
-      await this.db.executeSql('SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
-                             ' inner join fabricante f on f.idFabricante = w.idFabricante ' + 
-                             ' inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky ' +
-                             ' left join favoritos fa on fa.idwhisky = w.idwhisky and fa.id_usuarios = ? ' + 
-                             ' left join minhaadega a on a.idwhisky = w.idwhisky and a.id_usuarios = ? ' + 
-                             ' ORDER BY w.nomeWhisky ASC' +
-                             ' limit ? offset ? ',
-          [idusuario, idusuario, +registros, +offset])
-          .then((result) => {
-              for(let i=0; i<result.rows.length;i++)
-              {
-                this.whiskys.push({idWhisky:result.rows.item(i).idWhisky,
-                                  "nomeWhisky":result.rows.item(i).nomeWhisky,
-                                  "idade":result.rows.item(i).idade,
-                                  "dataCadastro":result.rows.item(i).dataCadastro,
-                                  "teroAlcolico":result.rows.item(i).teroAlcolico,
-                                  "descricao_olfato":result.rows.item(i).descricao_olfato,
-                                  "descricao_paladar":result.rows.item(i).descricao_paladar,
-                                  "descricao_finalizacao":result.rows.item(i).descricao_finalizacao,
-                                  "idTipoWhisky":result.rows.item(i).idTipoWhisky,
-                                  "idFabricante":result.rows.item(i).idFabricante,
-                                  "descricao_historica":result.rows.item(i).descricao_historica,
-                                  "nacionalidade":result.rows.item(i).nacionalidade,
-                                  "imagem":result.rows.item(i).imagem,
-                                  "descricao_barril":result.rows.item(i).descricao_barril,
-                                  "nomeFabricante":result.rows.item(i).nomeFabricante,
-                                  "nomeTipoWhisky":result.rows.item(i).nomeTipoWhisky,
-                                  "idfavoritos":result.rows.item(i).idfavoritos,
-                                  "idminhaadega":result.rows.item(i).idminhaadega,
-                });
-              }
-            })
-            .catch(e => alert(JSON.stringify(e)));
+
+      query =` SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega FROM whisky w 
+                              inner join fabricante f on f.idFabricante = w.idFabricante 
+                              inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky 
+                              left join favoritos fa on fa.idwhisky = w.idwhisky and fa.id_usuarios = ? 
+                              left join minhaadega a on a.idwhisky = w.idwhisky and a.id_usuarios = ? 
+                              ORDER BY w.nomeWhisky ASC 
+                              limit ? offset ? `;
+
     }
 
     if(ordenar == 'Nome Z - A'){
-      await this.db.executeSql('SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
+
+      query =' SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
                              ' inner join fabricante f on f.idFabricante = w.idFabricante ' + 
                              ' inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky ' +
                              ' left join favoritos fa on fa.idwhisky = w.idwhisky and fa.id_usuarios = ? ' + 
                              ' left join minhaadega a on a.idwhisky = w.idwhisky and a.id_usuarios = ? ' + 
-                             ' ORDER BY w.nomeWhisky DESC' +
-                             ' limit ? offset ? ',
-          [idusuario, idusuario, +registros, +offset])
-          .then((result) => {
-              for(let i=0; i<result.rows.length;i++)
-              {
-                this.whiskys.push({idWhisky:result.rows.item(i).idWhisky,
-                                  "nomeWhisky":result.rows.item(i).nomeWhisky,
-                                  "idade":result.rows.item(i).idade,
-                                  "dataCadastro":result.rows.item(i).dataCadastro,
-                                  "teroAlcolico":result.rows.item(i).teroAlcolico,
-                                  "descricao_olfato":result.rows.item(i).descricao_olfato,
-                                  "descricao_paladar":result.rows.item(i).descricao_paladar,
-                                  "descricao_finalizacao":result.rows.item(i).descricao_finalizacao,
-                                  "idTipoWhisky":result.rows.item(i).idTipoWhisky,
-                                  "idFabricante":result.rows.item(i).idFabricante,
-                                  "descricao_historica":result.rows.item(i).descricao_historica,
-                                  "nacionalidade":result.rows.item(i).nacionalidade,
-                                  "imagem":result.rows.item(i).imagem,
-                                  "descricao_barril":result.rows.item(i).descricao_barril,
-                                  "nomeFabricante":result.rows.item(i).nomeFabricante,
-                                  "nomeTipoWhisky":result.rows.item(i).nomeTipoWhisky,
-                                  "idfavoritos":result.rows.item(i).idfavoritos,
-                                  "idminhaadega":result.rows.item(i).idminhaadega,
-                });
-              }
-            })
-            .catch(e => alert(JSON.stringify(e)));
+                             ' ORDER BY w.nomeWhisky DESC ' +
+                             ' limit ? offset ? ';
     }
 
     if(ordenar == 'Data Cadastro'){
-      await this.db.executeSql('SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
+
+      query =' SELECT w.*, f.nomeFabricante, t.nomeTipoWhisky, fa.idfavoritos, a.idminhaadega  FROM whisky w ' + 
                              ' inner join fabricante f on f.idFabricante = w.idFabricante ' + 
                              ' inner join tipowhisky t on t.idTipoWhisky = w.idTipoWhisky ' +
                              ' left join favoritos fa on fa.idwhisky = w.idwhisky and fa.id_usuarios = ? ' + 
                              ' left join minhaadega a on a.idwhisky = w.idwhisky and a.id_usuarios = ? ' + 
-                             ' ORDER BY w.dataCadastro ASC' +
-                             ' limit ? offset ? ',
-          [idusuario, idusuario, +registros, +offset])
-          .then((result) => {
-              for(let i=0; i<result.rows.length;i++)
-              {
-                this.whiskys.push({idWhisky:result.rows.item(i).idWhisky,
-                                  "nomeWhisky":result.rows.item(i).nomeWhisky,
-                                  "idade":result.rows.item(i).idade,
-                                  "dataCadastro":result.rows.item(i).dataCadastro,
-                                  "teroAlcolico":result.rows.item(i).teroAlcolico,
-                                  "descricao_olfato":result.rows.item(i).descricao_olfato,
-                                  "descricao_paladar":result.rows.item(i).descricao_paladar,
-                                  "descricao_finalizacao":result.rows.item(i).descricao_finalizacao,
-                                  "idTipoWhisky":result.rows.item(i).idTipoWhisky,
-                                  "idFabricante":result.rows.item(i).idFabricante,
-                                  "descricao_historica":result.rows.item(i).descricao_historica,
-                                  "nacionalidade":result.rows.item(i).nacionalidade,
-                                  "imagem":result.rows.item(i).imagem,
-                                  "descricao_barril":result.rows.item(i).descricao_barril,
-                                  "nomeFabricante":result.rows.item(i).nomeFabricante,
-                                  "nomeTipoWhisky":result.rows.item(i).nomeTipoWhisky,
-                                  "idfavoritos":result.rows.item(i).idfavoritos,
-                                  "idminhaadega":result.rows.item(i).idminhaadega,
-                });
-              }
-            })
-            .catch(e => alert(JSON.stringify(e)));
+                             ' ORDER BY w.dataCadastro ASC ' +
+                             ' limit ? offset ? ';
     }
 
+    await this.db.executeSql(query, [idusuario, idusuario, +registros, +offset])
+      .then((result) => {
+        for(let i=0; i<result.rows.length;i++)
+        {
+          this.whiskys.push({idWhisky:result.rows.item(i).idWhisky,
+                        "nomeWhisky":result.rows.item(i).nomeWhisky,
+                        "idade":result.rows.item(i).idade,
+                        "dataCadastro":result.rows.item(i).dataCadastro,
+                        "teroAlcolico":result.rows.item(i).teroAlcolico,
+                        "descricao_olfato":result.rows.item(i).descricao_olfato,
+                        "descricao_paladar":result.rows.item(i).descricao_paladar,
+                        "descricao_finalizacao":result.rows.item(i).descricao_finalizacao,
+                        "idTipoWhisky":result.rows.item(i).idTipoWhisky,
+                        "idFabricante":result.rows.item(i).idFabricante,
+                        "descricao_historica":result.rows.item(i).descricao_historica,
+                        "nacionalidade":result.rows.item(i).nacionalidade,
+                        "imagem":result.rows.item(i).imagem,
+                        "descricao_barril":result.rows.item(i).descricao_barril,
+                        "nomeFabricante":result.rows.item(i).nomeFabricante,
+                        "nomeTipoWhisky":result.rows.item(i).nomeTipoWhisky,
+                        "idfavoritos":result.rows.item(i).idfavoritos,
+                        "idminhaadega":result.rows.item(i).idminhaadega
+          });
+        }
+      })
+      .catch(e => alert(JSON.stringify(e)));
+ 
     return this.whiskys;
   }
 

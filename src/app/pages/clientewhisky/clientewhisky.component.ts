@@ -45,7 +45,7 @@ export class ClienteWhiskyComponent implements OnInit {
       private toastr: ToastrService,
       public dialog: MatDialog,
       private configService: ConfigService,
-      private ListarWhiskyDataBase: ListarWhiskyDataBase,
+      private listarWhiskyDataBase: ListarWhiskyDataBase,
       
       ) { }
   
@@ -88,11 +88,12 @@ export class ClienteWhiskyComponent implements OnInit {
     }else{
       await this.listarWhiskyALLNuvem(this.id_usuarios, pageNumber, this.pageSize);
     }
-      
+    
+    this.loaderListar = false;
   }
 
   async listarWhiskyALLLocal(id_usuarios: number, pageNumber: number, pageSize: number){
-    this.whiskysPaginado = await this.ListarWhiskyDataBase.buscarTodosPaginadoLocal(id_usuarios, pageNumber, pageSize);
+    this.whiskysPaginado = await this.listarWhiskyDataBase.buscarTodosPaginadoLocal(id_usuarios, pageNumber, pageSize);
 
     this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
     this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
@@ -153,10 +154,12 @@ export class ClienteWhiskyComponent implements OnInit {
     }else{
       await this.listarWhiskyALLPesquisaNuvem(this.id_usuarios, pageNumber, this.pageSize, pesquisa);
     }
+
+    this.loaderListar = false;
   }
 
   async listarWhiskyALLPesquisaLocal(id_usuarios: number, pageNumber: number, pageSize: number, pesquisa: string){
-    this.whiskysPaginado = await this.ListarWhiskyDataBase.buscarTodosPesquisaPaginadoLocal(id_usuarios, pageNumber, pageSize, pesquisa);
+    this.whiskysPaginado = await this.listarWhiskyDataBase.buscarTodosPesquisaPaginadoLocal(id_usuarios, pageNumber, pageSize, pesquisa);
 
     this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
     this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
@@ -195,16 +198,21 @@ export class ClienteWhiskyComponent implements OnInit {
     }else{
       await this.listarWhiskyOrdernarPaginadoNuvem(this.id_usuarios, pageNumber, this.pageSize, ordenacaoAtiva);
     }
+
+    this.loaderListar = false;
   }
 
   async listarWhiskyOrdernarPaginadoLocal(id_usuarios: number, pageNumber: number, pageSize: number, ordenacaoAtiva: string){
-    this.whiskysPaginado = await this.ListarWhiskyDataBase.buscarTodosOrdernarPaginadoLocal(id_usuarios, pageNumber, pageSize, ordenacaoAtiva);
+
+    this.whiskysPaginado = await this.listarWhiskyDataBase.buscarTodosOrdernarPaginadoLocal(id_usuarios, pageNumber, pageSize, ordenacaoAtiva);
 
     this.whiskys = this.whiskysPaginado.data ? this.whiskysPaginado.data : [];
     this.totalPages = this.whiskysPaginado.totalPage ? this.whiskysPaginado.totalPage : 0
     this.currentPage = this.whiskysPaginado.page ? this.whiskysPaginado.page : 0;
 
     this.loaderListar = false;
+
+    this.converteImagem(); 
   }
 
   async listarWhiskyOrdernarPaginadoNuvem(id_usuarios: number, pageNumber: number, pageSize: number, ordenacaoAtiva: string){
@@ -356,7 +364,7 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   async favoritarLocal(id_usuarios: number ,idwhisky: number){
-    let ok = await this.ListarWhiskyDataBase.favoritarLocal(id_usuarios ,idwhisky);
+    let ok = await this.listarWhiskyDataBase.favoritarLocal(id_usuarios ,idwhisky);
 
     if(ok){
       this.notificacao("sucess", "Whiskiy curtido");
@@ -417,7 +425,7 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   async desfavoritarLocal(id_usuarios: number ,idwhisky: number){
-    let ok = await this.ListarWhiskyDataBase.desfavoritarLocal(id_usuarios ,idwhisky);
+    let ok = await this.listarWhiskyDataBase.desfavoritarLocal(id_usuarios ,idwhisky);
 
     if(ok){
       this.notificacao("sucess", "Whiskiy descurtido");
@@ -481,7 +489,7 @@ export class ClienteWhiskyComponent implements OnInit {
   }
   
   async colocarNaMinhaAdegaLocal(id_usuarios: number ,idwhisky: number){
-    let ok = await this.ListarWhiskyDataBase.colocarNaMinhaAdega(id_usuarios ,idwhisky);
+    let ok = await this.listarWhiskyDataBase.colocarNaMinhaAdega(id_usuarios ,idwhisky);
 
     if(ok){
       this.notificacao("sucess", "Whiskiy incluido na minha adega");
@@ -542,7 +550,7 @@ export class ClienteWhiskyComponent implements OnInit {
   }
 
   async tirarNaMinhaAdegaLocal(id_usuarios: number ,idwhisky: number){
-    let ok = await this.ListarWhiskyDataBase.tirarNaMinhaAdega(id_usuarios ,idwhisky);
+    let ok = await this.listarWhiskyDataBase.tirarNaMinhaAdega(id_usuarios ,idwhisky);
 
     if(ok){
       this.notificacao("sucess", "Whiskiy retirado na minha adega");
@@ -613,14 +621,13 @@ export class ClienteWhiskyComponent implements OnInit {
       this.ordenacaoAtiva = result;
 
       if(this.ordenacaoAtiva != ''){
-
         this.currentPage= 1;
         this.pageSize = 10;
         this.totalPages = 0;
         this.pesquisarTexto = '';
 
         this.listarWhiskyOrdenadoPaginado(this.currentPage, this.ordenacaoAtiva);
-      }else{
+      }else{    
         this.listarWhiskyALL(this.currentPage);
       }
     });
