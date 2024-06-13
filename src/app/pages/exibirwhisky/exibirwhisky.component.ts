@@ -6,6 +6,8 @@ import { ListaWhisky } from "../../model/listawhisky.model";
 import { ListaWhiskyService } from 'src/app/service/listawhisky/listawhisky.service';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { Usuario } from '../../model/usuario.model';
+import { ConfigService } from 'src/app/service/config/config-service';
+import { ListarWhiskyDataBase } from 'src/app/service_db/listarwhisky_db/listarwhisky_db.service';
 
 
 @Component({
@@ -29,7 +31,9 @@ export class ExibirWhiskyComponent implements OnInit {
     private route: ActivatedRoute,
     private listaWhiskyService: ListaWhiskyService,
     private usuarioService: UsuarioService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private listarWhiskyDataBase: ListarWhiskyDataBase,
     ) { }
 
   ngOnInit() {
@@ -93,115 +97,208 @@ export class ExibirWhiskyComponent implements OnInit {
     }
   }
 
-  favoritar(idwhisky: number){  
 
-    this.loaderFavoritar = true;
+  async favoritar(idwhisky: number){  
+    if(this.id_usuarios == 0 || idwhisky == 0){
+      this.notificacao("danger", "Erro ao curtit Whiskiy");
+    }else{
+      
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.favoritarLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.favoritarNuvem(this.id_usuarios ,idwhisky);
+      }
+    }    
 
-      if(this.id_usuarios == 0 || idwhisky == 0){
-        this.notificacao("danger", "Erro ao curtit Whiskiy");
+    this.loaderFavoritar = false;
+  }
+
+  async favoritarLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.favoritarLocal(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whiskiy curtido");
+      this.whiskys.idfavoritos = await this.listarWhiskyDataBase.buscarfavorito(id_usuarios ,idwhisky);
+      this.loaderFavoritar = false;
+    }else{
+      this.notificacao("danger", "Erro ao curtit Whiskiy");
+      this.loaderFavoritar = false;
+    }
+  }
+
+  async favoritarNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.favoritar(this.id_usuarios ,idwhisky).subscribe(result => {
+          
+      let favoritos = result.result;
+
+      if(favoritos.ok){
+        this.notificacao("sucess", "Whiskiy curtido");
+        this.whiskys.idfavoritos = favoritos.idfavoritos;
         this.loaderFavoritar = false;
       }else{
-        
-        this.listaWhiskyService.favoritar(this.id_usuarios ,idwhisky).subscribe(result => {
-          
-          let favoritos = result.result;
-
-          if(favoritos.ok){
-            this.notificacao("sucess", "Whiskiy curtido");
-            this.whiskys.idfavoritos = favoritos.idfavoritos;
-            this.loaderFavoritar = false;
-          }else{
-            this.notificacao("danger", "Erro ao curtit Whiskiy");
-            this.loaderFavoritar = false;
-          }
-        }, error => {
-            console.log(error); 
-            this.notificacao("danger", "Erro de acesso a API");
-            this.loaderFavoritar = false;
-        });
-      }    
+        this.notificacao("danger", "Erro ao curtit Whiskiy");
+        this.loaderFavoritar = false;
+      }
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+        this.loaderFavoritar = false;
+    });
   }
+
+
+
   
-  desFavoritar(idwhisky: number){
+  async desFavoritar(idwhisky: number){
     this.loaderFavoritar = true;
 
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao descurtit Whiskiy");
       this.loaderFavoritar = false;
     }else{
-
-      this.listaWhiskyService.desFavoritar(this.id_usuarios ,idwhisky).subscribe(result => {
-
-        let favoritos = result;
-
-        if(favoritos.ok){
-          this.notificacao("sucess", "Whiskiy descurtido");
-          this.whiskys.idfavoritos = undefined;
-          this.loaderFavoritar = false;
-        }else{
-          this.notificacao("danger", "Erro ao descurtit Whiskiy");
-          this.loaderFavoritar = false;
-        }
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          this.loaderFavoritar = false;
-      });
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.desFavoritarLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.desFavoritarNuvem(this.id_usuarios ,idwhisky);
+      }
     }    
   }
 
-  colocarNaMinhaAdega(idwhisky: number){
+  async desFavoritarLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.desfavoritarLocal(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whiskiy descurtido");
+      this.whiskys.idfavoritos = undefined;
+      this.loaderFavoritar = false;
+    }else{
+      this.notificacao("danger", "Erro ao descurtit Whiskiy");
+      this.loaderFavoritar = false;
+    }
+  }
+
+  async desFavoritarNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.desFavoritar(id_usuarios ,idwhisky).subscribe(result => {
+
+      let favoritos = result;
+
+      if(favoritos.ok){
+        this.notificacao("sucess", "Whiskiy descurtido");
+        this.whiskys.idfavoritos = undefined;
+        this.loaderFavoritar = false;
+      }else{
+        this.notificacao("danger", "Erro ao descurtit Whiskiy");
+        this.loaderFavoritar = false;
+      }
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+        this.loaderFavoritar = false;
+    });
+  }
+
+
+
+
+  async colocarNaMinhaAdega(idwhisky: number){
     this.loaderAdega = true;
 
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
       this.loaderAdega = false;
     }else{
-      this.listaWhiskyService.colocarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.colocarNaMinhaAdegaLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.colocarNaMinhaAdegaNuvem(this.id_usuarios ,idwhisky);
+      }
 
-        let minhaadega = result.result;
-
-        console.log(result);
-  
-        if(minhaadega){
-          this.notificacao("sucess", "Whiskiy incluido na minha adega");
-          this.whiskys.idminhaadega = minhaadega.idminhaadega;
-          this.loaderAdega = false;
-        }else{
-          this.notificacao("danger", "Erro ao incluido whiskiy na minha adega");
-          this.loaderAdega = false;
-        }
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          this.loaderAdega = false;
-      });
+      this.loaderAdega = false;
     }    
   }
   
-  tirarNaMinhaAdega(idwhisky: number){
+  async colocarNaMinhaAdegaLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.colocarNaMinhaAdega(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whisky incluido na minha adega");
+      this.whiskys.idminhaadega = await this.listarWhiskyDataBase.buscarMinhaAdega(id_usuarios ,idwhisky);
+      this.loaderFavoritar = false;
+    }else{
+      this.notificacao("danger", "Erro ao incluido whisky na minha adega");
+      this.loaderFavoritar = false;
+    }
+  }
+
+  async colocarNaMinhaAdegaNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.colocarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+
+      let minhaadega = result.result;
+
+      if(minhaadega){
+        this.notificacao("sucess", "Whisky incluido na minha adega");
+        this.whiskys.idminhaadega = minhaadega.idminhaadega;
+        this.loaderAdega = false;
+      }else{
+        this.notificacao("danger", "Erro ao incluido whisky na minha adega");
+        this.loaderAdega = false;
+      }
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+        this.loaderAdega = false;
+    });
+  }
+
+
+
+
+  async tirarNaMinhaAdega(idwhisky: number){
     this.loaderAdega = true;
     if(this.id_usuarios == 0 || idwhisky == 0){
       this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
       this.loaderAdega = false;
     }else{
-      this.listaWhiskyService.tirarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+      if(this.configService.bancoDados() == "sqllite"){
+        await this.tirarNaMinhaAdegaLocal(this.id_usuarios ,idwhisky);
+      }else{
+        await this.tirarNaMinhaAdegaNuvem(this.id_usuarios ,idwhisky);
+      }
 
-        let ok = result;
-  
-        if(ok){
-          this.notificacao("sucess", "Whiskiy retirado da minha adega");
-          this.whiskys.idminhaadega = undefined;
-          this.loaderAdega = false;
-        }else{
-          this.notificacao("danger", "Erro ao retirar Whiskiy da minha adega");
-          this.loaderAdega = false;
-        }
-      }, error => {
-          console.log(error); 
-          this.notificacao("danger", "Erro de acesso a API");
-          this.loaderAdega = false;
-      });
+      this.loaderAdega = false;
     }    
+  }
+
+  async tirarNaMinhaAdegaLocal(id_usuarios: number ,idwhisky: number){
+    let ok = await this.listarWhiskyDataBase.tirarNaMinhaAdega(id_usuarios ,idwhisky);
+
+    if(ok){
+      this.notificacao("sucess", "Whisky retirado da minha adega");
+      this.whiskys.idminhaadega = undefined;
+      this.loaderFavoritar = false;
+    }else{
+      this.notificacao("danger", "Erro ao retirar whisky da minha adega");
+      this.loaderFavoritar = false;
+    }
+  }
+
+  async tirarNaMinhaAdegaNuvem(id_usuarios: number ,idwhisky: number){
+    this.listaWhiskyService.tirarNaMinhaAdega(this.id_usuarios ,idwhisky).subscribe(result => {
+
+      let ok = result;
+
+      if(ok){
+        this.notificacao("sucess", "Whisky retirado da minha adega");
+        this.whiskys.idminhaadega = undefined;
+        this.loaderAdega = false;
+      }else{
+        this.notificacao("danger", "Erro ao retirar Whisky da minha adega");
+        this.loaderAdega = false;
+      }
+    }, error => {
+        console.log(error); 
+        this.notificacao("danger", "Erro de acesso a API");
+        this.loaderAdega = false;
+    });
   }
 }
