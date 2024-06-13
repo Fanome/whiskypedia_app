@@ -36,7 +36,8 @@ ion-toolbar{
   
   .red-box {
     position: absolute; /* Posiciona em relação ao elemento pai */
-    top: 180px; /* Posicionamento vertical ajustado para a segunda div */
+    //top: 180px; /* Posicionamento vertical ajustado para a segunda div */
+    top: 10px; /* Posicionamento vertical ajustado para a segunda div */
     left: 0;//left: 50px; /* Posicionamento horizontal ajustado para a segunda div */
     width: 100%; /* Largura da segunda div */
     height: 100%; /* Altura da segunda div */

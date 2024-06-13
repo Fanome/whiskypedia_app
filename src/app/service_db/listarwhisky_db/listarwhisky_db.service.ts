@@ -34,7 +34,7 @@ export class ListarWhiskyDataBase {
 
       let idusuario = id;
       let page = pageNumber;
-      let registros = pageSize;
+      let registros = pageSize; 
 
       this.whiskyPaginado = {};
 

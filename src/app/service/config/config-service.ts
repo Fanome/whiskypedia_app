@@ -15,7 +15,7 @@ export class ConfigService {
     }
 
     bancoDados(){
-      //return "mysql";
-      return "sqllite"
+      return "mysql";
+      //return "sqllite"
     }
 }

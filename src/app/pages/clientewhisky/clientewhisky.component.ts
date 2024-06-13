@@ -79,7 +79,7 @@ export class ClienteWhiskyComponent implements OnInit {
 
     if(this.controlePagina != 'A'){
       this.controlePagina = 'A';
-      this.currentPage= 1;
+      this.currentPage= 1; 
       pageNumber = 1;
     }
 
